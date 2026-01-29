@@ -1,3 +1,4 @@
+import { skeumorphicHighlight } from '@neovici/cosmoz-tokens/skeumorphic';
 import { css } from '@pionjs/pion';
 
 /**
@@ -77,6 +78,14 @@ export const styles = css`
 	/* ========================================
 	 * STYLE VARIANTS
 	 * ======================================== */
+
+	/* Skeuomorphic inner highlight for solid variants */
+	.button,
+	:host([variant='primary']) .button,
+	:host([variant='secondary']) .button,
+	:host([variant='destructive']) .button {
+		${skeumorphicHighlight}
+	}
 
 	/* Primary - default */
 	.button,
@@ -197,6 +206,12 @@ export const styles = css`
 	.button:disabled {
 		cursor: not-allowed;
 		pointer-events: none;
+	}
+
+	/* Hide skeuomorphic highlight for disabled buttons */
+	:host([disabled]) .button::before,
+	.button:disabled::before {
+		display: none;
 	}
 
 	/* Primary disabled */
