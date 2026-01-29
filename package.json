@@ -1,0 +1,92 @@
+{
+  "name": "@neovici/cosmoz-button",
+  "version": "0.0.0",
+  "description": "A customizable button web component built with Untitled UI design tokens",
+  "keywords": [
+    "web-components",
+    "pion",
+    "lit-html",
+    "button",
+    "design-system"
+  ],
+  "homepage": "https://github.com/Neovici/cosmoz-button#readme",
+  "bugs": {
+    "url": "https://github.com/Neovici/cosmoz-button/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Neovici/cosmoz-button.git"
+  },
+  "license": "Apache-2.0",
+  "author": "Neovici Development",
+  "main": "dist/index.js",
+  "type": "module",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "lint": "tsc && eslint --cache .",
+    "check:duplicates": "check-duplicate-components",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "wds",
+    "test": "wtr --coverage",
+    "test:watch": "wtr --watch",
+    "storybook:start": "storybook dev -p 8000",
+    "storybook:build": "storybook build",
+    "storybook:deploy": "storybook-to-ghpages",
+    "storybook:preview": "npm run storybook:build && http-server ./storybook-static/ --silent",
+    "prepare": "husky"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/github",
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ],
+    "branch": "main",
+    "preset": "conventionalcommits"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist/",
+    "types"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./cosmoz-button": "./dist/cosmoz-button.js"
+  },
+  "dependencies": {
+    "@neovici/cosmoz-tokens": "^1.0.0",
+    "@pionjs/pion": "^2.5.2",
+    "lit-html": "^3.3.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.0.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@neovici/cfg": "^2.8.0",
+    "@neovici/testing": "^2.0.0",
+    "@open-wc/testing": "^4.0.0",
+    "@semantic-release/changelog": "^6.0.0",
+    "@semantic-release/git": "^10.0.0",
+    "@storybook/web-components-vite": "^10.0.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^24.0.0",
+    "@web/test-runner-playwright": "^0.11.1",
+    "eslint": "^9.0.0",
+    "http-server": "^14.1.1",
+    "husky": "^9.0.0",
+    "lint-staged": "^16.2.7",
+    "semantic-release": "^25.0.0",
+    "sinon": "^19.0.0",
+    "storybook": "^10.0.0",
+    "typescript": "^5.4.3"
+  },
+  "overrides": {
+    "conventional-changelog-conventionalcommits": ">= 8.0.0"
+  }
+}

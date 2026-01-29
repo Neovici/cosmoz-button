@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "target": "esnext",
+    "allowJs": true,
+    "baseUrl": "."
+  },
+  "exclude": ["node_modules", "dist", "coverage", "storybook-static", "stories"]
+}
