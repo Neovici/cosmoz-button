@@ -19,16 +19,13 @@ export const styles = css`
 		align-items: center;
 		justify-content: center;
 		gap: 8px;
-		border: none;
 		cursor: pointer;
 		font-family: var(--cz-font-body);
 		font-weight: var(--cz-font-weight-semibold);
 		text-decoration: none;
 		transition:
 			background-color 0.15s ease,
-			border-color 0.15s ease,
 			box-shadow 0.15s ease;
-		box-sizing: border-box;
 		width: 100%;
 	}
 
@@ -86,20 +83,17 @@ export const styles = css`
 	:host([variant='primary']) .button {
 		background-color: var(--cz-color-bg-brand-solid);
 		color: var(--cz-color-text-on-brand);
-		border: 1px solid var(--cz-color-bg-brand-solid);
 		box-shadow: var(--cz-shadow-xs-skeumorphic);
 	}
 
 	.button:hover,
 	:host([variant='primary']) .button:hover {
 		background-color: var(--cz-color-bg-brand-solid-hover);
-		border-color: var(--cz-color-bg-brand-solid-hover);
 	}
 
 	.button:active,
 	:host([variant='primary']) .button:active {
 		background-color: var(--cz-color-brand-800);
-		border-color: var(--cz-color-brand-800);
 	}
 
 	.button:focus-visible,
@@ -112,7 +106,6 @@ export const styles = css`
 	:host([variant='secondary']) .button {
 		background-color: var(--cz-color-bg-primary);
 		color: var(--cz-color-text-secondary);
-		border: 1px solid var(--cz-color-border-primary);
 		box-shadow: var(--cz-shadow-xs-skeumorphic);
 	}
 
@@ -132,9 +125,7 @@ export const styles = css`
 
 	/* Tertiary */
 	:host([variant='tertiary']) .button {
-		background-color: transparent;
 		color: var(--cz-color-text-secondary);
-		border: 1px solid transparent;
 		box-shadow: none;
 	}
 
@@ -156,18 +147,15 @@ export const styles = css`
 	:host([variant='destructive']) .button {
 		background-color: var(--cz-color-bg-error-solid);
 		color: var(--cz-color-text-on-brand);
-		border: 1px solid var(--cz-color-bg-error-solid);
 		box-shadow: var(--cz-shadow-xs-skeumorphic);
 	}
 
 	:host([variant='destructive']) .button:hover {
 		background-color: var(--cz-color-bg-error-solid-hover);
-		border-color: var(--cz-color-bg-error-solid-hover);
 	}
 
 	:host([variant='destructive']) .button:active {
 		background-color: var(--cz-color-error-800);
-		border-color: var(--cz-color-error-800);
 	}
 
 	:host([variant='destructive']) .button:focus-visible {
@@ -177,9 +165,7 @@ export const styles = css`
 
 	/* Link */
 	:host([variant='link']) .button {
-		background-color: transparent;
 		color: var(--cz-color-text-brand);
-		border: none;
 		box-shadow: none;
 		padding: 0;
 		height: auto;
@@ -216,7 +202,6 @@ export const styles = css`
 	:host([disabled][variant='primary']) .button {
 		background-color: var(--cz-color-bg-disabled);
 		color: var(--cz-color-text-disabled);
-		border-color: var(--cz-color-border-disabled);
 		box-shadow: none;
 	}
 
@@ -224,13 +209,11 @@ export const styles = css`
 	:host([disabled][variant='secondary']) .button {
 		background-color: var(--cz-color-bg-primary);
 		color: var(--cz-color-text-disabled);
-		border-color: var(--cz-color-border-disabled);
 		box-shadow: none;
 	}
 
 	/* Tertiary disabled */
 	:host([disabled][variant='tertiary']) .button {
-		background-color: transparent;
 		color: var(--cz-color-text-disabled);
 		box-shadow: none;
 	}
@@ -239,7 +222,6 @@ export const styles = css`
 	:host([disabled][variant='destructive']) .button {
 		background-color: var(--cz-color-bg-disabled);
 		color: var(--cz-color-text-disabled);
-		border-color: var(--cz-color-border-disabled);
 		box-shadow: none;
 	}
 
