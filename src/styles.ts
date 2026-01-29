@@ -125,6 +125,7 @@ export const styles = css`
 
 	/* Tertiary */
 	:host([variant='tertiary']) .button {
+		background-color: transparent;
 		color: var(--cz-color-text-secondary);
 		box-shadow: none;
 	}
@@ -165,6 +166,7 @@ export const styles = css`
 
 	/* Link */
 	:host([variant='link']) .button {
+		background-color: transparent;
 		color: var(--cz-color-text-brand);
 		box-shadow: none;
 		padding: 0;
