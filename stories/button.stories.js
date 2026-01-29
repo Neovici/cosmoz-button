@@ -145,7 +145,7 @@ export const WithIcons = {
 		>
 			<cosmoz-button variant="primary">
 				<svg
-					slot="leading"
+					slot="prefix"
 					class="icon"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -159,7 +159,7 @@ export const WithIcons = {
 			<cosmoz-button variant="secondary">
 				Download
 				<svg
-					slot="trailing"
+					slot="suffix"
 					class="icon"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -173,7 +173,7 @@ export const WithIcons = {
 			</cosmoz-button>
 			<cosmoz-button variant="tertiary">
 				<svg
-					slot="leading"
+					slot="prefix"
 					class="icon"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -187,7 +187,7 @@ export const WithIcons = {
 			</cosmoz-button>
 			<cosmoz-button variant="destructive">
 				<svg
-					slot="leading"
+					slot="prefix"
 					class="icon"
 					viewBox="0 0 24 24"
 					fill="none"
@@ -205,7 +205,7 @@ export const WithIcons = {
 	parameters: {
 		docs: {
 			description: {
-				story: 'Buttons with leading and trailing icon slots.',
+				story: 'Buttons with prefix and suffix icon slots.',
 			},
 		},
 	},

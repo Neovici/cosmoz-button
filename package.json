@@ -1,6 +1,6 @@
 {
   "name": "@neovici/cosmoz-button",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A customizable button web component built with Untitled UI design tokens",
   "keywords": [
     "web-components",

@@ -253,8 +253,8 @@ export const styles = css`
 	 * ======================================== */
 
 	::slotted(svg),
-	::slotted([slot='leading']),
-	::slotted([slot='trailing']) {
+	::slotted([slot='prefix']),
+	::slotted([slot='suffix']) {
 		width: 20px;
 		height: 20px;
 		flex-shrink: 0;
@@ -262,8 +262,8 @@ export const styles = css`
 
 	/* Smaller icons for sm size */
 	:host([size='sm']) ::slotted(svg),
-	:host([size='sm']) ::slotted([slot='leading']),
-	:host([size='sm']) ::slotted([slot='trailing']) {
+	:host([size='sm']) ::slotted([slot='prefix']),
+	:host([size='sm']) ::slotted([slot='suffix']) {
 		width: 16px;
 		height: 16px;
 	}

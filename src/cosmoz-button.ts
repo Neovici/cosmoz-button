@@ -35,8 +35,8 @@ const observedAttributes = [
  * @attr {boolean} full-width - Makes the button 100% width
  *
  * @slot - Default slot for button text content
- * @slot leading - Slot for leading icon (before text)
- * @slot trailing - Slot for trailing icon (after text)
+ * @slot prefix - Slot for prefix icon (before text)
+ * @slot suffix - Slot for suffix icon (after text)
  *
  * @csspart button - The native button element
  */
@@ -45,9 +45,9 @@ const CosmozButton = (host: CosmozButtonElement) => {
 
 	return html`
 		<button class="button" ?disabled=${disabled} part="button">
-			<slot name="leading"></slot>
+			<slot name="prefix"></slot>
 			<slot></slot>
-			<slot name="trailing"></slot>
+			<slot name="suffix"></slot>
 		</button>
 	`;
 };

@@ -65,26 +65,26 @@ import '@neovici/cosmoz-button';
 
 ## Icons
 
-The button supports leading and trailing icon slots:
+The button supports prefix and suffix icon slots:
 
 ```html
-<!-- Leading icon -->
+<!-- Prefix icon -->
 <cosmoz-button>
-	<svg slot="leading" width="20" height="20">...</svg>
+	<svg slot="prefix" width="20" height="20">...</svg>
 	Add Item
 </cosmoz-button>
 
-<!-- Trailing icon -->
+<!-- Suffix icon -->
 <cosmoz-button variant="secondary">
 	Download
-	<svg slot="trailing" width="20" height="20">...</svg>
+	<svg slot="suffix" width="20" height="20">...</svg>
 </cosmoz-button>
 
 <!-- Both icons -->
 <cosmoz-button>
-	<svg slot="leading">...</svg>
+	<svg slot="prefix">...</svg>
 	Action
-	<svg slot="trailing">...</svg>
+	<svg slot="suffix">...</svg>
 </cosmoz-button>
 ```
 

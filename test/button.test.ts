@@ -143,33 +143,33 @@ describe('cosmoz-button', () => {
 	});
 
 	describe('icon slots', () => {
-		it('renders leading icon slot', async () => {
+		it('renders prefix icon slot', async () => {
 			const el = await fixture(html`
 				<cosmoz-button>
-					<span slot="leading">Icon</span>
+					<span slot="prefix">Icon</span>
 					Text
 				</cosmoz-button>
 			`);
-			const leadingSlot = el.shadowRoot?.querySelector(
-				'slot[name="leading"]',
+			const prefixSlot = el.shadowRoot?.querySelector(
+				'slot[name="prefix"]',
 			) as HTMLSlotElement;
-			assert.isNotNull(leadingSlot);
-			const assignedNodes = leadingSlot?.assignedNodes();
+			assert.isNotNull(prefixSlot);
+			const assignedNodes = prefixSlot?.assignedNodes();
 			assert.isAbove(assignedNodes?.length ?? 0, 0);
 		});
 
-		it('renders trailing icon slot', async () => {
+		it('renders suffix icon slot', async () => {
 			const el = await fixture(html`
 				<cosmoz-button>
 					Text
-					<span slot="trailing">Icon</span>
+					<span slot="suffix">Icon</span>
 				</cosmoz-button>
 			`);
-			const trailingSlot = el.shadowRoot?.querySelector(
-				'slot[name="trailing"]',
+			const suffixSlot = el.shadowRoot?.querySelector(
+				'slot[name="suffix"]',
 			) as HTMLSlotElement;
-			assert.isNotNull(trailingSlot);
-			const assignedNodes = trailingSlot?.assignedNodes();
+			assert.isNotNull(suffixSlot);
+			const assignedNodes = suffixSlot?.assignedNodes();
 			assert.isAbove(assignedNodes?.length ?? 0, 0);
 		});
 	});
