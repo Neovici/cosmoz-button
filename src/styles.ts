@@ -37,7 +37,7 @@ export const styles = css`
 	:host([size='sm']) .button,
 	.button--sm {
 		height: 36px;
-		padding: 8px 14px;
+		padding: calc(var(--cz-spacing) * 2) calc(var(--cz-spacing) * 3.5);
 		font-size: var(--cz-text-sm);
 		line-height: var(--cz-text-sm-line-height);
 		border-radius: var(--cz-radius-md);
@@ -48,7 +48,7 @@ export const styles = css`
 	:host([size='md']) .button,
 	.button--md {
 		height: 40px;
-		padding: 10px 16px;
+		padding: calc(var(--cz-spacing) * 2.5) calc(var(--cz-spacing) * 4);
 		font-size: var(--cz-text-sm);
 		line-height: var(--cz-text-sm-line-height);
 		border-radius: var(--cz-radius-md);
@@ -58,7 +58,7 @@ export const styles = css`
 	:host([size='lg']) .button,
 	.button--lg {
 		height: 44px;
-		padding: 10px 18px;
+		padding: calc(var(--cz-spacing) * 2.5) calc(var(--cz-spacing) * 4.5);
 		font-size: var(--cz-text-md);
 		line-height: var(--cz-text-md-line-height);
 		border-radius: var(--cz-radius-md);
@@ -68,7 +68,7 @@ export const styles = css`
 	:host([size='xl']) .button,
 	.button--xl {
 		height: 48px;
-		padding: 12px 20px;
+		padding: calc(var(--cz-spacing) * 3) calc(var(--cz-spacing) * 5);
 		font-size: var(--cz-text-md);
 		line-height: var(--cz-text-md-line-height);
 		border-radius: var(--cz-radius-md);
