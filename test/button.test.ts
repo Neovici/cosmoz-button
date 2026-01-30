@@ -228,4 +228,65 @@ describe('cosmoz-button', () => {
 			assert.isTrue(el.shadowRoot?.querySelector('button')?.disabled);
 		});
 	});
+
+	describe('accessibility', () => {
+		it('has type="button" by default', async () => {
+			const el = await fixture(html`<cosmoz-button>Button</cosmoz-button>`);
+			const button = el.shadowRoot?.querySelector('button');
+			assert.equal(button?.getAttribute('type'), 'button');
+		});
+
+		it('respects custom type attribute', async () => {
+			const el = await fixture(
+				html`<cosmoz-button type="submit">Submit</cosmoz-button>`,
+			);
+			const button = el.shadowRoot?.querySelector('button');
+			assert.equal(button?.getAttribute('type'), 'submit');
+		});
+
+		it('forwards aria-label to inner button', async () => {
+			const el = await fixture(
+				html`<cosmoz-button aria-label="Delete item">
+					<svg slot="prefix"></svg>
+				</cosmoz-button>`,
+			);
+			const button = el.shadowRoot?.querySelector('button');
+			assert.equal(button?.getAttribute('aria-label'), 'Delete item');
+		});
+
+		it('forwards aria-describedby to inner button', async () => {
+			const el = await fixture(
+				html`<cosmoz-button aria-describedby="help-text"
+					>Button</cosmoz-button
+				>`,
+			);
+			const button = el.shadowRoot?.querySelector('button');
+			assert.equal(button?.getAttribute('aria-describedby'), 'help-text');
+		});
+
+		it('omits aria-label when not set', async () => {
+			const el = await fixture(html`<cosmoz-button>Button</cosmoz-button>`);
+			const button = el.shadowRoot?.querySelector('button');
+			assert.isFalse(button?.hasAttribute('aria-label'));
+		});
+
+		it('omits aria-describedby when not set', async () => {
+			const el = await fixture(html`<cosmoz-button>Button</cosmoz-button>`);
+			const button = el.shadowRoot?.querySelector('button');
+			assert.isFalse(button?.hasAttribute('aria-describedby'));
+		});
+
+		it('updates aria-label when attribute changes', async () => {
+			const el = await fixture(html`<cosmoz-button>Button</cosmoz-button>`);
+			const button = el.shadowRoot?.querySelector('button');
+			assert.isFalse(button?.hasAttribute('aria-label'));
+
+			el.setAttribute('aria-label', 'New label');
+			await nextFrame();
+			assert.equal(
+				el.shadowRoot?.querySelector('button')?.getAttribute('aria-label'),
+				'New label',
+			);
+		});
+	});
 });
