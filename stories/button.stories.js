@@ -1,5 +1,5 @@
 import '@neovici/cosmoz-tokens';
-import { html } from 'lit-html';
+import { html, nothing } from 'lit-html';
 import '../src/cosmoz-button';
 
 export default {
@@ -37,6 +37,18 @@ export default {
 				defaultValue: { summary: 'false' },
 			},
 		},
+		type: {
+			control: 'select',
+			options: ['button', 'submit', 'reset'],
+			description: 'The button type attribute',
+			table: {
+				defaultValue: { summary: 'button' },
+			},
+		},
+		ariaLabel: {
+			control: 'text',
+			description: 'Accessible label for icon-only buttons',
+		},
 		label: {
 			control: 'text',
 			description: 'Button label text',
@@ -49,8 +61,10 @@ const renderButton = (args) => html`
 	<cosmoz-button
 		variant=${args.variant || 'primary'}
 		size=${args.size || 'md'}
+		type=${args.type || 'button'}
 		?disabled=${args.disabled}
 		?full-width=${args.fullWidth}
+		aria-label=${args.ariaLabel || nothing}
 	>
 		${args.label || 'Button'}
 	</cosmoz-button>
@@ -325,6 +339,103 @@ export const InteractiveStates = {
 		docs: {
 			description: {
 				story: 'Demonstrates hover, active, and focus states for all variants.',
+			},
+		},
+	},
+};
+
+// Accessibility
+export const Accessibility = {
+	render: () => html`
+		<style>
+			.a11y-section {
+				margin-bottom: 24px;
+			}
+			.a11y-section h4 {
+				margin: 0 0 8px 0;
+				font-size: 14px;
+				color: #333;
+			}
+			.a11y-section p {
+				margin: 0 0 12px 0;
+				font-size: 13px;
+				color: #666;
+			}
+			.icon {
+				width: 20px;
+				height: 20px;
+			}
+			#delete-warning {
+				margin-top: 8px;
+				font-size: 13px;
+				color: #b42318;
+			}
+		</style>
+		<div style="display: flex; flex-direction: column; gap: 24px;">
+			<div class="a11y-section">
+				<h4>Icon-only buttons with aria-label</h4>
+				<p>
+					Buttons without visible text should have an aria-label for screen
+					readers.
+				</p>
+				<div style="display: flex; gap: 12px;">
+					<cosmoz-button aria-label="Add item">
+						<svg
+							slot="prefix"
+							class="icon"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+						>
+							<path d="M12 5v14M5 12h14" />
+						</svg>
+					</cosmoz-button>
+					<cosmoz-button variant="secondary" aria-label="Edit">
+						<svg
+							slot="prefix"
+							class="icon"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+						>
+							<path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+							<path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+						</svg>
+					</cosmoz-button>
+					<cosmoz-button variant="destructive" aria-label="Delete">
+						<svg
+							slot="prefix"
+							class="icon"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+						>
+							<path
+								d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"
+							/>
+						</svg>
+					</cosmoz-button>
+				</div>
+			</div>
+
+			<div class="a11y-section">
+				<h4>Button with aria-describedby</h4>
+				<p>Reference additional context for screen readers.</p>
+				<cosmoz-button variant="destructive" aria-describedby="delete-warning">
+					Delete Account
+				</cosmoz-button>
+				<p id="delete-warning">This action cannot be undone.</p>
+			</div>
+		</div>
+	`,
+	parameters: {
+		docs: {
+			description: {
+				story:
+					'Demonstrates accessible patterns for icon-only buttons and descriptive context.',
 			},
 		},
 	},

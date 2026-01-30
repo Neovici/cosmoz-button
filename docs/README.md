@@ -35,12 +35,15 @@ import '@neovici/cosmoz-button';
 
 ## Attributes
 
-| Attribute    | Type    | Default   | Description                                     |
-| ------------ | ------- | --------- | ----------------------------------------------- |
-| `variant`    | string  | `primary` | primary, secondary, tertiary, destructive, link |
-| `size`       | string  | `md`      | sm, md, lg, xl                                  |
-| `disabled`   | boolean | `false`   | Disables the button                             |
-| `full-width` | boolean | `false`   | Makes the button take 100% width                |
+| Attribute          | Type    | Default   | Description                                     |
+| ------------------ | ------- | --------- | ----------------------------------------------- |
+| `variant`          | string  | `primary` | primary, secondary, tertiary, destructive, link |
+| `size`             | string  | `md`      | sm, md, lg, xl                                  |
+| `disabled`         | boolean | `false`   | Disables the button                             |
+| `full-width`       | boolean | `false`   | Makes the button take 100% width                |
+| `type`             | string  | `button`  | Button type: button, submit, reset              |
+| `aria-label`       | string  | -         | Accessible label for icon-only buttons          |
+| `aria-describedby` | string  | -         | ID of element that describes the button         |
 
 ## Variants
 
@@ -101,6 +104,37 @@ cosmoz-button::part(button) {
 ## Design Tokens
 
 This component uses CSS custom properties from `@neovici/cosmoz-tokens`. The tokens are automatically applied but can be customized at the application level.
+
+## Accessibility
+
+### Button Type
+
+The button defaults to `type="button"` to prevent unintended form submissions. Use `type="submit"` explicitly when needed:
+
+```html
+<form>
+	<cosmoz-button type="submit">Submit Form</cosmoz-button>
+</form>
+```
+
+### Icon-Only Buttons
+
+When using buttons with only an icon (no visible text), provide an accessible label:
+
+```html
+<cosmoz-button aria-label="Delete item">
+	<svg slot="prefix">...</svg>
+</cosmoz-button>
+```
+
+### Descriptive Context
+
+Use `aria-describedby` to reference additional help text:
+
+```html
+<cosmoz-button aria-describedby="delete-warning">Delete</cosmoz-button>
+<p id="delete-warning">This action cannot be undone.</p>
+```
 
 ## Development
 
