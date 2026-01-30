@@ -61,7 +61,7 @@
     "./cosmoz-button": "./dist/cosmoz-button.js"
   },
   "dependencies": {
-    "@neovici/cosmoz-tokens": "^2.0.0",
+    "@neovici/cosmoz-tokens": "^3.2.0",
     "@pionjs/pion": "^2.5.2",
     "lit-html": "^3.3.1"
   },
