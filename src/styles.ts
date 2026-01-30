@@ -124,7 +124,7 @@ export const styles = css`
 	}
 
 	:host([variant='secondary']) .button:active {
-		background-color: var(--cz-color-bg-secondary);
+		background-color: var(--cz-color-bg-tertiary);
 	}
 
 	:host([variant='secondary']) .button:focus-visible {
