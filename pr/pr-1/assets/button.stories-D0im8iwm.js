@@ -1,4 +1,4 @@
-import{D as Z,A as Y,b as u}from"./iframe-LFgnOX8R.js";let _,I=0;function D(t){_=t}function T(){_=null,I=0}function q(){return I++}const C=Symbol("haunted.phase"),B=Symbol("haunted.hook"),A=Symbol("haunted.update"),R=Symbol("haunted.commit"),b=Symbol("haunted.effects"),v=Symbol("haunted.layoutEffects"),E="haunted.context";class J{update;host;virtual;[B];[b];[v];constructor(e,o){this.update=e,this.host=o,this[B]=new Map,this[b]=[],this[v]=[]}run(e){D(this);let o=e();return T(),o}_runEffects(e){let o=this[e];D(this);for(let n of o)n.call(this);T()}runEffects(){this._runEffects(b)}runLayoutEffects(){this._runEffects(v)}teardown(){this[B].forEach(o=>{typeof o.teardown=="function"&&o.teardown(!0)})}}const K=Promise.resolve().then.bind(Promise.resolve());function V(){let t=[],e;function o(){e=null;let n=t;t=[];for(var s=0,d=n.length;s<d;s++)n[s]()}return function(n){t.push(n),e==null&&(e=K(o))}}const tt=V(),O=V();class et{renderer;host;state;[C];_updateQueued;_active;constructor(e,o){this.renderer=e,this.host=o,this.state=new J(this.update.bind(this),o),this[C]=null,this._updateQueued=!1,this._active=!0}update(){this._active&&(this._updateQueued||(tt(()=>{let e=this.handlePhase(A);O(()=>{this.handlePhase(R,e),O(()=>{this.handlePhase(b)})}),this._updateQueued=!1}),this._updateQueued=!0))}handlePhase(e,o){switch(this[C]=e,e){case R:this.commit(o),this.runEffects(v);return;case A:return this.render();case b:return this.runEffects(b)}}render(){return this.state.run(()=>this.renderer.call(this.host,this.host))}runEffects(e){this.state._runEffects(e)}teardown(){this.state.teardown()}pause(){this._active=!1}resume(){this._active=!0}}const W=(...t)=>{const e=new CSSStyleSheet;return e.replaceSync(t.join("")),e},ot=t=>t?.map(e=>typeof e=="string"?W(e):e),nt=(t,...e)=>t.flatMap((o,n)=>[o,e[n]||""]).join(""),P=nt,st=(t="")=>t.replace(/-+([a-z])?/g,(e,o)=>o?o.toUpperCase():"");function rt(t){class e extends et{frag;renderResult;constructor(s,d,p){super(s,p||d),this.frag=d}commit(s){this.renderResult=t(s,this.frag)}}function o(n,s,d){const p=(d||s||{}).baseElement||HTMLElement,{observedAttributes:$=[],useShadowDOM:N=!0,shadowRootInit:U={},styleSheets:Q}=d||s||{},M=ot(n.styleSheets||Q);class L extends p{_scheduler;static get observedAttributes(){return n.observedAttributes||$||[]}constructor(){if(super(),N===!1)this._scheduler=new e(n,this);else{const r=this.attachShadow({mode:"open",...U});M&&(r.adoptedStyleSheets=M),this._scheduler=new e(n,r,this)}}connectedCallback(){this._scheduler.resume(),this._scheduler.update(),this._scheduler.renderResult?.setConnected(!0)}disconnectedCallback(){this._scheduler.pause(),this._scheduler.teardown(),this._scheduler.renderResult?.setConnected(!1)}attributeChangedCallback(r,c,a){if(c===a)return;let i=a===""?!0:a;Reflect.set(this,st(r),i)}}function G(l){let r=l,c=!1;return Object.freeze({enumerable:!0,configurable:!0,get(){return r},set(a){c&&r===a||(c=!0,r=a,this._scheduler&&this._scheduler.update())}})}const X=new Proxy(p.prototype,{getPrototypeOf(l){return l},set(l,r,c,a){let i;return r in l?(i=Object.getOwnPropertyDescriptor(l,r),i&&i.set?(i.set.call(a,c),!0):(Reflect.set(l,r,c,a),!0)):(typeof r=="symbol"||r[0]==="_"?i={enumerable:!0,configurable:!0,writable:!0,value:c}:i=G(c),Object.defineProperty(a,r,i),i.set&&i.set.call(a,c),!0)}});return Object.setPrototypeOf(L.prototype,X),L}return o}class h{id;state;constructor(e,o){this.id=e,this.state=o}}function at(t,...e){let o=q(),n=_[B],s=n.get(o);return s||(s=new t(o,_,...e),n.set(o,s)),s.update(...e)}function m(t){return at.bind(null,t)}function j(t){return m(class extends h{callback;lastValues;values;_teardown;constructor(e,o,n,s){super(e,o),t(o,this)}update(e,o){this.callback=e,this.values=o}call(){const e=!this.values||this.hasChanged();this.lastValues=this.values,e&&this.run()}run(){this.teardown(),this._teardown=this.callback.call(this.state)}teardown(e){typeof this._teardown=="function"&&(this._teardown(),this._teardown=void 0),e&&(this.lastValues=this.values=void 0)}hasChanged(){return!this.lastValues||this.values.some((e,o)=>this.lastValues[o]!==e)}})}function H(t,e){t[b].push(e)}j(H);const it=t=>t instanceof Element?t:t.startNode||t.endNode||t.parentNode,ct=m(class extends h{Context;value;_ranEffect;_unsubscribe;constructor(t,e,o){super(t,e),this._updater=this._updater.bind(this),this._ranEffect=!1,this._unsubscribe=null,H(e,this)}update(t){return this.Context!==t&&(this._subscribe(t),this.Context=t),this.value}call(){this._ranEffect||(this._ranEffect=!0,this._unsubscribe&&this._unsubscribe(),this._subscribe(this.Context),this.state.update())}_updater(t){this.value=t,this.state.update()}_subscribe(t){const e={Context:t,callback:this._updater};it(this.state.host).dispatchEvent(new CustomEvent(E,{detail:e,bubbles:!0,cancelable:!0,composed:!0}));const{unsubscribe:n=null,value:s}=e;this.value=n?s:t.defaultValue,this._unsubscribe=n}teardown(){this._unsubscribe&&this._unsubscribe()}});function ut(t){return e=>{const o={Provider:class extends HTMLElement{listeners;_value;constructor(){super(),this.style.display="contents",this.listeners=new Set,this.addEventListener(E,this)}disconnectedCallback(){this.removeEventListener(E,this)}handleEvent(n){const{detail:s}=n;s.Context===o&&(s.value=this.value,s.unsubscribe=this.unsubscribe.bind(this,s.callback),this.listeners.add(s.callback),n.stopPropagation())}unsubscribe(n){this.listeners.delete(n)}set value(n){this._value=n;for(let s of this.listeners)s(n)}get value(){return this._value}},Consumer:t(function({render:n}){const s=ct(o);return n(s)},{useShadowDOM:!1}),defaultValue:e};return o}}m(class extends h{value;values;constructor(t,e,o,n){super(t,e),this.value=o(),this.values=n}update(t,e){return this.hasChanged(e)&&(this.values=e,this.value=t()),this.value}hasChanged(t=[]){return t.some((e,o)=>this.values[o]!==e)}});function lt(t,e){t[v].push(e)}j(lt);m(class extends h{args;constructor(t,e,o){super(t,e),this.updater=this.updater.bind(this),typeof o=="function"&&(o=o()),this.makeArgs(o)}update(){return this.args}updater(t){const[e]=this.args;typeof t=="function"&&(t=t(e)),!Object.is(e,t)&&(this.makeArgs(t),this.state.update())}makeArgs(t){this.args=Object.freeze([t,this.updater])}});m(class extends h{reducer;currentState;constructor(t,e,o,n,s){super(t,e),this.dispatch=this.dispatch.bind(this),this.currentState=s!==void 0?s(n):n}update(t){return this.reducer=t,[this.currentState,this.dispatch]}dispatch(t){this.currentState=this.reducer(this.currentState,t),this.state.update()}});const dt=/([A-Z])/gu;m(class extends h{property;eventName;constructor(t,e,o,n){if(super(t,e),this.state.virtual)throw new Error("Can't be used with virtual components.");this.updater=this.updater.bind(this),this.property=o,this.eventName=o.replace(dt,"-$1").toLowerCase()+"-changed",this.state.host[this.property]==null&&(typeof n=="function"&&(n=n()),n!=null&&this.updateProp(n))}update(t,e){return[this.state.host[this.property],this.updater]}updater(t){const e=this.state.host[this.property];typeof t=="function"&&(t=t(e)),!Object.is(e,t)&&this.updateProp(t)}updateProp(t){this.notify(t).defaultPrevented||(this.state.host[this.property]=t)}notify(t){const e=new CustomEvent(this.eventName,{detail:{value:t,path:this.property},cancelable:!0});return this.state.host.dispatchEvent(e),e}});m(class extends h{update(){return this.state.host}});function bt({render:t}){const e=rt(t),o=ut(e);return{component:e,createContext:o}}const{component:ht}=bt({render:Z}),mt=W(P`
+import{D as q,A as F,b as l}from"./iframe-BPgZL5q1.js";let C,H=0;function A(t){C=t}function T(){C=null,H=0}function J(){return H++}const E=Symbol("haunted.phase"),_=Symbol("haunted.hook"),R=Symbol("haunted.update"),V=Symbol("haunted.commit"),b=Symbol("haunted.effects"),p=Symbol("haunted.layoutEffects"),M="haunted.context";class K{update;host;virtual;[_];[b];[p];constructor(e,o){this.update=e,this.host=o,this[_]=new Map,this[b]=[],this[p]=[]}run(e){A(this);let o=e();return T(),o}_runEffects(e){let o=this[e];A(this);for(let n of o)n.call(this);T()}runEffects(){this._runEffects(b)}runLayoutEffects(){this._runEffects(p)}teardown(){this[_].forEach(o=>{typeof o.teardown=="function"&&o.teardown(!0)})}}const tt=Promise.resolve().then.bind(Promise.resolve());function W(){let t=[],e;function o(){e=null;let n=t;t=[];for(var s=0,u=n.length;s<u;s++)n[s]()}return function(n){t.push(n),e==null&&(e=tt(o))}}const et=W(),O=W();class ot{renderer;host;state;[E];_updateQueued;_active;constructor(e,o){this.renderer=e,this.host=o,this.state=new K(this.update.bind(this),o),this[E]=null,this._updateQueued=!1,this._active=!0}update(){this._active&&(this._updateQueued||(et(()=>{let e=this.handlePhase(R);O(()=>{this.handlePhase(V,e),O(()=>{this.handlePhase(b)})}),this._updateQueued=!1}),this._updateQueued=!0))}handlePhase(e,o){switch(this[E]=e,e){case V:this.commit(o),this.runEffects(p);return;case R:return this.render();case b:return this.runEffects(b)}}render(){return this.state.run(()=>this.renderer.call(this.host,this.host))}runEffects(e){this.state._runEffects(e)}teardown(){this.state.teardown()}pause(){this._active=!1}resume(){this._active=!0}}const j=(...t)=>{const e=new CSSStyleSheet;return e.replaceSync(t.join("")),e},nt=t=>t?.map(e=>typeof e=="string"?j(e):e),st=(t,...e)=>t.flatMap((o,n)=>[o,e[n]||""]).join(""),D=st,rt=(t="")=>t.replace(/-+([a-z])?/g,(e,o)=>o?o.toUpperCase():"");function at(t){class e extends ot{frag;renderResult;constructor(s,u,v){super(s,v||u),this.frag=u}commit(s){this.renderResult=t(s,this.frag)}}function o(n,s,u){const v=(u||s||{}).baseElement||HTMLElement,{observedAttributes:U=[],useShadowDOM:Q=!0,shadowRootInit:G={},styleSheets:X}=u||s||{},P=nt(n.styleSheets||X);class L extends v{_scheduler;static get observedAttributes(){return n.observedAttributes||U||[]}constructor(){if(super(),Q===!1)this._scheduler=new e(n,this);else{const r=this.attachShadow({mode:"open",...G});P&&(r.adoptedStyleSheets=P),this._scheduler=new e(n,r,this)}}connectedCallback(){this._scheduler.resume(),this._scheduler.update(),this._scheduler.renderResult?.setConnected(!0)}disconnectedCallback(){this._scheduler.pause(),this._scheduler.teardown(),this._scheduler.renderResult?.setConnected(!1)}attributeChangedCallback(r,c,a){if(c===a)return;let i=a===""?!0:a;Reflect.set(this,rt(r),i)}}function Z(d){let r=d,c=!1;return Object.freeze({enumerable:!0,configurable:!0,get(){return r},set(a){c&&r===a||(c=!0,r=a,this._scheduler&&this._scheduler.update())}})}const Y=new Proxy(v.prototype,{getPrototypeOf(d){return d},set(d,r,c,a){let i;return r in d?(i=Object.getOwnPropertyDescriptor(d,r),i&&i.set?(i.set.call(a,c),!0):(Reflect.set(d,r,c,a),!0)):(typeof r=="symbol"||r[0]==="_"?i={enumerable:!0,configurable:!0,writable:!0,value:c}:i=Z(c),Object.defineProperty(a,r,i),i.set&&i.set.call(a,c),!0)}});return Object.setPrototypeOf(L.prototype,Y),L}return o}class h{id;state;constructor(e,o){this.id=e,this.state=o}}function it(t,...e){let o=J(),n=C[_],s=n.get(o);return s||(s=new t(o,C,...e),n.set(o,s)),s.update(...e)}function m(t){return it.bind(null,t)}function $(t){return m(class extends h{callback;lastValues;values;_teardown;constructor(e,o,n,s){super(e,o),t(o,this)}update(e,o){this.callback=e,this.values=o}call(){const e=!this.values||this.hasChanged();this.lastValues=this.values,e&&this.run()}run(){this.teardown(),this._teardown=this.callback.call(this.state)}teardown(e){typeof this._teardown=="function"&&(this._teardown(),this._teardown=void 0),e&&(this.lastValues=this.values=void 0)}hasChanged(){return!this.lastValues||this.values.some((e,o)=>this.lastValues[o]!==e)}})}function N(t,e){t[b].push(e)}$(N);const ct=t=>t instanceof Element?t:t.startNode||t.endNode||t.parentNode,lt=m(class extends h{Context;value;_ranEffect;_unsubscribe;constructor(t,e,o){super(t,e),this._updater=this._updater.bind(this),this._ranEffect=!1,this._unsubscribe=null,N(e,this)}update(t){return this.Context!==t&&(this._subscribe(t),this.Context=t),this.value}call(){this._ranEffect||(this._ranEffect=!0,this._unsubscribe&&this._unsubscribe(),this._subscribe(this.Context),this.state.update())}_updater(t){this.value=t,this.state.update()}_subscribe(t){const e={Context:t,callback:this._updater};ct(this.state.host).dispatchEvent(new CustomEvent(M,{detail:e,bubbles:!0,cancelable:!0,composed:!0}));const{unsubscribe:n=null,value:s}=e;this.value=n?s:t.defaultValue,this._unsubscribe=n}teardown(){this._unsubscribe&&this._unsubscribe()}});function dt(t){return e=>{const o={Provider:class extends HTMLElement{listeners;_value;constructor(){super(),this.style.display="contents",this.listeners=new Set,this.addEventListener(M,this)}disconnectedCallback(){this.removeEventListener(M,this)}handleEvent(n){const{detail:s}=n;s.Context===o&&(s.value=this.value,s.unsubscribe=this.unsubscribe.bind(this,s.callback),this.listeners.add(s.callback),n.stopPropagation())}unsubscribe(n){this.listeners.delete(n)}set value(n){this._value=n;for(let s of this.listeners)s(n)}get value(){return this._value}},Consumer:t(function({render:n}){const s=lt(o);return n(s)},{useShadowDOM:!1}),defaultValue:e};return o}}m(class extends h{value;values;constructor(t,e,o,n){super(t,e),this.value=o(),this.values=n}update(t,e){return this.hasChanged(e)&&(this.values=e,this.value=t()),this.value}hasChanged(t=[]){return t.some((e,o)=>this.values[o]!==e)}});function ut(t,e){t[p].push(e)}$(ut);m(class extends h{args;constructor(t,e,o){super(t,e),this.updater=this.updater.bind(this),typeof o=="function"&&(o=o()),this.makeArgs(o)}update(){return this.args}updater(t){const[e]=this.args;typeof t=="function"&&(t=t(e)),!Object.is(e,t)&&(this.makeArgs(t),this.state.update())}makeArgs(t){this.args=Object.freeze([t,this.updater])}});m(class extends h{reducer;currentState;constructor(t,e,o,n,s){super(t,e),this.dispatch=this.dispatch.bind(this),this.currentState=s!==void 0?s(n):n}update(t){return this.reducer=t,[this.currentState,this.dispatch]}dispatch(t){this.currentState=this.reducer(this.currentState,t),this.state.update()}});const bt=/([A-Z])/gu;m(class extends h{property;eventName;constructor(t,e,o,n){if(super(t,e),this.state.virtual)throw new Error("Can't be used with virtual components.");this.updater=this.updater.bind(this),this.property=o,this.eventName=o.replace(bt,"-$1").toLowerCase()+"-changed",this.state.host[this.property]==null&&(typeof n=="function"&&(n=n()),n!=null&&this.updateProp(n))}update(t,e){return[this.state.host[this.property],this.updater]}updater(t){const e=this.state.host[this.property];typeof t=="function"&&(t=t(e)),!Object.is(e,t)&&this.updateProp(t)}updateProp(t){this.notify(t).defaultPrevented||(this.state.host[this.property]=t)}notify(t){const e=new CustomEvent(this.eventName,{detail:{value:t,path:this.property},cancelable:!0});return this.state.host.dispatchEvent(e),e}});m(class extends h{update(){return this.state.host}});function ht({render:t}){const e=at(t),o=dt(e);return{component:e,createContext:o}}const{component:mt}=ht({render:q}),pt=j(D`
 	/*
 	 * 1. Prevent padding and border from affecting element width.
 	 * 2. Remove default margins and padding.
@@ -166,7 +166,7 @@ import{D as Z,A as Y,b as u}from"./iframe-LFgnOX8R.js";let _,I=0;function D(t){_
 	[hidden]:where(:not([hidden='until-found'])) {
 		display: none !important;
 	}
-`);const F=t=>t??Y,vt=P`
+`);const I=t=>t??F,vt=D`
 	position: relative;
 
 	&::before {
@@ -179,7 +179,7 @@ import{D as Z,A as Y,b as u}from"./iframe-LFgnOX8R.js";let _,I=0;function D(t){_
 		mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
 		-webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
 	}
-`,pt=P`
+`,ft=D`
 	:host {
 		display: inline-flex;
 	}
@@ -440,29 +440,31 @@ import{D as Z,A as Y,b as u}from"./iframe-LFgnOX8R.js";let _,I=0;function D(t){_
 		width: 16px;
 		height: 16px;
 	}
-`,zt=["variant","size","disabled","full-width","type","aria-label","aria-describedby"],ft=t=>{const e=t.hasAttribute("disabled"),o=t.getAttribute("type")||"button",n=t.getAttribute("aria-label"),s=t.getAttribute("aria-describedby");return u`
+`,zt=["variant","size","disabled","full-width","type","aria-label","aria-describedby"],yt=t=>{const e=t.hasAttribute("disabled"),o=t.getAttribute("type")||"button",n=t.getAttribute("aria-label"),s=t.getAttribute("aria-describedby");return l`
 		<button
 			type=${o}
 			class="button"
 			?disabled=${e}
-			aria-label=${F(n)}
-			aria-describedby=${F(s)}
+			aria-label=${I(n)}
+			aria-describedby=${I(s)}
 			part="button"
 		>
 			<slot name="prefix"></slot>
 			<slot></slot>
 			<slot name="suffix"></slot>
 		</button>
-	`};customElements.define("cosmoz-button",ht(ft,{observedAttributes:zt,styleSheets:[mt,pt]}));const xt={title:"Cosmoz Button",component:"cosmoz-button",tags:["autodocs"],argTypes:{variant:{control:"select",options:["primary","secondary","tertiary","destructive","link"],description:"The visual style variant of the button",table:{defaultValue:{summary:"primary"}}},size:{control:"select",options:["sm","md","lg","xl"],description:"The size of the button",table:{defaultValue:{summary:"md"}}},disabled:{control:"boolean",description:"Whether the button is disabled",table:{defaultValue:{summary:"false"}}},fullWidth:{control:"boolean",description:"Whether the button should take full width",table:{defaultValue:{summary:"false"}}},label:{control:"text",description:"Button label text"}}},yt=t=>u`
+	`};customElements.define("cosmoz-button",mt(yt,{observedAttributes:zt,styleSheets:[pt,ft]}));const wt={title:"Cosmoz Button",component:"cosmoz-button",tags:["autodocs"],argTypes:{variant:{control:"select",options:["primary","secondary","tertiary","destructive","link"],description:"The visual style variant of the button",table:{defaultValue:{summary:"primary"}}},size:{control:"select",options:["sm","md","lg","xl"],description:"The size of the button",table:{defaultValue:{summary:"md"}}},disabled:{control:"boolean",description:"Whether the button is disabled",table:{defaultValue:{summary:"false"}}},fullWidth:{control:"boolean",description:"Whether the button should take full width",table:{defaultValue:{summary:"false"}}},type:{control:"select",options:["button","submit","reset"],description:"The button type attribute",table:{defaultValue:{summary:"button"}}},ariaLabel:{control:"text",description:"Accessible label for icon-only buttons"},label:{control:"text",description:"Button label text"}}},gt=t=>l`
     <cosmoz-button
         variant=${t.variant||"primary"}
         size=${t.size||"md"}
+        type=${t.type||"button"}
         ?disabled=${t.disabled}
         ?full-width=${t.fullWidth}
+        aria-label=${t.ariaLabel||F}
     >
         ${t.label||"Button"}
     </cosmoz-button>
-`,z={args:{variant:"primary",size:"md",disabled:!1,fullWidth:!1,label:"Button"},render:yt},f={render:()=>u`
+`,f={args:{variant:"primary",size:"md",disabled:!1,fullWidth:!1,label:"Button"},render:gt},z={render:()=>l`
         <div
             style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;"
         >
@@ -472,14 +474,14 @@ import{D as Z,A as Y,b as u}from"./iframe-LFgnOX8R.js";let _,I=0;function D(t){_
             <cosmoz-button variant="destructive">Destructive</cosmoz-button>
             <cosmoz-button variant="link">Link</cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"The five visual style variants available for the button."}}}},y={render:()=>u`
+    `,parameters:{docs:{description:{story:"The five visual style variants available for the button."}}}},y={render:()=>l`
         <div style="display: flex; gap: 16px; align-items: center;">
             <cosmoz-button size="sm">Small</cosmoz-button>
             <cosmoz-button size="md">Medium</cosmoz-button>
             <cosmoz-button size="lg">Large</cosmoz-button>
             <cosmoz-button size="xl">Extra Large</cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"The four size variants available for the button."}}}},g={render:()=>u`
+    `,parameters:{docs:{description:{story:"The four size variants available for the button."}}}},g={render:()=>l`
         <div
             style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;"
         >
@@ -489,7 +491,7 @@ import{D as Z,A as Y,b as u}from"./iframe-LFgnOX8R.js";let _,I=0;function D(t){_
             <cosmoz-button variant="destructive" disabled>Destructive</cosmoz-button>
             <cosmoz-button variant="link" disabled>Link</cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"All variants in their disabled state."}}}},x={render:()=>u`
+    `,parameters:{docs:{description:{story:"All variants in their disabled state."}}}},x={render:()=>l`
         <style>
             .icon {
                 width: 20px;
@@ -557,7 +559,7 @@ import{D as Z,A as Y,b as u}from"./iframe-LFgnOX8R.js";let _,I=0;function D(t){_
                 Delete
             </cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"Buttons with prefix and suffix icon slots."}}}},w={render:()=>u`
+    `,parameters:{docs:{description:{story:"Buttons with prefix and suffix icon slots."}}}},w={render:()=>l`
         <div
             style="width: 300px; display: flex; flex-direction: column; gap: 12px;"
         >
@@ -568,7 +570,7 @@ import{D as Z,A as Y,b as u}from"./iframe-LFgnOX8R.js";let _,I=0;function D(t){_
                 >Full Width Secondary</cosmoz-button
             >
         </div>
-    `,parameters:{docs:{description:{story:"Buttons that take up 100% of their container width."}}}},k={render:()=>u`
+    `,parameters:{docs:{description:{story:"Buttons that take up 100% of their container width."}}}},k={render:()=>l`
         <style>
             .matrix {
                 display: grid;
@@ -623,7 +625,7 @@ import{D as Z,A as Y,b as u}from"./iframe-LFgnOX8R.js";let _,I=0;function D(t){_
             <cosmoz-button variant="destructive" size="xl">Button</cosmoz-button>
             <cosmoz-button variant="link" size="xl">Button</cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"Complete matrix showing all size and variant combinations."}}}},S={render:()=>u`
+    `,parameters:{docs:{description:{story:"Complete matrix showing all size and variant combinations."}}}},S={render:()=>l`
         <div style="display: flex; flex-direction: column; gap: 24px;">
             <div>
                 <h4 style="margin: 0 0 12px 0; font-size: 14px; color: #666;">
@@ -640,7 +642,91 @@ import{D as Z,A as Y,b as u}from"./iframe-LFgnOX8R.js";let _,I=0;function D(t){_
                 <cosmoz-button variant="link">Link</cosmoz-button>
             </div>
         </div>
-    `,parameters:{docs:{description:{story:"Demonstrates hover, active, and focus states for all variants."}}}};z.parameters={...z.parameters,docs:{...z.parameters?.docs,source:{originalSource:`{
+    `,parameters:{docs:{description:{story:"Demonstrates hover, active, and focus states for all variants."}}}},B={render:()=>l`
+        <style>
+            .a11y-section {
+                margin-bottom: 24px;
+            }
+            .a11y-section h4 {
+                margin: 0 0 8px 0;
+                font-size: 14px;
+                color: #333;
+            }
+            .a11y-section p {
+                margin: 0 0 12px 0;
+                font-size: 13px;
+                color: #666;
+            }
+            .icon {
+                width: 20px;
+                height: 20px;
+            }
+            #delete-warning {
+                margin-top: 8px;
+                font-size: 13px;
+                color: #b42318;
+            }
+        </style>
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+            <div class="a11y-section">
+                <h4>Icon-only buttons with aria-label</h4>
+                <p>
+                    Buttons without visible text should have an aria-label for screen
+                    readers.
+                </p>
+                <div style="display: flex; gap: 12px;">
+                    <cosmoz-button aria-label="Add item">
+                        <svg
+                            slot="prefix"
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path d="M12 5v14M5 12h14" />
+                        </svg>
+                    </cosmoz-button>
+                    <cosmoz-button variant="secondary" aria-label="Edit">
+                        <svg
+                            slot="prefix"
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+                            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                        </svg>
+                    </cosmoz-button>
+                    <cosmoz-button variant="destructive" aria-label="Delete">
+                        <svg
+                            slot="prefix"
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path
+                                d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"
+                            />
+                        </svg>
+                    </cosmoz-button>
+                </div>
+            </div>
+
+            <div class="a11y-section">
+                <h4>Button with aria-describedby</h4>
+                <p>Reference additional context for screen readers.</p>
+                <cosmoz-button variant="destructive" aria-describedby="delete-warning">
+                    Delete Account
+                </cosmoz-button>
+                <p id="delete-warning">This action cannot be undone.</p>
+            </div>
+        </div>
+    `,parameters:{docs:{description:{story:"Demonstrates accessible patterns for icon-only buttons and descriptive context."}}}};f.parameters={...f.parameters,docs:{...f.parameters?.docs,source:{originalSource:`{
   args: {
     variant: 'primary',
     size: 'md',
@@ -649,7 +735,7 @@ import{D as Z,A as Y,b as u}from"./iframe-LFgnOX8R.js";let _,I=0;function D(t){_
     label: 'Button'
   },
   render: renderButton
-}`,...z.parameters?.docs?.source}}};f.parameters={...f.parameters,docs:{...f.parameters?.docs,source:{originalSource:`{
+}`,...f.parameters?.docs?.source}}};z.parameters={...z.parameters,docs:{...z.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div
             style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;"
@@ -668,7 +754,7 @@ import{D as Z,A as Y,b as u}from"./iframe-LFgnOX8R.js";let _,I=0;function D(t){_
       }
     }
   }
-}`,...f.parameters?.docs?.source}}};y.parameters={...y.parameters,docs:{...y.parameters?.docs,source:{originalSource:`{
+}`,...z.parameters?.docs?.source}}};y.parameters={...y.parameters,docs:{...y.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div style="display: flex; gap: 16px; align-items: center;">
             <cosmoz-button size="sm">Small</cosmoz-button>
@@ -890,4 +976,97 @@ import{D as Z,A as Y,b as u}from"./iframe-LFgnOX8R.js";let _,I=0;function D(t){_
       }
     }
   }
-}`,...S.parameters?.docs?.source}}};const wt=["Default","Variants","Sizes","DisabledStates","WithIcons","FullWidth","SizeVariantMatrix","InteractiveStates"];export{z as Default,g as DisabledStates,w as FullWidth,S as InteractiveStates,k as SizeVariantMatrix,y as Sizes,f as Variants,x as WithIcons,wt as __namedExportsOrder,xt as default};
+}`,...S.parameters?.docs?.source}}};B.parameters={...B.parameters,docs:{...B.parameters?.docs,source:{originalSource:`{
+  render: () => html\`
+        <style>
+            .a11y-section {
+                margin-bottom: 24px;
+            }
+            .a11y-section h4 {
+                margin: 0 0 8px 0;
+                font-size: 14px;
+                color: #333;
+            }
+            .a11y-section p {
+                margin: 0 0 12px 0;
+                font-size: 13px;
+                color: #666;
+            }
+            .icon {
+                width: 20px;
+                height: 20px;
+            }
+            #delete-warning {
+                margin-top: 8px;
+                font-size: 13px;
+                color: #b42318;
+            }
+        </style>
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+            <div class="a11y-section">
+                <h4>Icon-only buttons with aria-label</h4>
+                <p>
+                    Buttons without visible text should have an aria-label for screen
+                    readers.
+                </p>
+                <div style="display: flex; gap: 12px;">
+                    <cosmoz-button aria-label="Add item">
+                        <svg
+                            slot="prefix"
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path d="M12 5v14M5 12h14" />
+                        </svg>
+                    </cosmoz-button>
+                    <cosmoz-button variant="secondary" aria-label="Edit">
+                        <svg
+                            slot="prefix"
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+                            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                        </svg>
+                    </cosmoz-button>
+                    <cosmoz-button variant="destructive" aria-label="Delete">
+                        <svg
+                            slot="prefix"
+                            class="icon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path
+                                d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"
+                            />
+                        </svg>
+                    </cosmoz-button>
+                </div>
+            </div>
+
+            <div class="a11y-section">
+                <h4>Button with aria-describedby</h4>
+                <p>Reference additional context for screen readers.</p>
+                <cosmoz-button variant="destructive" aria-describedby="delete-warning">
+                    Delete Account
+                </cosmoz-button>
+                <p id="delete-warning">This action cannot be undone.</p>
+            </div>
+        </div>
+    \`,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstrates accessible patterns for icon-only buttons and descriptive context.'
+      }
+    }
+  }
+}`,...B.parameters?.docs?.source}}};const kt=["Default","Variants","Sizes","DisabledStates","WithIcons","FullWidth","SizeVariantMatrix","InteractiveStates","Accessibility"];export{B as Accessibility,f as Default,g as DisabledStates,w as FullWidth,S as InteractiveStates,k as SizeVariantMatrix,y as Sizes,z as Variants,x as WithIcons,kt as __namedExportsOrder,wt as default};
