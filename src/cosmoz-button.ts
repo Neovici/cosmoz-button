@@ -9,12 +9,14 @@ export type ButtonVariant =
 	| 'destructive'
 	| 'link';
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
+export type ButtonType = 'button' | 'submit' | 'reset';
 
 export interface CosmozButtonElement extends HTMLElement {
 	variant: ButtonVariant;
 	size: ButtonSize;
 	disabled: boolean;
 	'full-width': boolean;
+	type: ButtonType;
 }
 
 const observedAttributes = [
@@ -22,6 +24,7 @@ const observedAttributes = [
 	'size',
 	'disabled',
 	'full-width',
+	'type',
 ] as const;
 
 /**
@@ -33,6 +36,7 @@ const observedAttributes = [
  * @attr {string} size - Button size: sm, md (default), lg, xl
  * @attr {boolean} disabled - Disables the button
  * @attr {boolean} full-width - Makes the button 100% width
+ * @attr {string} type - Button type: button (default), submit, reset
  *
  * @slot - Default slot for button text content
  * @slot prefix - Slot for prefix icon (before text)
@@ -42,9 +46,10 @@ const observedAttributes = [
  */
 const CosmozButton = (host: CosmozButtonElement) => {
 	const disabled = host.hasAttribute('disabled');
+	const type = host.getAttribute('type') || 'button';
 
 	return html`
-		<button class="button" ?disabled=${disabled} part="button">
+		<button type=${type} class="button" ?disabled=${disabled} part="button">
 			<slot name="prefix"></slot>
 			<slot></slot>
 			<slot name="suffix"></slot>
