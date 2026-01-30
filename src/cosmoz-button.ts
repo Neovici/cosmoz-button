@@ -1,5 +1,6 @@
 import { normalize } from '@neovici/cosmoz-tokens/normalize';
 import { component, html } from '@pionjs/pion';
+import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { styles } from './styles';
 
 export type ButtonVariant =
@@ -17,6 +18,8 @@ export interface CosmozButtonElement extends HTMLElement {
 	disabled: boolean;
 	'full-width': boolean;
 	type: ButtonType;
+	ariaLabel: string | null;
+	ariaDescribedby: string | null;
 }
 
 const observedAttributes = [
@@ -25,6 +28,8 @@ const observedAttributes = [
 	'disabled',
 	'full-width',
 	'type',
+	'aria-label',
+	'aria-describedby',
 ] as const;
 
 /**
@@ -37,6 +42,8 @@ const observedAttributes = [
  * @attr {boolean} disabled - Disables the button
  * @attr {boolean} full-width - Makes the button 100% width
  * @attr {string} type - Button type: button (default), submit, reset
+ * @attr {string} aria-label - Accessible label for icon-only buttons
+ * @attr {string} aria-describedby - ID of element that describes this button
  *
  * @slot - Default slot for button text content
  * @slot prefix - Slot for prefix icon (before text)
@@ -47,9 +54,18 @@ const observedAttributes = [
 const CosmozButton = (host: CosmozButtonElement) => {
 	const disabled = host.hasAttribute('disabled');
 	const type = host.getAttribute('type') || 'button';
+	const ariaLabel = host.getAttribute('aria-label');
+	const ariaDescribedby = host.getAttribute('aria-describedby');
 
 	return html`
-		<button type=${type} class="button" ?disabled=${disabled} part="button">
+		<button
+			type=${type}
+			class="button"
+			?disabled=${disabled}
+			aria-label=${ifDefined(ariaLabel)}
+			aria-describedby=${ifDefined(ariaDescribedby)}
+			part="button"
+		>
 			<slot name="prefix"></slot>
 			<slot></slot>
 			<slot name="suffix"></slot>
