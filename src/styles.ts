@@ -60,8 +60,8 @@ export const styles = css`
 	.button--lg {
 		height: 44px;
 		padding: calc(var(--cz-spacing) * 2.5) calc(var(--cz-spacing) * 4.5);
-		font-size: var(--cz-text-md);
-		line-height: var(--cz-text-md-line-height);
+		font-size: var(--cz-text-base);
+		line-height: var(--cz-text-base-line-height);
 		border-radius: var(--cz-radius-md);
 	}
 
@@ -70,8 +70,8 @@ export const styles = css`
 	.button--xl {
 		height: 48px;
 		padding: calc(var(--cz-spacing) * 3) calc(var(--cz-spacing) * 5);
-		font-size: var(--cz-text-md);
-		line-height: var(--cz-text-md-line-height);
+		font-size: var(--cz-text-base);
+		line-height: var(--cz-text-base-line-height);
 		border-radius: var(--cz-radius-md);
 	}
 
