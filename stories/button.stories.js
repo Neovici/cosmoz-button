@@ -1,4 +1,3 @@
-import '@neovici/cosmoz-tokens';
 import { html, nothing } from 'lit-html';
 import '../src/cosmoz-button';
 
@@ -85,9 +84,7 @@ export const Default = {
 // All Variants
 export const Variants = {
 	render: () => html`
-		<div
-			style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;"
-		>
+		<div class="story-row">
 			<cosmoz-button variant="primary">Primary</cosmoz-button>
 			<cosmoz-button variant="secondary">Secondary</cosmoz-button>
 			<cosmoz-button variant="tertiary">Tertiary</cosmoz-button>
@@ -107,7 +104,7 @@ export const Variants = {
 // All Sizes
 export const Sizes = {
 	render: () => html`
-		<div style="display: flex; gap: 16px; align-items: center;">
+		<div class="story-row">
 			<cosmoz-button size="sm">Small</cosmoz-button>
 			<cosmoz-button size="md">Medium</cosmoz-button>
 			<cosmoz-button size="lg">Large</cosmoz-button>
@@ -126,9 +123,7 @@ export const Sizes = {
 // Disabled States
 export const DisabledStates = {
 	render: () => html`
-		<div
-			style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;"
-		>
+		<div class="story-row">
 			<cosmoz-button variant="primary" disabled>Primary</cosmoz-button>
 			<cosmoz-button variant="secondary" disabled>Secondary</cosmoz-button>
 			<cosmoz-button variant="tertiary" disabled>Tertiary</cosmoz-button>
@@ -154,9 +149,7 @@ export const WithIcons = {
 				height: 20px;
 			}
 		</style>
-		<div
-			style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;"
-		>
+		<div class="story-row">
 			<cosmoz-button variant="primary">
 				<svg
 					slot="prefix"
@@ -228,9 +221,7 @@ export const WithIcons = {
 // Full Width
 export const FullWidth = {
 	render: () => html`
-		<div
-			style="width: 300px; display: flex; flex-direction: column; gap: 12px;"
-		>
+		<div style="width: 300px;" class="story-stack">
 			<cosmoz-button variant="primary" full-width
 				>Full Width Primary</cosmoz-button
 			>
@@ -259,14 +250,14 @@ export const SizeVariantMatrix = {
 				align-items: center;
 			}
 			.header {
-				font-weight: 600;
-				font-size: 12px;
-				color: #666;
+				font-weight: var(--cz-font-weight-semibold);
+				font-size: var(--cz-text-xs);
+				color: var(--cz-color-text-tertiary);
 				text-transform: uppercase;
 			}
 			.row-label {
-				font-size: 12px;
-				color: #666;
+				font-size: var(--cz-text-xs);
+				color: var(--cz-color-text-tertiary);
 			}
 		</style>
 		<div class="matrix">
@@ -318,15 +309,13 @@ export const SizeVariantMatrix = {
 // Interactive States Demo
 export const InteractiveStates = {
 	render: () => html`
-		<div style="display: flex; flex-direction: column; gap: 24px;">
+		<div class="story-stack">
 			<div>
-				<h4 style="margin: 0 0 12px 0; font-size: 14px; color: #666;">
+				<p class="story-label">
 					Hover over buttons to see state changes. Tab to see focus rings.
-				</h4>
+				</p>
 			</div>
-			<div
-				style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;"
-			>
+			<div class="story-row">
 				<cosmoz-button variant="primary">Primary</cosmoz-button>
 				<cosmoz-button variant="secondary">Secondary</cosmoz-button>
 				<cosmoz-button variant="tertiary">Tertiary</cosmoz-button>
@@ -349,36 +338,37 @@ export const Accessibility = {
 	render: () => html`
 		<style>
 			.a11y-section {
-				margin-bottom: 24px;
+				margin-bottom: calc(var(--cz-spacing) * 6);
 			}
 			.a11y-section h4 {
-				margin: 0 0 8px 0;
-				font-size: 14px;
-				color: #333;
+				margin: 0 0 calc(var(--cz-spacing) * 2) 0;
+				font-size: var(--cz-text-sm);
+				font-weight: var(--cz-font-weight-semibold);
+				color: var(--cz-color-text-primary);
 			}
 			.a11y-section p {
-				margin: 0 0 12px 0;
-				font-size: 13px;
-				color: #666;
+				margin: 0 0 calc(var(--cz-spacing) * 3) 0;
+				font-size: var(--cz-text-sm);
+				color: var(--cz-color-text-tertiary);
 			}
 			.icon {
 				width: 20px;
 				height: 20px;
 			}
 			#delete-warning {
-				margin-top: 8px;
-				font-size: 13px;
-				color: #b42318;
+				margin-top: calc(var(--cz-spacing) * 2);
+				font-size: var(--cz-text-sm);
+				color: var(--cz-color-text-error);
 			}
 		</style>
-		<div style="display: flex; flex-direction: column; gap: 24px;">
+		<div class="story-stack">
 			<div class="a11y-section">
 				<h4>Icon-only buttons with aria-label</h4>
 				<p>
 					Buttons without visible text should have an aria-label for screen
 					readers.
 				</p>
-				<div style="display: flex; gap: 12px;">
+				<div class="story-row">
 					<cosmoz-button aria-label="Add item">
 						<svg
 							slot="prefix"
