@@ -1,4 +1,4 @@
-import { assert, fixture, nextFrame } from '@open-wc/testing';
+import { expect, fixture, nextFrame } from '@open-wc/testing';
 import { html } from 'lit-html';
 import { spy } from 'sinon';
 import '../src/cosmoz-button';
@@ -7,12 +7,12 @@ describe('cosmoz-button', () => {
 	describe('element definition', () => {
 		it('is defined', () => {
 			const el = document.createElement('cosmoz-button');
-			assert.instanceOf(el, HTMLElement);
+			expect(el).to.be.instanceOf(HTMLElement);
 		});
 
 		it('has correct tag name', () => {
 			const el = document.createElement('cosmoz-button');
-			assert.equal(el.tagName.toLowerCase(), 'cosmoz-button');
+			expect(el.tagName.toLowerCase()).to.equal('cosmoz-button');
 		});
 	});
 
@@ -20,25 +20,25 @@ describe('cosmoz-button', () => {
 		it('renders with default content', async () => {
 			const el = await fixture(html`<cosmoz-button>Click me</cosmoz-button>`);
 			const button = el.shadowRoot?.querySelector('button');
-			assert.isNotNull(button);
+			expect(button).to.not.be.null;
 		});
 
 		it('renders slotted content', async () => {
 			const el = await fixture(html`<cosmoz-button>Test Label</cosmoz-button>`);
-			assert.include(el.textContent ?? '', 'Test Label');
+			expect(el.textContent ?? '').to.include('Test Label');
 		});
 
 		it('exposes button part for external styling', async () => {
 			const el = await fixture(html`<cosmoz-button>Button</cosmoz-button>`);
 			const button = el.shadowRoot?.querySelector('[part="button"]');
-			assert.isNotNull(button);
+			expect(button).to.not.be.null;
 		});
 	});
 
 	describe('variants', () => {
 		it('defaults to primary variant', async () => {
 			const el = await fixture(html`<cosmoz-button>Button</cosmoz-button>`);
-			assert.isNull(el.getAttribute('variant'));
+			expect(el.getAttribute('variant')).to.be.null;
 			// Primary is the default styling
 		});
 
@@ -46,35 +46,35 @@ describe('cosmoz-button', () => {
 			const el = await fixture(
 				html`<cosmoz-button variant="secondary">Button</cosmoz-button>`,
 			);
-			assert.equal(el.getAttribute('variant'), 'secondary');
+			expect(el.getAttribute('variant')).to.equal('secondary');
 		});
 
 		it('accepts tertiary variant', async () => {
 			const el = await fixture(
 				html`<cosmoz-button variant="tertiary">Button</cosmoz-button>`,
 			);
-			assert.equal(el.getAttribute('variant'), 'tertiary');
+			expect(el.getAttribute('variant')).to.equal('tertiary');
 		});
 
 		it('accepts destructive variant', async () => {
 			const el = await fixture(
 				html`<cosmoz-button variant="destructive">Button</cosmoz-button>`,
 			);
-			assert.equal(el.getAttribute('variant'), 'destructive');
+			expect(el.getAttribute('variant')).to.equal('destructive');
 		});
 
 		it('accepts link variant', async () => {
 			const el = await fixture(
 				html`<cosmoz-button variant="link">Button</cosmoz-button>`,
 			);
-			assert.equal(el.getAttribute('variant'), 'link');
+			expect(el.getAttribute('variant')).to.equal('link');
 		});
 	});
 
 	describe('sizes', () => {
 		it('defaults to md size', async () => {
 			const el = await fixture(html`<cosmoz-button>Button</cosmoz-button>`);
-			assert.isNull(el.getAttribute('size'));
+			expect(el.getAttribute('size')).to.be.null;
 			// md is the default sizing
 		});
 
@@ -82,21 +82,21 @@ describe('cosmoz-button', () => {
 			const el = await fixture(
 				html`<cosmoz-button size="sm">Button</cosmoz-button>`,
 			);
-			assert.equal(el.getAttribute('size'), 'sm');
+			expect(el.getAttribute('size')).to.equal('sm');
 		});
 
 		it('accepts lg size', async () => {
 			const el = await fixture(
 				html`<cosmoz-button size="lg">Button</cosmoz-button>`,
 			);
-			assert.equal(el.getAttribute('size'), 'lg');
+			expect(el.getAttribute('size')).to.equal('lg');
 		});
 
 		it('accepts xl size', async () => {
 			const el = await fixture(
 				html`<cosmoz-button size="xl">Button</cosmoz-button>`,
 			);
-			assert.equal(el.getAttribute('size'), 'xl');
+			expect(el.getAttribute('size')).to.equal('xl');
 		});
 	});
 
@@ -104,8 +104,8 @@ describe('cosmoz-button', () => {
 		it('is not disabled by default', async () => {
 			const el = await fixture(html`<cosmoz-button>Button</cosmoz-button>`);
 			const button = el.shadowRoot?.querySelector('button');
-			assert.isFalse(button?.disabled);
-			assert.isFalse(el.hasAttribute('disabled'));
+			expect(button?.disabled).to.be.false;
+			expect(el.hasAttribute('disabled')).to.be.false;
 		});
 
 		it('can be disabled via attribute', async () => {
@@ -113,8 +113,8 @@ describe('cosmoz-button', () => {
 				html`<cosmoz-button disabled>Button</cosmoz-button>`,
 			);
 			const button = el.shadowRoot?.querySelector('button');
-			assert.isTrue(button?.disabled);
-			assert.isTrue(el.hasAttribute('disabled'));
+			expect(button?.disabled).to.be.true;
+			expect(el.hasAttribute('disabled')).to.be.true;
 		});
 
 		it('prevents click when disabled', async () => {
@@ -124,21 +124,21 @@ describe('cosmoz-button', () => {
 			);
 			const button = el.shadowRoot?.querySelector('button');
 			button?.click();
-			assert.isFalse(clickSpy.called);
+			expect(clickSpy.called).to.be.false;
 		});
 	});
 
 	describe('full-width', () => {
 		it('is not full-width by default', async () => {
 			const el = await fixture(html`<cosmoz-button>Button</cosmoz-button>`);
-			assert.isFalse(el.hasAttribute('full-width'));
+			expect(el.hasAttribute('full-width')).to.be.false;
 		});
 
 		it('can be set to full-width via attribute', async () => {
 			const el = await fixture(
 				html`<cosmoz-button full-width>Button</cosmoz-button>`,
 			);
-			assert.isTrue(el.hasAttribute('full-width'));
+			expect(el.hasAttribute('full-width')).to.be.true;
 		});
 	});
 
@@ -153,9 +153,9 @@ describe('cosmoz-button', () => {
 			const prefixSlot = el.shadowRoot?.querySelector(
 				'slot[name="prefix"]',
 			) as HTMLSlotElement;
-			assert.isNotNull(prefixSlot);
+			expect(prefixSlot).to.not.be.null;
 			const assignedNodes = prefixSlot?.assignedNodes();
-			assert.isAbove(assignedNodes?.length ?? 0, 0);
+			expect(assignedNodes?.length ?? 0).to.be.above(0);
 		});
 
 		it('renders suffix icon slot', async () => {
@@ -168,9 +168,9 @@ describe('cosmoz-button', () => {
 			const suffixSlot = el.shadowRoot?.querySelector(
 				'slot[name="suffix"]',
 			) as HTMLSlotElement;
-			assert.isNotNull(suffixSlot);
+			expect(suffixSlot).to.not.be.null;
 			const assignedNodes = suffixSlot?.assignedNodes();
-			assert.isAbove(assignedNodes?.length ?? 0, 0);
+			expect(assignedNodes?.length ?? 0).to.be.above(0);
 		});
 	});
 
@@ -181,7 +181,7 @@ describe('cosmoz-button', () => {
 				html`<cosmoz-button @click=${clickSpy}>Button</cosmoz-button>`,
 			);
 			el.click();
-			assert.isTrue(clickSpy.calledOnce);
+			expect(clickSpy.calledOnce).to.be.true;
 		});
 
 		it('forwards click to inner button', async () => {
@@ -191,7 +191,7 @@ describe('cosmoz-button', () => {
 			);
 			const button = el.shadowRoot?.querySelector('button');
 			button?.click();
-			assert.isTrue(clickSpy.calledOnce);
+			expect(clickSpy.calledOnce).to.be.true;
 		});
 	});
 
@@ -200,32 +200,32 @@ describe('cosmoz-button', () => {
 			const el = await fixture(
 				html`<cosmoz-button variant="primary">Button</cosmoz-button>`,
 			);
-			assert.equal(el.getAttribute('variant'), 'primary');
+			expect(el.getAttribute('variant')).to.equal('primary');
 
 			el.setAttribute('variant', 'secondary');
 			await nextFrame();
-			assert.equal(el.getAttribute('variant'), 'secondary');
+			expect(el.getAttribute('variant')).to.equal('secondary');
 		});
 
 		it('updates when size changes', async () => {
 			const el = await fixture(
 				html`<cosmoz-button size="sm">Button</cosmoz-button>`,
 			);
-			assert.equal(el.getAttribute('size'), 'sm');
+			expect(el.getAttribute('size')).to.equal('sm');
 
 			el.setAttribute('size', 'lg');
 			await nextFrame();
-			assert.equal(el.getAttribute('size'), 'lg');
+			expect(el.getAttribute('size')).to.equal('lg');
 		});
 
 		it('updates when disabled changes', async () => {
 			const el = await fixture(html`<cosmoz-button>Button</cosmoz-button>`);
 			const button = el.shadowRoot?.querySelector('button');
-			assert.isFalse(button?.disabled);
+			expect(button?.disabled).to.be.false;
 
 			el.setAttribute('disabled', '');
 			await nextFrame();
-			assert.isTrue(el.shadowRoot?.querySelector('button')?.disabled);
+			expect(el.shadowRoot?.querySelector('button')?.disabled).to.be.true;
 		});
 	});
 
@@ -233,7 +233,7 @@ describe('cosmoz-button', () => {
 		it('has type="button" by default', async () => {
 			const el = await fixture(html`<cosmoz-button>Button</cosmoz-button>`);
 			const button = el.shadowRoot?.querySelector('button');
-			assert.equal(button?.getAttribute('type'), 'button');
+			expect(button?.getAttribute('type')).to.equal('button');
 		});
 
 		it('forwards aria-label to inner button', async () => {
@@ -243,7 +243,7 @@ describe('cosmoz-button', () => {
 				</cosmoz-button>`,
 			);
 			const button = el.shadowRoot?.querySelector('button');
-			assert.equal(button?.getAttribute('aria-label'), 'Delete item');
+			expect(button?.getAttribute('aria-label')).to.equal('Delete item');
 		});
 
 		it('forwards aria-describedby to inner button', async () => {
@@ -253,7 +253,7 @@ describe('cosmoz-button', () => {
 				>`,
 			);
 			const button = el.shadowRoot?.querySelector('button');
-			assert.equal(button?.getAttribute('aria-describedby'), 'help-text');
+			expect(button?.getAttribute('aria-describedby')).to.equal('help-text');
 		});
 	});
 });
