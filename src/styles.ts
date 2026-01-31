@@ -80,33 +80,26 @@ export const styles = css`
 	 * ======================================== */
 
 	/* Skeuomorphic inner highlight for solid variants */
-	.button,
-	:host([variant='primary']) .button,
-	:host([variant='secondary']) .button,
-	:host([variant='destructive']) .button {
+	.button {
 		${skeumorphicHighlight}
 	}
 
 	/* Primary - default */
-	.button,
-	:host([variant='primary']) .button {
+	.button {
 		background-color: var(--cz-color-bg-brand-solid);
 		color: var(--cz-color-text-on-brand);
 		box-shadow: var(--cz-shadow-xs-skeumorphic);
 	}
 
-	.button:hover,
-	:host([variant='primary']) .button:hover {
+	.button:hover {
 		background-color: var(--cz-color-bg-brand-solid-hover);
 	}
 
-	.button:active,
-	:host([variant='primary']) .button:active {
+	.button:active {
 		background-color: var(--cz-color-brand-800);
 	}
 
-	.button:focus-visible,
-	:host([variant='primary']) .button:focus-visible {
+	.button:focus-visible {
 		outline: none;
 		box-shadow: var(--cz-shadow-xs-skeumorphic), var(--cz-focus-ring);
 	}
@@ -251,18 +244,14 @@ export const styles = css`
 	 * ICON SLOTS
 	 * ======================================== */
 
-	::slotted(svg),
-	::slotted([slot='prefix']),
-	::slotted([slot='suffix']) {
+	::slotted(svg) {
 		width: 20px;
 		height: 20px;
 		flex-shrink: 0;
 	}
 
 	/* Smaller icons for sm size */
-	:host([size='sm']) ::slotted(svg),
-	:host([size='sm']) ::slotted([slot='prefix']),
-	:host([size='sm']) ::slotted([slot='suffix']) {
+	:host([size='sm']) ::slotted(svg) {
 		width: 16px;
 		height: 16px;
 	}
