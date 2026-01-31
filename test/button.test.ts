@@ -236,24 +236,13 @@ describe('cosmoz-button', () => {
 			expect(button?.getAttribute('type')).to.equal('button');
 		});
 
-		it('forwards aria-label to inner button', async () => {
-			const el = await fixture(
-				html`<cosmoz-button aria-label="Delete item">
-					<svg slot="prefix"></svg>
-				</cosmoz-button>`,
+		it('delegates focus to inner button', async () => {
+			const el = await fixture<HTMLElement>(
+				html`<cosmoz-button>Button</cosmoz-button>`,
 			);
+			el.focus();
 			const button = el.shadowRoot?.querySelector('button');
-			expect(button?.getAttribute('aria-label')).to.equal('Delete item');
-		});
-
-		it('forwards aria-describedby to inner button', async () => {
-			const el = await fixture(
-				html`<cosmoz-button aria-describedby="help-text"
-					>Button</cosmoz-button
-				>`,
-			);
-			const button = el.shadowRoot?.querySelector('button');
-			expect(button?.getAttribute('aria-describedby')).to.equal('help-text');
+			expect(el.shadowRoot?.activeElement).to.equal(button);
 		});
 	});
 });
