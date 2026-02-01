@@ -15,6 +15,10 @@ export const styles = css`
 		width: 100%;
 	}
 
+	:host([hidden]) {
+		display: none;
+	}
+
 	/* ========================================
 	 * SIZE VARIANTS
 	 * ======================================== */
