@@ -76,7 +76,7 @@
     "@storybook/addon-docs": "^10.2.3",
     "@storybook/web-components-vite": "^10.0.0",
     "@types/mocha": "^10.0.6",
-    "@types/node": "^24.0.0",
+    "@types/node": "^25.2.0",
     "@web/test-runner-playwright": "^0.11.1",
     "eslint": "^9.0.0",
     "http-server": "^14.1.1",
