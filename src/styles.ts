@@ -69,6 +69,7 @@ export const styles = css`
 			background-color 0.15s ease,
 			box-shadow 0.15s ease;
 		width: 100%;
+		white-space: nowrap;
 
 		/* Medium (md) - default size */
 		height: 40px;
