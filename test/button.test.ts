@@ -55,7 +55,7 @@ describe('cosmoz-button', () => {
 			const el = await fixture(
 				html`<cosmoz-button disabled @click=${clickSpy}>Button</cosmoz-button>`,
 			);
-			el.click();
+			(el as HTMLElement).click();
 			expect(clickSpy.called).to.be.false;
 		});
 	});
