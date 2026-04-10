@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/Neovici/cosmoz-button/compare/v1.0.1...v1.0.2) (2026-04-10)
+
+### Bug Fixes
+
+* stop click propagation on host when disabled ([#15](https://github.com/Neovici/cosmoz-button/issues/15)) ([9d8a401](https://github.com/Neovici/cosmoz-button/commit/9d8a4017874295c47172f09dd8f4b8967ab5c8e5))
+
 ## [1.0.1](https://github.com/Neovici/cosmoz-button/compare/v1.0.0...v1.0.1) (2026-02-22)
 
 ### Bug Fixes
