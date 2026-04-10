@@ -1,5 +1,5 @@
 import { normalize } from '@neovici/cosmoz-tokens/normalize';
-import { component, html } from '@pionjs/pion';
+import { component, html, useEffect } from '@pionjs/pion';
 import { styles } from './styles';
 
 export type ButtonVariant =
@@ -47,6 +47,14 @@ const observedAttributes = [
 const CosmozButton = (host: CosmozButtonElement) => {
 	const disabled = host.hasAttribute('disabled');
 	const type = host.getAttribute('type') || 'button';
+
+	useEffect(() => {
+		const handler = (e: Event) => {
+			if (host.hasAttribute('disabled')) e.stopImmediatePropagation();
+		};
+		host.addEventListener('click', handler, { capture: true });
+		return () => host.removeEventListener('click', handler, { capture: true });
+	}, []);
 
 	return html`
 		<button type=${type} class="button" ?disabled=${disabled} part="button">
