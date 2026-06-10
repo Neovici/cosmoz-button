@@ -51,8 +51,6 @@ const CosmozButton = (host: CosmozButtonElement) => {
 	const disabled = host.hasAttribute('disabled');
 	const type = host.getAttribute('type') || 'button';
 
-	host.value = host.getAttribute('value');
-
 	useEffect(() => {
 		const handler = (e: Event) => {
 			if (host.hasAttribute('disabled')) e.stopImmediatePropagation();

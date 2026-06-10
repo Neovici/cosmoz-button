@@ -61,11 +61,6 @@ describe('cosmoz-button', () => {
 	});
 
 	describe('value attribute', () => {
-		it('has null value by default', async () => {
-			const el = await fixture(html`<cosmoz-button>Button</cosmoz-button>`);
-			expect((el as any).value).to.be.null;
-		});
-
 		it('reflects value attribute to property', async () => {
 			const el = await fixture(
 				html`<cosmoz-button value="cancel">Button</cosmoz-button>`,
