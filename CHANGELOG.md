@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/Neovici/cosmoz-button/compare/v1.0.2...v1.1.0) (2026-06-10)
+
+### Features
+
+* add value attribute support ([#16](https://github.com/Neovici/cosmoz-button/issues/16)) ([b629df2](https://github.com/Neovici/cosmoz-button/commit/b629df22f360cb5e13c9cbc8bf3e4729c3649621))
+
 ## [1.0.2](https://github.com/Neovici/cosmoz-button/compare/v1.0.1...v1.0.2) (2026-04-10)
 
 ### Bug Fixes
