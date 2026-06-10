@@ -78,7 +78,6 @@ describe('cosmoz-button', () => {
 				html`<cosmoz-button value="cancel">Button</cosmoz-button>`,
 			);
 			el.setAttribute('value', 'confirm');
-			await Promise.resolve();
 			expect((el as any).value).to.equal('confirm');
 		});
 
@@ -87,7 +86,6 @@ describe('cosmoz-button', () => {
 				html`<cosmoz-button value="cancel">Button</cosmoz-button>`,
 			);
 			el.removeAttribute('value');
-			await Promise.resolve();
 			expect((el as any).value).to.be.null;
 		});
 	});
