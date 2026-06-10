@@ -60,6 +60,38 @@ describe('cosmoz-button', () => {
 		});
 	});
 
+	describe('value attribute', () => {
+		it('has null value by default', async () => {
+			const el = await fixture(html`<cosmoz-button>Button</cosmoz-button>`);
+			expect((el as any).value).to.be.null;
+		});
+
+		it('reflects value attribute to property', async () => {
+			const el = await fixture(
+				html`<cosmoz-button value="cancel">Button</cosmoz-button>`,
+			);
+			expect((el as any).value).to.equal('cancel');
+		});
+
+		it('updates value property when attribute changes', async () => {
+			const el = await fixture<HTMLElement>(
+				html`<cosmoz-button value="cancel">Button</cosmoz-button>`,
+			);
+			el.setAttribute('value', 'confirm');
+			await Promise.resolve();
+			expect((el as any).value).to.equal('confirm');
+		});
+
+		it('sets value to null when attribute is removed', async () => {
+			const el = await fixture<HTMLElement>(
+				html`<cosmoz-button value="cancel">Button</cosmoz-button>`,
+			);
+			el.removeAttribute('value');
+			await Promise.resolve();
+			expect((el as any).value).to.be.null;
+		});
+	});
+
 	describe('accessibility', () => {
 		it('has type="button" by default', async () => {
 			const el = await fixture(html`<cosmoz-button>Button</cosmoz-button>`);

@@ -17,6 +17,7 @@ export interface CosmozButtonElement extends HTMLElement {
 	disabled: boolean;
 	'full-width': boolean;
 	type: ButtonType;
+	value: string | null;
 }
 
 const observedAttributes = [
@@ -25,6 +26,7 @@ const observedAttributes = [
 	'disabled',
 	'full-width',
 	'type',
+	'value',
 ] as const;
 
 /**
@@ -37,6 +39,7 @@ const observedAttributes = [
  * @attr {boolean} disabled - Disables the button
  * @attr {boolean} full-width - Makes the button 100% width
  * @attr {string} type - Button type: button (default), submit, reset
+ * @attr {string} value - Value associated with the button (optional)
  *
  * @slot - Default slot for button text content
  * @slot prefix - Slot for prefix icon (before text)
@@ -47,6 +50,8 @@ const observedAttributes = [
 const CosmozButton = (host: CosmozButtonElement) => {
 	const disabled = host.hasAttribute('disabled');
 	const type = host.getAttribute('type') || 'button';
+
+	host.value = host.getAttribute('value');
 
 	useEffect(() => {
 		const handler = (e: Event) => {
