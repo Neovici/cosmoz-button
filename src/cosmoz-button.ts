@@ -1,6 +1,7 @@
 import { normalize } from '@neovici/cosmoz-tokens/normalize';
 import { component, html, useEffect } from '@pionjs/pion';
 import { nothing } from 'lit-html';
+import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { styles } from './styles';
 
 export type ButtonVariant =
@@ -89,9 +90,9 @@ const CosmozButton = (host: CosmozButtonElement) => {
 				class="button"
 				part="button"
 				aria-disabled=${disabled ? 'true' : nothing}
-				target=${target ?? nothing}
-				rel=${rel ?? nothing}
-				download=${download ?? nothing}
+				target=${ifDefined(target)}
+				rel=${ifDefined(rel)}
+				download=${ifDefined(download)}
 				>${content}</a
 			>
 		`;
