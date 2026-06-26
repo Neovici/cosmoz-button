@@ -44,6 +44,22 @@ export default {
 				defaultValue: { summary: 'button' },
 			},
 		},
+		href: {
+			control: 'text',
+			description: 'When set, renders as an anchor link instead of a button',
+		},
+		target: {
+			control: 'text',
+			description: 'Target attribute for the anchor (only with href)',
+		},
+		rel: {
+			control: 'text',
+			description: 'Rel attribute for the anchor (only with href)',
+		},
+		download: {
+			control: 'text',
+			description: 'Download attribute for the anchor (only with href)',
+		},
 		ariaLabel: {
 			control: 'text',
 			description: 'Accessible label for icon-only buttons',
@@ -63,6 +79,10 @@ const renderButton = (args) => html`
 		type=${args.type || 'button'}
 		?disabled=${args.disabled}
 		?full-width=${args.fullWidth}
+		href=${args.href || nothing}
+		target=${args.target || nothing}
+		rel=${args.rel || nothing}
+		download=${args.download || nothing}
 		aria-label=${args.ariaLabel || nothing}
 	>
 		${args.label || 'Button'}
@@ -426,6 +446,240 @@ export const Accessibility = {
 			description: {
 				story:
 					'Demonstrates accessible patterns for icon-only buttons and descriptive context.',
+			},
+		},
+	},
+};
+
+// Anchor Link Mode
+export const AnchorLinks = {
+	render: () => html`
+		<div class="story-stack">
+			<div>
+				<p class="story-label">
+					When <code>href</code> is set, the button renders as an anchor link
+					with the same visual styles.
+				</p>
+			</div>
+			<div class="story-row">
+				<cosmoz-button variant="primary" href="/home">Home</cosmoz-button>
+				<cosmoz-button variant="secondary" href="/about">About</cosmoz-button>
+				<cosmoz-button variant="tertiary" href="/contact"
+					>Contact</cosmoz-button
+				>
+				<cosmoz-button variant="destructive" href="/delete"
+					>Delete</cosmoz-button
+				>
+			</div>
+			<div class="story-row">
+				<cosmoz-button href="/docs" target="_blank" rel="noopener"
+					>Open in New Tab</cosmoz-button
+				>
+				<cosmoz-button href="/report.pdf" download
+					>Download Report</cosmoz-button
+				>
+			</div>
+			<div class="story-row">
+				<cosmoz-button variant="primary" href="/home" disabled
+					>Disabled Link</cosmoz-button
+				>
+				<cosmoz-button variant="secondary" href="/about" disabled
+					>Disabled Link</cosmoz-button
+				>
+			</div>
+		</div>
+	`,
+	parameters: {
+		docs: {
+			description: {
+				story:
+					'Buttons rendered as anchor links using the href attribute, with optional target, rel, and download attributes.',
+			},
+		},
+	},
+};
+
+// Anchor Links with Icons
+export const AnchorLinksWithIcons = {
+	render: () => html`
+		<style>
+			.icon {
+				width: 20px;
+				height: 20px;
+			}
+		</style>
+		<div class="story-stack">
+			<div>
+				<p class="story-label">
+					Anchor links with prefix and suffix icons for common navigation
+					patterns.
+				</p>
+			</div>
+			<div class="story-row">
+				<cosmoz-button variant="primary" href="/">
+					<svg
+						slot="prefix"
+						class="icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+						<polyline points="9 22 9 12 15 12 15 22" />
+					</svg>
+					Home
+				</cosmoz-button>
+				<cosmoz-button variant="secondary" href="/dashboard">
+					<svg
+						slot="prefix"
+						class="icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<rect x="3" y="3" width="7" height="7" />
+						<rect x="14" y="3" width="7" height="7" />
+						<rect x="14" y="14" width="7" height="7" />
+						<rect x="3" y="14" width="7" height="7" />
+					</svg>
+					Dashboard
+				</cosmoz-button>
+				<cosmoz-button variant="tertiary" href="/settings">
+					<svg
+						slot="prefix"
+						class="icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<circle cx="12" cy="12" r="3" />
+						<path
+							d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
+						/>
+					</svg>
+					Settings
+				</cosmoz-button>
+			</div>
+			<div class="story-row">
+				<cosmoz-button
+					variant="secondary"
+					href="https://example.com"
+					target="_blank"
+					rel="noopener"
+				>
+					Visit Docs
+					<svg
+						slot="suffix"
+						class="icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+						<polyline points="15 3 21 3 21 9" />
+						<line x1="10" y1="14" x2="21" y2="3" />
+					</svg>
+				</cosmoz-button>
+				<cosmoz-button
+					variant="tertiary"
+					href="https://github.com"
+					target="_blank"
+					rel="noopener"
+				>
+					GitHub
+					<svg
+						slot="suffix"
+						class="icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+						<polyline points="15 3 21 3 21 9" />
+						<line x1="10" y1="14" x2="21" y2="3" />
+					</svg>
+				</cosmoz-button>
+			</div>
+			<div class="story-row">
+				<cosmoz-button variant="primary" href="/report.pdf" download>
+					Download Report
+					<svg
+						slot="suffix"
+						class="icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+						<polyline points="7 10 12 15 17 10" />
+						<line x1="12" y1="15" x2="12" y2="3" />
+					</svg>
+				</cosmoz-button>
+				<cosmoz-button variant="secondary" href="/data.csv" download>
+					<svg
+						slot="prefix"
+						class="icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+						<polyline points="7 10 12 15 17 10" />
+						<line x1="12" y1="15" x2="12" y2="3" />
+					</svg>
+					Export CSV
+				</cosmoz-button>
+			</div>
+			<div class="story-row">
+				<cosmoz-button variant="link" href="/search">
+					<svg
+						slot="prefix"
+						class="icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<circle cx="11" cy="11" r="8" />
+						<path d="M21 21l-4.35-4.35" />
+					</svg>
+					Search
+				</cosmoz-button>
+				<cosmoz-button
+					variant="link"
+					href="/help"
+					target="_blank"
+					rel="noopener"
+				>
+					Help Center
+					<svg
+						slot="suffix"
+						class="icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+						<polyline points="15 3 21 3 21 9" />
+						<line x1="10" y1="14" x2="21" y2="3" />
+					</svg>
+				</cosmoz-button>
+			</div>
+		</div>
+	`,
+	parameters: {
+		docs: {
+			description: {
+				story:
+					'Anchor links with prefix and suffix icons for navigation, external links, downloads, and link variants.',
 			},
 		},
 	},

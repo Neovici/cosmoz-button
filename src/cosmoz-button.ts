@@ -1,5 +1,7 @@
 import { normalize } from '@neovici/cosmoz-tokens/normalize';
 import { component, html, useEffect } from '@pionjs/pion';
+import { nothing } from 'lit-html';
+import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { styles } from './styles';
 
 export type ButtonVariant =
@@ -18,6 +20,10 @@ export interface CosmozButtonElement extends HTMLElement {
 	'full-width': boolean;
 	type: ButtonType;
 	value: string | null;
+	href: string | null;
+	target: string | null;
+	rel: string | null;
+	download: string | null;
 }
 
 const observedAttributes = [
@@ -27,6 +33,10 @@ const observedAttributes = [
 	'full-width',
 	'type',
 	'value',
+	'href',
+	'target',
+	'rel',
+	'download',
 ] as const;
 
 /**
@@ -40,16 +50,21 @@ const observedAttributes = [
  * @attr {boolean} full-width - Makes the button 100% width
  * @attr {string} type - Button type: button (default), submit, reset
  * @attr {string} value - Value associated with the button (optional)
+ * @attr {string} href - When present, renders as an anchor link instead of a button
+ * @attr {string} target - Target attribute for the anchor (only with href)
+ * @attr {string} rel - Rel attribute for the anchor (only with href)
+ * @attr {string} download - Download attribute for the anchor (only with href)
  *
  * @slot - Default slot for button text content
  * @slot prefix - Slot for prefix icon (before text)
  * @slot suffix - Slot for suffix icon (after text)
  *
- * @csspart button - The native button element
+ * @csspart button - The native button or anchor element
  */
 const CosmozButton = (host: CosmozButtonElement) => {
 	const disabled = host.hasAttribute('disabled');
 	const type = host.getAttribute('type') || 'button';
+	const href = host.getAttribute('href');
 
 	useEffect(() => {
 		const handler = (e: Event) => {
@@ -59,11 +74,33 @@ const CosmozButton = (host: CosmozButtonElement) => {
 		return () => host.removeEventListener('click', handler, { capture: true });
 	}, []);
 
+	const content = html`
+		<slot name="prefix"></slot>
+		<slot></slot>
+		<slot name="suffix"></slot>
+	`;
+
+	if (href != null) {
+		const target = host.getAttribute('target');
+		const rel = host.getAttribute('rel');
+		const download = host.getAttribute('download');
+		return html`
+			<a
+				href=${href}
+				class="button"
+				part="button"
+				aria-disabled=${disabled ? 'true' : nothing}
+				target=${ifDefined(target)}
+				rel=${ifDefined(rel)}
+				download=${ifDefined(download)}
+				>${content}</a
+			>
+		`;
+	}
+
 	return html`
 		<button type=${type} class="button" ?disabled=${disabled} part="button">
-			<slot name="prefix"></slot>
-			<slot></slot>
-			<slot name="suffix"></slot>
+			${content}
 		</button>
 	`;
 };

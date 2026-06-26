@@ -70,6 +70,9 @@ export const styles = css`
 			box-shadow 0.15s ease;
 		width: 100%;
 		white-space: nowrap;
+		border: none;
+		background: none;
+		text-align: center;
 
 		/* Medium (md) - default size */
 		height: 40px;
