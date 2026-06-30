@@ -1,26 +1,32 @@
 ## [1.1.0](https://github.com/Neovici/cosmoz-button/compare/v1.0.2...v1.1.0) (2026-06-10)
 
+## 1.1.1
+
+### Patch Changes
+
+- fd1f0b7: Migrate from semantic-release to changesets
+
 ### Features
 
-* add value attribute support ([#16](https://github.com/Neovici/cosmoz-button/issues/16)) ([b629df2](https://github.com/Neovici/cosmoz-button/commit/b629df22f360cb5e13c9cbc8bf3e4729c3649621))
+- add value attribute support ([#16](https://github.com/Neovici/cosmoz-button/issues/16)) ([b629df2](https://github.com/Neovici/cosmoz-button/commit/b629df22f360cb5e13c9cbc8bf3e4729c3649621))
 
 ## [1.0.2](https://github.com/Neovici/cosmoz-button/compare/v1.0.1...v1.0.2) (2026-04-10)
 
 ### Bug Fixes
 
-* stop click propagation on host when disabled ([#15](https://github.com/Neovici/cosmoz-button/issues/15)) ([9d8a401](https://github.com/Neovici/cosmoz-button/commit/9d8a4017874295c47172f09dd8f4b8967ab5c8e5))
+- stop click propagation on host when disabled ([#15](https://github.com/Neovici/cosmoz-button/issues/15)) ([9d8a401](https://github.com/Neovici/cosmoz-button/commit/9d8a4017874295c47172f09dd8f4b8967ab5c8e5))
 
 ## [1.0.1](https://github.com/Neovici/cosmoz-button/compare/v1.0.0...v1.0.1) (2026-02-22)
 
 ### Bug Fixes
 
-* button text no wrapping ([#14](https://github.com/Neovici/cosmoz-button/issues/14)) ([111d49e](https://github.com/Neovici/cosmoz-button/commit/111d49e84ca38a1b89c8fa820db5e15af0a7929c))
+- button text no wrapping ([#14](https://github.com/Neovici/cosmoz-button/issues/14)) ([111d49e](https://github.com/Neovici/cosmoz-button/commit/111d49e84ca38a1b89c8fa820db5e15af0a7929c))
 
 ## 1.0.0 (2026-02-03)
 
 ### Features
 
-* implement cosmoz-button component ([#1](https://github.com/Neovici/cosmoz-button/issues/1)) ([c98a68a](https://github.com/Neovici/cosmoz-button/commit/c98a68a07436e070fc621c12f9ad17d91eabe0aa)), closes [Neovici/cosmoz-tokens#8](https://github.com/Neovici/cosmoz-tokens/issues/8) [#2](https://github.com/Neovici/cosmoz-button/issues/2)
+- implement cosmoz-button component ([#1](https://github.com/Neovici/cosmoz-button/issues/1)) ([c98a68a](https://github.com/Neovici/cosmoz-button/commit/c98a68a07436e070fc621c12f9ad17d91eabe0aa)), closes [Neovici/cosmoz-tokens#8](https://github.com/Neovici/cosmoz-tokens/issues/8) [#2](https://github.com/Neovici/cosmoz-button/issues/2)
 
 # Changelog
 
