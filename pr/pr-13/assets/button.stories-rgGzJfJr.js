@@ -1,4 +1,4 @@
-import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-PPVm8Dsz.js";let C,I=0;function A(t){C=t}function L(){C=null,I=0}function q(){return I++}const E=Symbol("haunted.phase"),_=Symbol("haunted.hook"),R=Symbol("haunted.update"),V=Symbol("haunted.commit"),h=Symbol("haunted.effects"),v=Symbol("haunted.layoutEffects"),M="haunted.context";class J{update;host;virtual;[_];[h];[v];constructor(e,o){this.update=e,this.host=o,this[_]=new Map,this[h]=[],this[v]=[]}run(e){A(this);let o=e();return L(),o}_runEffects(e){let o=this[e];A(this);for(let n of o)n.call(this);L()}runEffects(){this._runEffects(h)}runLayoutEffects(){this._runEffects(v)}teardown(){this[_].forEach(o=>{typeof o.teardown=="function"&&o.teardown(!0)})}}const K=Promise.resolve().then.bind(Promise.resolve());function F(){let t=[],e;function o(){e=null;let n=t;t=[];for(var s=0,u=n.length;s<u;s++)n[s]()}return function(n){t.push(n),e==null&&(e=K(o))}}const tt=F(),O=F();class et{renderer;host;state;[E];_updateQueued;_active;constructor(e,o){this.renderer=e,this.host=o,this.state=new J(this.update.bind(this),o),this[E]=null,this._updateQueued=!1,this._active=!0}update(){this._active&&(this._updateQueued||(tt(()=>{let e=this.handlePhase(R);O(()=>{this.handlePhase(V,e),O(()=>{this.handlePhase(h)})}),this._updateQueued=!1}),this._updateQueued=!0))}handlePhase(e,o){switch(this[E]=e,e){case V:this.commit(o),this.runEffects(v);return;case R:return this.render();case h:return this.runEffects(h)}}render(){return this.state.run(()=>this.renderer.call(this.host,this.host))}runEffects(e){this.state._runEffects(e)}teardown(){this.state.teardown()}pause(){this._active=!1}resume(){this._active=!0}}const H=(...t)=>{const e=new CSSStyleSheet;return e.replaceSync(t.join("")),e},ot=t=>t?.map(e=>typeof e=="string"?H(e):e),nt=(t,...e)=>t.flatMap((o,n)=>[o,e[n]||""]).join(""),P=nt,st=(t="")=>t.replace(/-+([a-z])?/g,(e,o)=>o?o.toUpperCase():"");function rt(t){class e extends et{frag;renderResult;constructor(s,u,p){super(s,p||u),this.frag=u}commit(s){this.renderResult=t(s,this.frag)}}function o(n,s,u){const p=(u||s||{}).baseElement||HTMLElement,{observedAttributes:$=[],useShadowDOM:N=!0,shadowRootInit:U={},styleSheets:Q}=u||s||{},T=ot(n.styleSheets||Q);class D extends p{_scheduler;static get observedAttributes(){return n.observedAttributes||$||[]}constructor(){if(super(),N===!1)this._scheduler=new e(n,this);else{const r=this.attachShadow({mode:"open",...U});T&&(r.adoptedStyleSheets=T),this._scheduler=new e(n,r,this)}}connectedCallback(){this._scheduler.resume(),this._scheduler.update(),this._scheduler.renderResult?.setConnected(!0)}disconnectedCallback(){this._scheduler.pause(),this._scheduler.teardown(),this._scheduler.renderResult?.setConnected(!1)}attributeChangedCallback(r,c,a){if(c===a)return;let i=a===""?!0:a;Reflect.set(this,st(r),i)}}function G(d){let r=d,c=!1;return Object.freeze({enumerable:!0,configurable:!0,get(){return r},set(a){c&&r===a||(c=!0,r=a,this._scheduler&&this._scheduler.update())}})}const X=new Proxy(p.prototype,{getPrototypeOf(d){return d},set(d,r,c,a){let i;return r in d?(i=Object.getOwnPropertyDescriptor(d,r),i&&i.set?(i.set.call(a,c),!0):(Reflect.set(d,r,c,a),!0)):(typeof r=="symbol"||r[0]==="_"?i={enumerable:!0,configurable:!0,writable:!0,value:c}:i=G(c),Object.defineProperty(a,r,i),i.set&&i.set.call(a,c),!0)}});return Object.setPrototypeOf(D.prototype,X),D}return o}class b{id;state;constructor(e,o){this.id=e,this.state=o}}function at(t,...e){let o=q(),n=C[_],s=n.get(o);return s||(s=new t(o,C,...e),n.set(o,s)),s.update(...e)}function m(t){return at.bind(null,t)}function W(t){return m(class extends b{callback;lastValues;values;_teardown;constructor(e,o,n,s){super(e,o),t(o,this)}update(e,o){this.callback=e,this.values=o}call(){const e=!this.values||this.hasChanged();this.lastValues=this.values,e&&this.run()}run(){this.teardown(),this._teardown=this.callback.call(this.state)}teardown(e){typeof this._teardown=="function"&&(this._teardown(),this._teardown=void 0),e&&(this.lastValues=this.values=void 0)}hasChanged(){return!this.lastValues||this.values.some((e,o)=>this.lastValues[o]!==e)}})}function j(t,e){t[h].push(e)}W(j);const it=t=>t instanceof Element?t:t.startNode||t.endNode||t.parentNode,ct=m(class extends b{Context;value;_ranEffect;_unsubscribe;constructor(t,e,o){super(t,e),this._updater=this._updater.bind(this),this._ranEffect=!1,this._unsubscribe=null,j(e,this)}update(t){return this.Context!==t&&(this._subscribe(t),this.Context=t),this.value}call(){this._ranEffect||(this._ranEffect=!0,this._unsubscribe&&this._unsubscribe(),this._subscribe(this.Context),this.state.update())}_updater(t){this.value=t,this.state.update()}_subscribe(t){const e={Context:t,callback:this._updater};it(this.state.host).dispatchEvent(new CustomEvent(M,{detail:e,bubbles:!0,cancelable:!0,composed:!0}));const{unsubscribe:n=null,value:s}=e;this.value=n?s:t.defaultValue,this._unsubscribe=n}teardown(){this._unsubscribe&&this._unsubscribe()}});function lt(t){return e=>{const o={Provider:class extends HTMLElement{listeners;_value;constructor(){super(),this.style.display="contents",this.listeners=new Set,this.addEventListener(M,this)}disconnectedCallback(){this.removeEventListener(M,this)}handleEvent(n){const{detail:s}=n;s.Context===o&&(s.value=this.value,s.unsubscribe=this.unsubscribe.bind(this,s.callback),this.listeners.add(s.callback),n.stopPropagation())}unsubscribe(n){this.listeners.delete(n)}set value(n){this._value=n;for(let s of this.listeners)s(n)}get value(){return this._value}},Consumer:t(function({render:n}){const s=ct(o);return n(s)},{useShadowDOM:!1}),defaultValue:e};return o}}m(class extends b{value;values;constructor(t,e,o,n){super(t,e),this.value=o(),this.values=n}update(t,e){return this.hasChanged(e)&&(this.values=e,this.value=t()),this.value}hasChanged(t=[]){return t.some((e,o)=>this.values[o]!==e)}});function dt(t,e){t[v].push(e)}W(dt);m(class extends b{args;constructor(t,e,o){super(t,e),this.updater=this.updater.bind(this),typeof o=="function"&&(o=o()),this.makeArgs(o)}update(){return this.args}updater(t){const[e]=this.args;typeof t=="function"&&(t=t(e)),!Object.is(e,t)&&(this.makeArgs(t),this.state.update())}makeArgs(t){this.args=Object.freeze([t,this.updater])}});m(class extends b{reducer;currentState;constructor(t,e,o,n,s){super(t,e),this.dispatch=this.dispatch.bind(this),this.currentState=s!==void 0?s(n):n}update(t){return this.reducer=t,[this.currentState,this.dispatch]}dispatch(t){this.currentState=this.reducer(this.currentState,t),this.state.update()}});const ut=/([A-Z])/gu;m(class extends b{property;eventName;constructor(t,e,o,n){if(super(t,e),this.state.virtual)throw new Error("Can't be used with virtual components.");this.updater=this.updater.bind(this),this.property=o,this.eventName=o.replace(ut,"-$1").toLowerCase()+"-changed",this.state.host[this.property]==null&&(typeof n=="function"&&(n=n()),n!=null&&this.updateProp(n))}update(t,e){return[this.state.host[this.property],this.updater]}updater(t){const e=this.state.host[this.property];typeof t=="function"&&(t=t(e)),!Object.is(e,t)&&this.updateProp(t)}updateProp(t){this.notify(t).defaultPrevented||(this.state.host[this.property]=t)}notify(t){const e=new CustomEvent(this.eventName,{detail:{value:t,path:this.property},cancelable:!0});return this.state.host.dispatchEvent(e),e}});m(class extends b{update(){return this.state.host}});function ht({render:t}){const e=rt(t),o=lt(e);return{component:e,createContext:o}}const{component:bt}=ht({render:Y}),mt=H(P`
+import{D as K,A as b,b as a}from"./iframe-CridYmd8.js";import"./preload-helper-PPVm8Dsz.js";let E,j=0;function $(t){E=t}function I(){E=null,j=0}function tt(){return j++}const L=Symbol("haunted.phase"),A=Symbol("haunted.hook"),O=Symbol("haunted.update"),W=Symbol("haunted.commit"),v=Symbol("haunted.effects"),f=Symbol("haunted.layoutEffects"),T="haunted.context";class ot{update;host;virtual;[A];[v];[f];constructor(o,e){this.update=o,this.host=e,this[A]=new Map,this[v]=[],this[f]=[]}run(o){$(this);let e=o();return I(),e}_runEffects(o){let e=this[o];$(this);for(let n of e)n.call(this);I()}runEffects(){this._runEffects(v)}runLayoutEffects(){this._runEffects(f)}teardown(){this[A].forEach(e=>{typeof e.teardown=="function"&&e.teardown(!0)})}}const et=Promise.resolve().then.bind(Promise.resolve());function N(){let t=[],o;function e(){o=null;let n=t;t=[];for(var s=0,i=n.length;s<i;s++)n[s]()}return function(n){t.push(n),o==null&&(o=et(e))}}const nt=N(),F=N();class st{renderer;host;state;[L];_updateQueued;_active;constructor(o,e){this.renderer=o,this.host=e,this.state=new ot(this.update.bind(this),e),this[L]=null,this._updateQueued=!1,this._active=!0}update(){this._active&&(this._updateQueued||(nt(()=>{let o=this.handlePhase(O);F(()=>{this.handlePhase(W,o),F(()=>{this.handlePhase(v)})}),this._updateQueued=!1}),this._updateQueued=!0))}handlePhase(o,e){switch(this[L]=o,o){case W:this.commit(e),this.runEffects(f);return;case O:return this.render();case v:return this.runEffects(v)}}render(){return this.state.run(()=>this.renderer.call(this.host,this.host))}runEffects(o){this.state._runEffects(o)}teardown(){this.state.teardown()}pause(){this._active=!1}resume(){this._active=!0}}const U=(...t)=>{const o=new CSSStyleSheet;return o.replaceSync(t.join("")),o},rt=t=>t?.map(o=>typeof o=="string"?U(o):o),at=(t,...o)=>t.flatMap((e,n)=>[e,o[n]||""]).join(""),P=at,it=(t="")=>t.replace(/-+([a-z])?/g,(o,e)=>e?e.toUpperCase():"");function ct(t){class o extends st{frag;renderResult;constructor(s,i,u){super(s,u||i),this.frag=i}commit(s){this.renderResult=t(s,this.frag)}}function e(n,s,i){const u=(i||s||{}).baseElement||HTMLElement,{observedAttributes:D=[],useShadowDOM:X=!0,shadowRootInit:Y={},styleSheets:Z}=i||s||{},V=rt(n.styleSheets||Z);class R extends u{_scheduler;static get observedAttributes(){return n.observedAttributes||D||[]}constructor(){if(super(),X===!1)this._scheduler=new o(n,this);else{const r=this.attachShadow({mode:"open",...Y});V&&(r.adoptedStyleSheets=V),this._scheduler=new o(n,r,this)}}connectedCallback(){this._scheduler.resume(),this._scheduler.update(),this._scheduler.renderResult?.setConnected(!0)}disconnectedCallback(){this._scheduler.pause(),this._scheduler.teardown(),this._scheduler.renderResult?.setConnected(!1)}attributeChangedCallback(r,d,c){if(d===c)return;let l=c===""?!0:c;Reflect.set(this,it(r),l)}}function q(h){let r=h,d=!1;return Object.freeze({enumerable:!0,configurable:!0,get(){return r},set(c){d&&r===c||(d=!0,r=c,this._scheduler&&this._scheduler.update())}})}const J=new Proxy(u.prototype,{getPrototypeOf(h){return h},set(h,r,d,c){let l;return r in h?(l=Object.getOwnPropertyDescriptor(h,r),l&&l.set?(l.set.call(c,d),!0):(Reflect.set(h,r,d,c),!0)):(typeof r=="symbol"||r[0]==="_"?l={enumerable:!0,configurable:!0,writable:!0,value:d}:l=q(d),Object.defineProperty(c,r,l),l.set&&l.set.call(c,d),!0)}});return Object.setPrototypeOf(R.prototype,J),R}return e}class m{id;state;constructor(o,e){this.id=o,this.state=e}}function lt(t,...o){let e=tt(),n=E[A],s=n.get(e);return s||(s=new t(e,E,...o),n.set(e,s)),s.update(...o)}function p(t){return lt.bind(null,t)}function Q(t){return p(class extends m{callback;lastValues;values;_teardown;constructor(o,e,n,s){super(o,e),t(e,this)}update(o,e){this.callback=o,this.values=e}call(){const o=!this.values||this.hasChanged();this.lastValues=this.values,o&&this.run()}run(){this.teardown(),this._teardown=this.callback.call(this.state)}teardown(o){typeof this._teardown=="function"&&(this._teardown(),this._teardown=void 0),o&&(this.lastValues=this.values=void 0)}hasChanged(){return!this.lastValues||this.values.some((o,e)=>this.lastValues[e]!==o)}})}function G(t,o){t[v].push(o)}const dt=Q(G),ut=t=>t instanceof Element?t:t.startNode||t.endNode||t.parentNode,ht=p(class extends m{Context;value;_ranEffect;_unsubscribe;constructor(t,o,e){super(t,o),this._updater=this._updater.bind(this),this._ranEffect=!1,this._unsubscribe=null,G(o,this)}update(t){return this.Context!==t&&(this._subscribe(t),this.Context=t),this.value}call(){this._ranEffect||(this._ranEffect=!0,this._unsubscribe&&this._unsubscribe(),this._subscribe(this.Context),this.state.update())}_updater(t){this.value=t,this.state.update()}_subscribe(t){const o={Context:t,callback:this._updater};ut(this.state.host).dispatchEvent(new CustomEvent(T,{detail:o,bubbles:!0,cancelable:!0,composed:!0}));const{unsubscribe:n=null,value:s}=o;this.value=n?s:t.defaultValue,this._unsubscribe=n}teardown(){this._unsubscribe&&this._unsubscribe()}});function bt(t){return o=>{const e={Provider:class extends HTMLElement{listeners;_value;constructor(){super(),this.style.display="contents",this.listeners=new Set,this.addEventListener(T,this)}disconnectedCallback(){this.removeEventListener(T,this)}handleEvent(n){const{detail:s}=n;s.Context===e&&(s.value=this.value,s.unsubscribe=this.unsubscribe.bind(this,s.callback),this.listeners.add(s.callback),n.stopPropagation())}unsubscribe(n){this.listeners.delete(n)}set value(n){this._value=n;for(let s of this.listeners)s(n)}get value(){return this._value}},Consumer:t(function({render:n}){const s=ht(e);return n(s)},{useShadowDOM:!1}),defaultValue:o};return e}}p(class extends m{value;values;constructor(t,o,e,n){super(t,o),this.value=e(),this.values=n}update(t,o){return this.hasChanged(o)&&(this.values=o,this.value=t()),this.value}hasChanged(t=[]){return t.some((o,e)=>this.values[e]!==o)}});function vt(t,o){t[f].push(o)}Q(vt);p(class extends m{args;constructor(t,o,e){super(t,o),this.updater=this.updater.bind(this),typeof e=="function"&&(e=e()),this.makeArgs(e)}update(){return this.args}updater(t){const[o]=this.args;typeof t=="function"&&(t=t(o)),!Object.is(o,t)&&(this.makeArgs(t),this.state.update())}makeArgs(t){this.args=Object.freeze([t,this.updater])}});p(class extends m{reducer;currentState;constructor(t,o,e,n,s){super(t,o),this.dispatch=this.dispatch.bind(this),this.currentState=s!==void 0?s(n):n}update(t){return this.reducer=t,[this.currentState,this.dispatch]}dispatch(t){this.currentState=this.reducer(this.currentState,t),this.state.update()}});const mt=/([A-Z])/gu;p(class extends m{property;eventName;constructor(t,o,e,n){if(super(t,o),this.state.virtual)throw new Error("Can't be used with virtual components.");this.updater=this.updater.bind(this),this.property=e,this.eventName=e.replace(mt,"-$1").toLowerCase()+"-changed",this.state.host[this.property]==null&&(typeof n=="function"&&(n=n()),n!=null&&this.updateProp(n))}update(t,o){return[this.state.host[this.property],this.updater]}updater(t){const o=this.state.host[this.property];typeof t=="function"&&(t=t(o)),!Object.is(o,t)&&this.updateProp(t)}updateProp(t){this.notify(t).defaultPrevented||(this.state.host[this.property]=t)}notify(t){const o=new CustomEvent(this.eventName,{detail:{value:t,path:this.property},cancelable:!0});return this.state.host.dispatchEvent(o),o}});p(class extends m{update(){return this.state.host}});function pt({render:t}){const o=ct(t),e=bt(o);return{component:o,createContext:e}}const{component:ft}=pt({render:K}),zt=U(P`
 	/*
 	 * Use border-box sizing for all elements.
 	 * This is safe and doesn't conflict with child component styles.
@@ -208,7 +208,7 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
 	[hidden]:where(:not([hidden='until-found'])) {
 		display: none !important;
 	}
-`),vt=P`
+`);const H=t=>t??b,yt=P`
 	position: relative;
 
 	&::before {
@@ -221,7 +221,7 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
 		mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
 		-webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
 	}
-`,pt=P`
+`,gt=P`
 	:host {
 		display: inline-flex;
 	}
@@ -286,6 +286,9 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
 			box-shadow 0.15s ease;
 		width: 100%;
 		white-space: nowrap;
+		border: none;
+		background: none;
+		text-align: center;
 
 		/* Medium (md) - default size */
 		height: 40px;
@@ -295,7 +298,7 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
 		border-radius: var(--cz-radius-md);
 
 		/* Primary - default variant */
-		${vt}
+		${yt}
 		background-color: var(--cz-color-bg-brand-solid);
 		color: var(--cz-color-text-on-brand);
 		box-shadow: var(--cz-shadow-xs-skeumorphic);
@@ -454,24 +457,41 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
 		height: 20px;
 		flex-shrink: 0;
 	}
-`,zt=["variant","size","disabled","full-width","type"],ft=t=>{const e=t.hasAttribute("disabled"),o=t.getAttribute("type")||"button";return l`
-		<button type=${o} class="button" ?disabled=${e} part="button">
-			<slot name="prefix"></slot>
-			<slot></slot>
-			<slot name="suffix"></slot>
+`,xt=["variant","size","disabled","full-width","type","value","href","target","rel","download"],wt=t=>{const o=t.hasAttribute("disabled"),e=t.getAttribute("type")||"button",n=t.getAttribute("href");dt(()=>{const i=u=>{t.hasAttribute("disabled")&&u.stopImmediatePropagation()};return t.addEventListener("click",i,{capture:!0}),()=>t.removeEventListener("click",i,{capture:!0})},[]);const s=a`
+		<slot name="prefix"></slot>
+		<slot></slot>
+		<slot name="suffix"></slot>
+	`;if(n!=null){const i=t.getAttribute("target"),u=t.getAttribute("rel"),D=t.getAttribute("download");return a`
+			<a
+				href=${n}
+				class="button"
+				part="button"
+				aria-disabled=${o?"true":b}
+				target=${H(i)}
+				rel=${H(u)}
+				download=${H(D)}
+				>${s}</a
+			>
+		`}return a`
+		<button type=${e} class="button" ?disabled=${o} part="button">
+			${s}
 		</button>
-	`};customElements.define("cosmoz-button",bt(ft,{observedAttributes:zt,styleSheets:[mt,pt],shadowRootInit:{mode:"open",delegatesFocus:!0}}));const wt={title:"Cosmoz Button",component:"cosmoz-button",tags:["autodocs"],argTypes:{variant:{control:"select",options:["primary","secondary","tertiary","destructive","link"],description:"The visual style variant of the button",table:{defaultValue:{summary:"primary"}}},size:{control:"select",options:["sm","md","lg","xl"],description:"The size of the button",table:{defaultValue:{summary:"md"}}},disabled:{control:"boolean",description:"Whether the button is disabled",table:{defaultValue:{summary:"false"}}},fullWidth:{control:"boolean",description:"Whether the button should take full width",table:{defaultValue:{summary:"false"}}},type:{control:"select",options:["button","submit","reset"],description:"The button type attribute",table:{defaultValue:{summary:"button"}}},ariaLabel:{control:"text",description:"Accessible label for icon-only buttons"},label:{control:"text",description:"Button label text"}}},yt=t=>l`
+	`};customElements.define("cosmoz-button",ft(wt,{observedAttributes:xt,styleSheets:[zt,gt],shadowRootInit:{mode:"open",delegatesFocus:!0}}));const Ct={title:"Cosmoz Button",component:"cosmoz-button",tags:["autodocs"],argTypes:{variant:{control:"select",options:["primary","secondary","tertiary","destructive","link"],description:"The visual style variant of the button",table:{defaultValue:{summary:"primary"}}},size:{control:"select",options:["sm","md","lg","xl"],description:"The size of the button",table:{defaultValue:{summary:"md"}}},disabled:{control:"boolean",description:"Whether the button is disabled",table:{defaultValue:{summary:"false"}}},fullWidth:{control:"boolean",description:"Whether the button should take full width",table:{defaultValue:{summary:"false"}}},type:{control:"select",options:["button","submit","reset"],description:"The button type attribute",table:{defaultValue:{summary:"button"}}},href:{control:"text",description:"When set, renders as an anchor link instead of a button"},target:{control:"text",description:"Target attribute for the anchor (only with href)"},rel:{control:"text",description:"Rel attribute for the anchor (only with href)"},download:{control:"text",description:"Download attribute for the anchor (only with href)"},ariaLabel:{control:"text",description:"Accessible label for icon-only buttons"},label:{control:"text",description:"Button label text"}}},kt=t=>a`
     <cosmoz-button
         variant=${t.variant||"primary"}
         size=${t.size||"md"}
         type=${t.type||"button"}
         ?disabled=${t.disabled}
         ?full-width=${t.fullWidth}
-        aria-label=${t.ariaLabel||Z}
+        href=${t.href||b}
+        target=${t.target||b}
+        rel=${t.rel||b}
+        download=${t.download||b}
+        aria-label=${t.ariaLabel||b}
     >
         ${t.label||"Button"}
     </cosmoz-button>
-`,z={args:{variant:"primary",size:"md",disabled:!1,fullWidth:!1,label:"Button"},render:yt},f={render:()=>l`
+`,z={args:{variant:"primary",size:"md",disabled:!1,fullWidth:!1,label:"Button"},render:kt},y={render:()=>a`
         <div class="story-row">
             <cosmoz-button variant="primary">Primary</cosmoz-button>
             <cosmoz-button variant="secondary">Secondary</cosmoz-button>
@@ -479,14 +499,14 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
             <cosmoz-button variant="destructive">Destructive</cosmoz-button>
             <cosmoz-button variant="link">Link</cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"The five visual style variants available for the button."}}}},y={render:()=>l`
+    `,parameters:{docs:{description:{story:"The five visual style variants available for the button."}}}},g={render:()=>a`
         <div class="story-row">
             <cosmoz-button size="sm">Small</cosmoz-button>
             <cosmoz-button size="md">Medium</cosmoz-button>
             <cosmoz-button size="lg">Large</cosmoz-button>
             <cosmoz-button size="xl">Extra Large</cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"The four size variants available for the button."}}}},g={render:()=>l`
+    `,parameters:{docs:{description:{story:"The four size variants available for the button."}}}},x={render:()=>a`
         <div class="story-row">
             <cosmoz-button variant="primary" disabled>Primary</cosmoz-button>
             <cosmoz-button variant="secondary" disabled>Secondary</cosmoz-button>
@@ -494,7 +514,7 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
             <cosmoz-button variant="destructive" disabled>Destructive</cosmoz-button>
             <cosmoz-button variant="link" disabled>Link</cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"All variants in their disabled state."}}}},x={render:()=>l`
+    `,parameters:{docs:{description:{story:"All variants in their disabled state."}}}},w={render:()=>a`
         <style>
             .icon {
                 width: 20px;
@@ -560,7 +580,7 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
                 Delete
             </cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"Buttons with prefix and suffix icon slots."}}}},w={render:()=>l`
+    `,parameters:{docs:{description:{story:"Buttons with prefix and suffix icon slots."}}}},k={render:()=>a`
         <div style="width: 300px;" class="story-stack">
             <cosmoz-button variant="primary" full-width
                 >Full Width Primary</cosmoz-button
@@ -569,7 +589,7 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
                 >Full Width Secondary</cosmoz-button
             >
         </div>
-    `,parameters:{docs:{description:{story:"Buttons that take up 100% of their container width."}}}},k={render:()=>l`
+    `,parameters:{docs:{description:{story:"Buttons that take up 100% of their container width."}}}},B={render:()=>a`
         <style>
             .matrix {
                 display: grid;
@@ -624,7 +644,7 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
             <cosmoz-button variant="destructive" size="xl">Button</cosmoz-button>
             <cosmoz-button variant="link" size="xl">Button</cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"Complete matrix showing all size and variant combinations."}}}},S={render:()=>l`
+    `,parameters:{docs:{description:{story:"Complete matrix showing all size and variant combinations."}}}},S={render:()=>a`
         <div class="story-stack">
             <div>
                 <p class="story-label">
@@ -639,7 +659,7 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
                 <cosmoz-button variant="link">Link</cosmoz-button>
             </div>
         </div>
-    `,parameters:{docs:{description:{story:"Demonstrates hover, active, and focus states for all variants."}}}},B={render:()=>l`
+    `,parameters:{docs:{description:{story:"Demonstrates hover, active, and focus states for all variants."}}}},C={render:()=>a`
         <style>
             .a11y-section {
                 margin-bottom: calc(var(--cz-spacing) * 6);
@@ -724,7 +744,215 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
                 <p id="delete-warning">This action cannot be undone.</p>
             </div>
         </div>
-    `,parameters:{docs:{description:{story:"Demonstrates accessible patterns for icon-only buttons and descriptive context."}}}};z.parameters={...z.parameters,docs:{...z.parameters?.docs,source:{originalSource:`{
+    `,parameters:{docs:{description:{story:"Demonstrates accessible patterns for icon-only buttons and descriptive context."}}}},_={render:()=>a`
+        <div class="story-stack">
+            <div>
+                <p class="story-label">
+                    When <code>href</code> is set, the button renders as an anchor link
+                    with the same visual styles.
+                </p>
+            </div>
+            <div class="story-row">
+                <cosmoz-button variant="primary" href="/home">Home</cosmoz-button>
+                <cosmoz-button variant="secondary" href="/about">About</cosmoz-button>
+                <cosmoz-button variant="tertiary" href="/contact"
+                    >Contact</cosmoz-button
+                >
+                <cosmoz-button variant="destructive" href="/delete"
+                    >Delete</cosmoz-button
+                >
+            </div>
+            <div class="story-row">
+                <cosmoz-button href="/docs" target="_blank" rel="noopener"
+                    >Open in New Tab</cosmoz-button
+                >
+                <cosmoz-button href="/report.pdf" download
+                    >Download Report</cosmoz-button
+                >
+            </div>
+            <div class="story-row">
+                <cosmoz-button variant="primary" href="/home" disabled
+                    >Disabled Link</cosmoz-button
+                >
+                <cosmoz-button variant="secondary" href="/about" disabled
+                    >Disabled Link</cosmoz-button
+                >
+            </div>
+        </div>
+    `,parameters:{docs:{description:{story:"Buttons rendered as anchor links using the href attribute, with optional target, rel, and download attributes."}}}},M={render:()=>a`
+        <style>
+            .icon {
+                width: 20px;
+                height: 20px;
+            }
+        </style>
+        <div class="story-stack">
+            <div>
+                <p class="story-label">
+                    Anchor links with prefix and suffix icons for common navigation
+                    patterns.
+                </p>
+            </div>
+            <div class="story-row">
+                <cosmoz-button variant="primary" href="/">
+                    <svg
+                        slot="prefix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                    Home
+                </cosmoz-button>
+                <cosmoz-button variant="secondary" href="/dashboard">
+                    <svg
+                        slot="prefix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                    </svg>
+                    Dashboard
+                </cosmoz-button>
+                <cosmoz-button variant="tertiary" href="/settings">
+                    <svg
+                        slot="prefix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <circle cx="12" cy="12" r="3" />
+                        <path
+                            d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
+                        />
+                    </svg>
+                    Settings
+                </cosmoz-button>
+            </div>
+            <div class="story-row">
+                <cosmoz-button
+                    variant="secondary"
+                    href="https://example.com"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    Visit Docs
+                    <svg
+                        slot="suffix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                </cosmoz-button>
+                <cosmoz-button
+                    variant="tertiary"
+                    href="https://github.com"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    GitHub
+                    <svg
+                        slot="suffix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                </cosmoz-button>
+            </div>
+            <div class="story-row">
+                <cosmoz-button variant="primary" href="/report.pdf" download>
+                    Download Report
+                    <svg
+                        slot="suffix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                </cosmoz-button>
+                <cosmoz-button variant="secondary" href="/data.csv" download>
+                    <svg
+                        slot="prefix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Export CSV
+                </cosmoz-button>
+            </div>
+            <div class="story-row">
+                <cosmoz-button variant="link" href="/search">
+                    <svg
+                        slot="prefix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="M21 21l-4.35-4.35" />
+                    </svg>
+                    Search
+                </cosmoz-button>
+                <cosmoz-button
+                    variant="link"
+                    href="/help"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    Help Center
+                    <svg
+                        slot="suffix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                </cosmoz-button>
+            </div>
+        </div>
+    `,parameters:{docs:{description:{story:"Anchor links with prefix and suffix icons for navigation, external links, downloads, and link variants."}}}};z.parameters={...z.parameters,docs:{...z.parameters?.docs,source:{originalSource:`{
   args: {
     variant: 'primary',
     size: 'md',
@@ -733,7 +961,7 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
     label: 'Button'
   },
   render: renderButton
-}`,...z.parameters?.docs?.source}}};f.parameters={...f.parameters,docs:{...f.parameters?.docs,source:{originalSource:`{
+}`,...z.parameters?.docs?.source}}};y.parameters={...y.parameters,docs:{...y.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-row">
             <cosmoz-button variant="primary">Primary</cosmoz-button>
@@ -750,7 +978,7 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
       }
     }
   }
-}`,...f.parameters?.docs?.source}}};y.parameters={...y.parameters,docs:{...y.parameters?.docs,source:{originalSource:`{
+}`,...y.parameters?.docs?.source}}};g.parameters={...g.parameters,docs:{...g.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-row">
             <cosmoz-button size="sm">Small</cosmoz-button>
@@ -766,7 +994,7 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
       }
     }
   }
-}`,...y.parameters?.docs?.source}}};g.parameters={...g.parameters,docs:{...g.parameters?.docs,source:{originalSource:`{
+}`,...g.parameters?.docs?.source}}};x.parameters={...x.parameters,docs:{...x.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-row">
             <cosmoz-button variant="primary" disabled>Primary</cosmoz-button>
@@ -783,7 +1011,7 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
       }
     }
   }
-}`,...g.parameters?.docs?.source}}};x.parameters={...x.parameters,docs:{...x.parameters?.docs,source:{originalSource:`{
+}`,...x.parameters?.docs?.source}}};w.parameters={...w.parameters,docs:{...w.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <style>
             .icon {
@@ -858,7 +1086,7 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
       }
     }
   }
-}`,...x.parameters?.docs?.source}}};w.parameters={...w.parameters,docs:{...w.parameters?.docs,source:{originalSource:`{
+}`,...w.parameters?.docs?.source}}};k.parameters={...k.parameters,docs:{...k.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div style="width: 300px;" class="story-stack">
             <cosmoz-button variant="primary" full-width
@@ -876,7 +1104,7 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
       }
     }
   }
-}`,...w.parameters?.docs?.source}}};k.parameters={...k.parameters,docs:{...k.parameters?.docs,source:{originalSource:`{
+}`,...k.parameters?.docs?.source}}};B.parameters={...B.parameters,docs:{...B.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <style>
             .matrix {
@@ -940,7 +1168,7 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
       }
     }
   }
-}`,...k.parameters?.docs?.source}}};S.parameters={...S.parameters,docs:{...S.parameters?.docs,source:{originalSource:`{
+}`,...B.parameters?.docs?.source}}};S.parameters={...S.parameters,docs:{...S.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-stack">
             <div>
@@ -964,7 +1192,7 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
       }
     }
   }
-}`,...S.parameters?.docs?.source}}};B.parameters={...B.parameters,docs:{...B.parameters?.docs,source:{originalSource:`{
+}`,...S.parameters?.docs?.source}}};C.parameters={...C.parameters,docs:{...C.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <style>
             .a11y-section {
@@ -1058,4 +1286,230 @@ import{D as Y,b as l,A as Z}from"./iframe-CS6RQZlh.js";import"./preload-helper-P
       }
     }
   }
-}`,...B.parameters?.docs?.source}}};const kt=["Default","Variants","Sizes","DisabledStates","WithIcons","FullWidth","SizeVariantMatrix","InteractiveStates","Accessibility"];export{B as Accessibility,z as Default,g as DisabledStates,w as FullWidth,S as InteractiveStates,k as SizeVariantMatrix,y as Sizes,f as Variants,x as WithIcons,kt as __namedExportsOrder,wt as default};
+}`,...C.parameters?.docs?.source}}};_.parameters={..._.parameters,docs:{..._.parameters?.docs,source:{originalSource:`{
+  render: () => html\`
+        <div class="story-stack">
+            <div>
+                <p class="story-label">
+                    When <code>href</code> is set, the button renders as an anchor link
+                    with the same visual styles.
+                </p>
+            </div>
+            <div class="story-row">
+                <cosmoz-button variant="primary" href="/home">Home</cosmoz-button>
+                <cosmoz-button variant="secondary" href="/about">About</cosmoz-button>
+                <cosmoz-button variant="tertiary" href="/contact"
+                    >Contact</cosmoz-button
+                >
+                <cosmoz-button variant="destructive" href="/delete"
+                    >Delete</cosmoz-button
+                >
+            </div>
+            <div class="story-row">
+                <cosmoz-button href="/docs" target="_blank" rel="noopener"
+                    >Open in New Tab</cosmoz-button
+                >
+                <cosmoz-button href="/report.pdf" download
+                    >Download Report</cosmoz-button
+                >
+            </div>
+            <div class="story-row">
+                <cosmoz-button variant="primary" href="/home" disabled
+                    >Disabled Link</cosmoz-button
+                >
+                <cosmoz-button variant="secondary" href="/about" disabled
+                    >Disabled Link</cosmoz-button
+                >
+            </div>
+        </div>
+    \`,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Buttons rendered as anchor links using the href attribute, with optional target, rel, and download attributes.'
+      }
+    }
+  }
+}`,..._.parameters?.docs?.source}}};M.parameters={...M.parameters,docs:{...M.parameters?.docs,source:{originalSource:`{
+  render: () => html\`
+        <style>
+            .icon {
+                width: 20px;
+                height: 20px;
+            }
+        </style>
+        <div class="story-stack">
+            <div>
+                <p class="story-label">
+                    Anchor links with prefix and suffix icons for common navigation
+                    patterns.
+                </p>
+            </div>
+            <div class="story-row">
+                <cosmoz-button variant="primary" href="/">
+                    <svg
+                        slot="prefix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                    Home
+                </cosmoz-button>
+                <cosmoz-button variant="secondary" href="/dashboard">
+                    <svg
+                        slot="prefix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                    </svg>
+                    Dashboard
+                </cosmoz-button>
+                <cosmoz-button variant="tertiary" href="/settings">
+                    <svg
+                        slot="prefix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <circle cx="12" cy="12" r="3" />
+                        <path
+                            d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
+                        />
+                    </svg>
+                    Settings
+                </cosmoz-button>
+            </div>
+            <div class="story-row">
+                <cosmoz-button
+                    variant="secondary"
+                    href="https://example.com"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    Visit Docs
+                    <svg
+                        slot="suffix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                </cosmoz-button>
+                <cosmoz-button
+                    variant="tertiary"
+                    href="https://github.com"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    GitHub
+                    <svg
+                        slot="suffix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                </cosmoz-button>
+            </div>
+            <div class="story-row">
+                <cosmoz-button variant="primary" href="/report.pdf" download>
+                    Download Report
+                    <svg
+                        slot="suffix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                </cosmoz-button>
+                <cosmoz-button variant="secondary" href="/data.csv" download>
+                    <svg
+                        slot="prefix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Export CSV
+                </cosmoz-button>
+            </div>
+            <div class="story-row">
+                <cosmoz-button variant="link" href="/search">
+                    <svg
+                        slot="prefix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="M21 21l-4.35-4.35" />
+                    </svg>
+                    Search
+                </cosmoz-button>
+                <cosmoz-button
+                    variant="link"
+                    href="/help"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    Help Center
+                    <svg
+                        slot="suffix"
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                </cosmoz-button>
+            </div>
+        </div>
+    \`,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Anchor links with prefix and suffix icons for navigation, external links, downloads, and link variants.'
+      }
+    }
+  }
+}`,...M.parameters?.docs?.source}}};const _t=["Default","Variants","Sizes","DisabledStates","WithIcons","FullWidth","SizeVariantMatrix","InteractiveStates","Accessibility","AnchorLinks","AnchorLinksWithIcons"];export{C as Accessibility,_ as AnchorLinks,M as AnchorLinksWithIcons,z as Default,x as DisabledStates,k as FullWidth,S as InteractiveStates,B as SizeVariantMatrix,g as Sizes,y as Variants,w as WithIcons,_t as __namedExportsOrder,Ct as default};
