@@ -67,7 +67,8 @@ export const styles = css`
 		text-decoration: none;
 		transition:
 			background-color 0.15s ease,
-			box-shadow 0.15s ease;
+			box-shadow 0.15s ease,
+			transform 0.1s ease;
 		width: 100%;
 		white-space: nowrap;
 		border: none;
@@ -89,6 +90,10 @@ export const styles = css`
 
 		&:hover {
 			background-color: var(--cz-color-bg-brand-solid-hover);
+		}
+
+		&:active:not(:disabled) {
+			transform: translateY(1px);
 		}
 
 		&:active {
@@ -180,6 +185,7 @@ export const styles = css`
 
 		&:active {
 			color: var(--cz-color-brand-800);
+			transform: none;
 		}
 
 		&:focus-visible {
