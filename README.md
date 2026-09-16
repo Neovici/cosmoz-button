@@ -127,16 +127,19 @@ Set the `icon-only` attribute to render a compact square utility button
 ```
 
 - Square sizing per `size`: sm 28px, md 32px, lg 36px, xl 40px, with `p-1.5` padding
-- Icon color: `--cz-color-text-tertiary`, hover: `--cz-color-text-secondary`
-  on `--cz-color-bg-primary-hover` (correct contrast in both light and dark
+- Quiet variants (`secondary`, `tertiary`) get the muted utility look: icon
+  color `--cz-color-text-tertiary`, hover `--cz-color-text-secondary` on
+  `--cz-color-bg-primary-hover` (correct contrast in both light and dark
   mode)
+- Solid variants (`primary`, `destructive`) keep their own on-brand /
+  on-error icon colors
 - Slotted SVG sizing: 16px (sm), 20px (md and up)
 - All existing variants, focus rings, disabled and pressed-down `:active`
   states apply as usual
 
 ### Selected / Toggled State
 
-Set `aria-pressed="true"` to show the selected state
+Set `aria-pressed="true"` to show the selected state on quiet variants
 (`--cz-color-bg-brand-secondary` background with `--cz-color-text-brand`):
 
 ```html

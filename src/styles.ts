@@ -246,23 +246,31 @@ export const styles = css`
 
 	/* ========================================
 	 * ICON ONLY COLORS (Untitled UI utility button)
-	 * Muted icon color with proper light/dark contrast.
+	 * Muted icon color for the quiet variants with proper light/dark
+	 * contrast. Primary and destructive keep their on-brand / on-error
+	 * icon colors.
 	 * ======================================== */
 
-	:host([icon-only]) .button {
+	:host([icon-only][variant='secondary']) .button,
+	:host([icon-only][variant='tertiary']) .button {
 		color: var(--cz-color-text-tertiary);
 	}
 
-	:host([icon-only]:hover) .button,
-	:host([icon-only]) .button:hover {
+	:host([icon-only][variant='secondary']:hover) .button,
+	:host([icon-only][variant='secondary']) .button:hover,
+	:host([icon-only][variant='tertiary']:hover) .button,
+	:host([icon-only][variant='tertiary']) .button:hover {
 		color: var(--cz-color-text-secondary);
 	}
 
 	/* ========================================
 	 * PRESSED / SELECTED STATE (aria-pressed)
+	 * Quiet variants get the muted selected look; solid variants keep
+	 * their own colors.
 	 * ======================================== */
 
-	:host([aria-pressed='true']) .button {
+	:host([icon-only][variant='secondary'][aria-pressed='true']) .button,
+	:host([icon-only][variant='tertiary'][aria-pressed='true']) .button {
 		background-color: var(--cz-color-bg-brand-secondary);
 		color: var(--cz-color-text-brand);
 		box-shadow: none;
