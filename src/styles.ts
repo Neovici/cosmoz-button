@@ -19,6 +19,13 @@ export const styles = css`
 		display: none;
 	}
 
+	/* The tooltip wrapper must fill the host so the inner control keeps
+	   stretching with host-driven sizing (flex: 1, width, ...). */
+	:host > cosmoz-tooltip {
+		display: flex;
+		width: 100%;
+	}
+
 	/* ========================================
 	 * SIZE VARIANTS
 	 * ======================================== */
@@ -50,6 +57,48 @@ export const styles = css`
 		font-size: var(--cz-text-base);
 		line-height: var(--cz-text-base-line-height);
 		border-radius: var(--cz-radius-md);
+	}
+
+	/* ========================================
+	 * ICON ONLY (Untitled UI utility button)
+	 * Square, icon-sized, padding p-1.5.
+	 * ======================================== */
+
+	:host([icon-only]) .button {
+		width: 32px;
+		height: 32px;
+		padding: calc(var(--cz-spacing) * 1.5);
+		font-size: var(--cz-text-sm);
+		line-height: var(--cz-text-sm-line-height);
+		border-radius: var(--cz-radius-md);
+	}
+
+	:host([icon-only][size='sm']) .button {
+		width: 28px;
+		height: 28px;
+		padding: calc(var(--cz-spacing) * 1.5);
+	}
+
+	:host([icon-only][size='lg']) .button {
+		width: 36px;
+		height: 36px;
+		padding: calc(var(--cz-spacing) * 1.5);
+	}
+
+	:host([icon-only][size='xl']) .button {
+		width: 40px;
+		height: 40px;
+		padding: calc(var(--cz-spacing) * 1.5);
+	}
+
+	:host([icon-only]) ::slotted(svg) {
+		width: 20px;
+		height: 20px;
+	}
+
+	:host([icon-only][size='sm']) ::slotted(svg) {
+		width: 16px;
+		height: 16px;
 	}
 
 	/* ========================================
@@ -192,6 +241,39 @@ export const styles = css`
 			text-decoration: underline;
 			box-shadow: var(--cz-focus-ring);
 			border-radius: var(--cz-radius-xs);
+		}
+	}
+
+	/* ========================================
+	 * ICON ONLY COLORS (Untitled UI utility button)
+	 * fg-quaternary icon, hover via bg-primary-hover.
+	 * ======================================== */
+
+	:host([icon-only]) .button {
+		color: var(--cz-color-fg-quaternary);
+	}
+
+	:host([icon-only]:hover) .button,
+	:host([icon-only]) .button:hover {
+		color: var(--cz-color-fg-quaternary-hover);
+	}
+
+	/* ========================================
+	 * PRESSED / SELECTED STATE (aria-pressed)
+	 * ======================================== */
+
+	:host([aria-pressed='true']) .button {
+		background-color: var(--cz-color-bg-brand-secondary);
+		color: var(--cz-color-text-brand);
+		box-shadow: none;
+
+		&::before {
+			display: none;
+		}
+
+		&:hover {
+			background-color: var(--cz-color-bg-brand-secondary);
+			color: var(--cz-color-text-brand-hover);
 		}
 	}
 
