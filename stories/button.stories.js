@@ -64,6 +64,29 @@ export default {
 			control: 'text',
 			description: 'Accessible label for icon-only buttons',
 		},
+		iconOnly: {
+			control: 'boolean',
+			description: 'Renders a compact square icon-only button (utility button)',
+			table: {
+				defaultValue: { summary: 'false' },
+			},
+		},
+		tooltip: {
+			control: 'text',
+			description: 'Wraps the button in a tooltip with this heading',
+		},
+		tooltipPlacement: {
+			control: 'select',
+			options: ['top', 'bottom', 'left', 'right'],
+			description: 'Tooltip placement (only with tooltip)',
+			table: {
+				defaultValue: { summary: 'top' },
+			},
+		},
+		ariaPressed: {
+			control: 'boolean',
+			description: 'Reflects a toggled/selected state',
+		},
 		label: {
 			control: 'text',
 			description: 'Button label text',
@@ -79,6 +102,10 @@ const renderButton = (args) => html`
 		type=${args.type || 'button'}
 		?disabled=${args.disabled}
 		?full-width=${args.fullWidth}
+		?icon-only=${args.iconOnly}
+		tooltip=${args.tooltip || nothing}
+		tooltip-placement=${args.tooltipPlacement || nothing}
+		aria-pressed=${args.ariaPressed ? 'true' : nothing}
 		href=${args.href || nothing}
 		target=${args.target || nothing}
 		rel=${args.rel || nothing}
@@ -238,6 +265,287 @@ export const WithIcons = {
 	},
 };
 
+// Icon-Only (utility buttons)
+export const IconOnly = {
+	render: () => html`
+		<style>
+			.utility-icon {
+				width: 20px;
+				height: 20px;
+			}
+			.utility-icon-sm {
+				width: 16px;
+				height: 16px;
+			}
+		</style>
+		<div class="story-stack">
+			<div>
+				<p class="story-label">
+					Compact square utility buttons. Always pair with an
+					<code>aria-label</code> and preferably a <code>tooltip</code>.
+				</p>
+			</div>
+			<div class="story-row">
+				<cosmoz-button
+					icon-only
+					variant="secondary"
+					tooltip="Add item"
+					aria-label="Add item"
+				>
+					<svg
+						class="utility-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M12 5v14M5 12h14" />
+					</svg>
+				</cosmoz-button>
+				<cosmoz-button
+					icon-only
+					variant="tertiary"
+					tooltip="Search"
+					aria-label="Search"
+				>
+					<svg
+						class="utility-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<circle cx="11" cy="11" r="8" />
+						<path d="M21 21l-4.35-4.35" />
+					</svg>
+				</cosmoz-button>
+				<cosmoz-button
+					icon-only
+					variant="tertiary"
+					tooltip="Close panel"
+					aria-label="Close panel"
+				>
+					<svg
+						class="utility-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M6 6l12 12M18 6L6 18" />
+					</svg>
+				</cosmoz-button>
+			</div>
+			<div>
+				<p class="story-label">Sizes</p>
+			</div>
+			<div class="story-row">
+				<cosmoz-button icon-only variant="tertiary" size="sm" aria-label="Sm">
+					<svg
+						class="utility-icon-sm"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M12 5v14M5 12h14" />
+					</svg>
+				</cosmoz-button>
+				<cosmoz-button icon-only variant="tertiary" size="md" aria-label="Md">
+					<svg
+						class="utility-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M12 5v14M5 12h14" />
+					</svg>
+				</cosmoz-button>
+				<cosmoz-button icon-only variant="tertiary" size="lg" aria-label="Lg">
+					<svg
+						class="utility-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M12 5v14M5 12h14" />
+					</svg>
+				</cosmoz-button>
+				<cosmoz-button icon-only variant="tertiary" size="xl" aria-label="Xl">
+					<svg
+						class="utility-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M12 5v14M5 12h14" />
+					</svg>
+				</cosmoz-button>
+			</div>
+			<div>
+				<p class="story-label">
+					Toggled (<code>aria-pressed="true"</code>) and disabled
+				</p>
+			</div>
+			<div class="story-row">
+				<cosmoz-button
+					icon-only
+					variant="tertiary"
+					aria-pressed="true"
+					tooltip="Invoice image"
+					aria-label="Invoice image"
+				>
+					<svg
+						class="utility-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<rect x="3" y="4" width="18" height="16" rx="2" />
+						<circle cx="9" cy="10" r="1.6" />
+						<path d="M4 18l5-5 4 4 3-3 4 4" />
+					</svg>
+				</cosmoz-button>
+				<cosmoz-button icon-only variant="tertiary" disabled aria-label="Off">
+					<svg
+						class="utility-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M6 6l12 12M18 6L6 18" />
+					</svg>
+				</cosmoz-button>
+			</div>
+		</div>
+	`,
+	parameters: {
+		docs: {
+			description: {
+				story:
+					'Icon-only utility buttons in secondary and tertiary variants, all sizes, plus toggled (aria-pressed) and disabled states.',
+			},
+		},
+	},
+};
+
+// Tooltips
+export const Tooltips = {
+	render: () => html`
+		<style>
+			.utility-icon {
+				width: 20px;
+				height: 20px;
+			}
+		</style>
+		<div class="story-stack">
+			<div>
+				<p class="story-label">
+					Hover (or focus) the buttons to see the tooltip. The wrapper is always
+					rendered and degrades to a pass-through when
+					<code>tooltip</code> is unset.
+				</p>
+			</div>
+			<div class="story-row">
+				<cosmoz-button icon-only variant="tertiary" tooltip="Top placement">
+					<svg
+						class="utility-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M12 5v14M5 12h14" />
+					</svg>
+				</cosmoz-button>
+				<cosmoz-button
+					icon-only
+					variant="tertiary"
+					tooltip="Left placement"
+					tooltip-placement="left"
+					aria-label="Left placement"
+				>
+					<svg
+						class="utility-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<circle cx="11" cy="11" r="8" />
+						<path d="M21 21l-4.35-4.35" />
+					</svg>
+				</cosmoz-button>
+				<cosmoz-button
+					icon-only
+					variant="tertiary"
+					tooltip="Bottom placement"
+					tooltip-placement="bottom"
+					aria-label="Bottom placement"
+				>
+					<svg
+						class="utility-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M6 6l12 12M18 6L6 18" />
+					</svg>
+				</cosmoz-button>
+			</div>
+			<div class="story-row">
+				<cosmoz-button variant="secondary" tooltip="Tooltip on a text button"
+					>Text button with tooltip</cosmoz-button
+				>
+				<cosmoz-button
+					variant="primary"
+					tooltip="Disabled button tooltip"
+					disabled
+					>Disabled with tooltip</cosmoz-button
+				>
+			</div>
+		</div>
+	`,
+	parameters: {
+		docs: {
+			description: {
+				story:
+					'Tooltip integration via the tooltip and tooltip-placement attributes. Works on icon-only and text buttons; disabled buttons do not show the tooltip.',
+			},
+		},
+	},
+};
+
 // Full Width
 export const FullWidth = {
 	render: () => html`
@@ -386,10 +694,14 @@ export const Accessibility = {
 				<h4>Icon-only buttons with aria-label</h4>
 				<p>
 					Buttons without visible text should have an aria-label for screen
-					readers.
+					readers. Prefer the <code>icon-only</code> attribute with a
+					<code>tooltip</code> for utility buttons — the tooltip heading doubles
+					as a visual affordance while <code>aria-label</code> keeps them
+					accessible. For toggles, reflect the state with
+					<code>aria-pressed</code>.
 				</p>
 				<div class="story-row">
-					<cosmoz-button aria-label="Add item">
+					<cosmoz-button icon-only tooltip="Add item" aria-label="Add item">
 						<svg
 							slot="prefix"
 							class="icon"
@@ -401,7 +713,13 @@ export const Accessibility = {
 							<path d="M12 5v14M5 12h14" />
 						</svg>
 					</cosmoz-button>
-					<cosmoz-button variant="secondary" aria-label="Edit">
+					<cosmoz-button
+						icon-only
+						variant="secondary"
+						tooltip="Edit"
+						aria-label="Edit"
+						aria-pressed="true"
+					>
 						<svg
 							slot="prefix"
 							class="icon"
@@ -409,12 +727,19 @@ export const Accessibility = {
 							fill="none"
 							stroke="currentColor"
 							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
 						>
 							<path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
 							<path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
 						</svg>
 					</cosmoz-button>
-					<cosmoz-button variant="destructive" aria-label="Delete">
+					<cosmoz-button
+						icon-only
+						variant="destructive"
+						tooltip="Delete"
+						aria-label="Delete"
+					>
 						<svg
 							slot="prefix"
 							class="icon"
@@ -422,6 +747,8 @@ export const Accessibility = {
 							fill="none"
 							stroke="currentColor"
 							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
 						>
 							<path
 								d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"
