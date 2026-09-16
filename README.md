@@ -127,8 +127,9 @@ Set the `icon-only` attribute to render a compact square utility button
 ```
 
 - Square sizing per `size`: sm 28px, md 32px, lg 36px, xl 40px, with `p-1.5` padding
-- Icon color: `--cz-color-fg-quaternary`, hover: `--cz-color-fg-quaternary-hover`
-  on `--cz-color-bg-primary-hover`
+- Icon color: `--cz-color-text-tertiary`, hover: `--cz-color-text-secondary`
+  on `--cz-color-bg-primary-hover` (correct contrast in both light and dark
+  mode)
 - Slotted SVG sizing: 16px (sm), 20px (md and up)
 - All existing variants, focus rings, disabled and pressed-down `:active`
   states apply as usual

@@ -246,16 +246,16 @@ export const styles = css`
 
 	/* ========================================
 	 * ICON ONLY COLORS (Untitled UI utility button)
-	 * fg-quaternary icon, hover via bg-primary-hover.
+	 * Muted icon color with proper light/dark contrast.
 	 * ======================================== */
 
 	:host([icon-only]) .button {
-		color: var(--cz-color-fg-quaternary);
+		color: var(--cz-color-text-tertiary);
 	}
 
 	:host([icon-only]:hover) .button,
 	:host([icon-only]) .button:hover {
-		color: var(--cz-color-fg-quaternary-hover);
+		color: var(--cz-color-text-secondary);
 	}
 
 	/* ========================================
