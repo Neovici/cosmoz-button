@@ -139,15 +139,22 @@ Set the `icon-only` attribute to render a compact square utility button
 
 ### Selected / Toggled State
 
-Set `aria-pressed="true"` to show the selected state on quiet variants
-(`--cz-color-bg-brand-secondary` background with a theme-aware icon color
-via `light-dark()` — brand-700 on the light brand chip in light mode,
-near-white on solid brand in dark mode):
+Set `aria-pressed="true"` to show the selected state. It is available on
+every variant, with colors matching each variant's intent:
+
+- **primary / secondary / tertiary** (quiet variants) shift to the selected
+  brand chip: `brand-50`/`brand-600` surface with a `brand-700`/`gray-50`
+  icon or text
+- **destructive** keeps the error intent: `error-100`/`error-600` surface
+  with an `error-800`/`gray-50` icon or text
+- **link** emphasizes the text (deeper brand color + underline), no fill
 
 ```html
 <cosmoz-button icon-only aria-pressed="true" aria-label="Invoice image">
 	<svg width="20" height="20">...</svg>
 </cosmoz-button>
+
+<cosmoz-button variant="destructive" aria-pressed="true">Delete</cosmoz-button>
 ```
 
 ## Tooltips

@@ -265,23 +265,56 @@ export const styles = css`
 
 	/* ========================================
 	 * PRESSED / SELECTED STATE (aria-pressed)
-	 * Quiet variants get the muted selected look; solid variants keep
-	 * their own colors.
+	 * Available on all variants. Quiet variants (primary, secondary,
+	 * tertiary) shift to the selected brand chip; destructive keeps the
+	 * error intent with a tinted pressed surface; link emphasizes text.
 	 * ======================================== */
 
-	:host([icon-only][variant='secondary'][aria-pressed='true']) .button,
-	:host([icon-only][variant='tertiary'][aria-pressed='true']) .button {
-		background-color: var(--cz-color-bg-brand-secondary);
-		color: light-dark(var(--cz-color-brand-700), var(--cz-color-gray-50));
+	:host([aria-pressed='true']) .button {
 		box-shadow: none;
 
 		&::before {
 			display: none;
 		}
+	}
+
+	:host([aria-pressed='true']) .button {
+		background-color: light-dark(
+			var(--cz-color-brand-50),
+			var(--cz-color-brand-600)
+		);
+		color: light-dark(var(--cz-color-brand-700), var(--cz-color-gray-50));
 
 		&:hover {
-			background-color: var(--cz-color-bg-brand-secondary);
-			color: light-dark(var(--cz-color-brand-800), var(--cz-color-gray-50));
+			background-color: light-dark(
+				var(--cz-color-brand-100),
+				var(--cz-color-brand-500)
+			);
+		}
+	}
+
+	:host([variant='destructive'][aria-pressed='true']) .button {
+		background-color: light-dark(
+			var(--cz-color-error-100),
+			var(--cz-color-error-600)
+		);
+		color: light-dark(var(--cz-color-error-800), var(--cz-color-gray-50));
+
+		&:hover {
+			background-color: light-dark(
+				var(--cz-color-error-100),
+				var(--cz-color-error-500)
+			);
+		}
+	}
+
+	:host([variant='link'][aria-pressed='true']) .button {
+		background-color: transparent;
+		color: light-dark(var(--cz-color-brand-700), var(--cz-color-brand-300));
+		text-decoration: underline;
+
+		&:hover {
+			background-color: transparent;
 		}
 	}
 

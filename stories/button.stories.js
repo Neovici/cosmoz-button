@@ -452,6 +452,74 @@ export const IconOnly = {
 	},
 };
 
+// Pressed / Selected State
+export const PressedState = {
+	render: () => html`
+		<style>
+			.pressed-icon {
+				width: 20px;
+				height: 20px;
+			}
+		</style>
+		<div class="story-stack">
+			<div>
+				<p class="story-label">
+					<code>aria-pressed="true"</code> works on every variant — quiet
+					variants shift to the selected brand chip, destructive keeps the error
+					intent, link emphasizes text.
+				</p>
+			</div>
+			<div class="story-row">
+				<cosmoz-button aria-pressed="true">Primary</cosmoz-button>
+				<cosmoz-button variant="secondary" aria-pressed="true"
+					>Secondary</cosmoz-button
+				>
+				<cosmoz-button variant="tertiary" aria-pressed="true"
+					>Tertiary</cosmoz-button
+				>
+				<cosmoz-button variant="destructive" aria-pressed="true"
+					>Destructive</cosmoz-button
+				>
+				<cosmoz-button variant="link" aria-pressed="true">Link</cosmoz-button>
+			</div>
+			<div class="story-row">
+				<cosmoz-button
+					icon-only
+					variant="tertiary"
+					aria-pressed="true"
+					tooltip="Invoice image"
+					aria-label="Invoice image"
+				>
+					<svg
+						class="pressed-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<rect x="3" y="4" width="18" height="16" rx="2" />
+						<circle cx="9" cy="10" r="1.6" />
+						<path d="M4 18l5-5 4 4 3-3 4 4" />
+					</svg>
+				</cosmoz-button>
+				<cosmoz-button variant="primary" tooltip="Normal state for comparison"
+					>Normal Primary</cosmoz-button
+				>
+			</div>
+		</div>
+	`,
+	parameters: {
+		docs: {
+			description: {
+				story:
+					'The pressed/selected state (aria-pressed) across all variants, on text and icon-only buttons.',
+			},
+		},
+	},
+};
+
 // Tooltips
 export const Tooltips = {
 	render: () => html`
