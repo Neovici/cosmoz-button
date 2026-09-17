@@ -140,7 +140,9 @@ Set the `icon-only` attribute to render a compact square utility button
 ### Selected / Toggled State
 
 Set `aria-pressed="true"` to show the selected state on quiet variants
-(`--cz-color-bg-brand-secondary` background with `--cz-color-text-brand`):
+(`--cz-color-bg-brand-secondary` background with a theme-aware icon color
+via `light-dark()` — brand-700 on the light brand chip in light mode,
+near-white on solid brand in dark mode):
 
 ```html
 <cosmoz-button icon-only aria-pressed="true" aria-label="Invoice image">

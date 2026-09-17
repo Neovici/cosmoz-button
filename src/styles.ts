@@ -272,7 +272,7 @@ export const styles = css`
 	:host([icon-only][variant='secondary'][aria-pressed='true']) .button,
 	:host([icon-only][variant='tertiary'][aria-pressed='true']) .button {
 		background-color: var(--cz-color-bg-brand-secondary);
-		color: var(--cz-color-text-brand);
+		color: light-dark(var(--cz-color-brand-700), var(--cz-color-gray-50));
 		box-shadow: none;
 
 		&::before {
@@ -281,7 +281,7 @@ export const styles = css`
 
 		&:hover {
 			background-color: var(--cz-color-bg-brand-secondary);
-			color: var(--cz-color-text-brand-hover);
+			color: light-dark(var(--cz-color-brand-800), var(--cz-color-gray-50));
 		}
 	}
 
