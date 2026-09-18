@@ -256,26 +256,33 @@ export const styles = css`
 		color: var(--cz-color-text-tertiary);
 	}
 
-	:host([icon-only][variant='secondary']:hover) .button,
+	:host([icon-only][variant='secondary']:not([disabled]):hover) .button,
 	:host([icon-only][variant='secondary']) .button:hover,
-	:host([icon-only][variant='tertiary']:hover) .button,
+	:host([icon-only][variant='tertiary']:not([disabled]):hover) .button,
 	:host([icon-only][variant='tertiary']) .button:hover {
 		color: var(--cz-color-text-secondary);
 	}
 
 	/* ========================================
 	 * PRESSED / SELECTED STATE (aria-pressed)
-	 * Available on all variants. Quiet variants (primary, secondary,
-	 * tertiary) shift to the selected brand chip; destructive keeps the
-	 * error intent with a tinted pressed surface; link emphasizes text.
+	 * Quiet variants (secondary, tertiary) shift to the selected brand
+	 * chip; primary and destructive stay solid but visually "sink" with
+	 * an inset shadow; link emphasizes text with no surface change.
 	 * ======================================== */
 
 	:host([aria-pressed='true']) .button {
-		box-shadow: none;
+		box-shadow: var(--cz-shadow-pressed-3d);
 
 		&::before {
 			display: none;
 		}
+	}
+
+	:host([variant='secondary'][aria-pressed='true']) .button {
+		box-shadow:
+			var(--cz-shadow-pressed-3d),
+			inset 0 0 0 1px
+				light-dark(var(--cz-color-brand-300), var(--cz-color-brand-400));
 	}
 
 	:host([aria-pressed='true']) .button {
@@ -293,23 +300,32 @@ export const styles = css`
 		}
 	}
 
-	:host([variant='destructive'][aria-pressed='true']) .button {
-		background-color: light-dark(
-			var(--cz-color-error-100),
-			var(--cz-color-error-600)
-		);
-		color: light-dark(var(--cz-color-error-800), var(--cz-color-gray-50));
+	:host(:not([variant])[aria-pressed='true']) .button,
+	:host([variant='primary'][aria-pressed='true']) .button {
+		background-color: var(--cz-color-bg-brand-solid);
+		color: var(--cz-color-text-on-brand);
+		box-shadow:
+			var(--cz-shadow-xs-skeumorphic), var(--cz-shadow-pressed-3d-solid);
 
 		&:hover {
-			background-color: light-dark(
-				var(--cz-color-error-100),
-				var(--cz-color-error-500)
-			);
+			background-color: var(--cz-color-bg-brand-solid-hover);
+		}
+	}
+
+	:host([variant='destructive'][aria-pressed='true']) .button {
+		background-color: var(--cz-color-bg-error-solid);
+		color: var(--cz-color-text-on-brand);
+		box-shadow:
+			var(--cz-shadow-xs-skeumorphic), var(--cz-shadow-pressed-3d-solid);
+
+		&:hover {
+			background-color: var(--cz-color-bg-error-solid-hover);
 		}
 	}
 
 	:host([variant='link'][aria-pressed='true']) .button {
 		background-color: transparent;
+		box-shadow: none;
 		color: light-dark(var(--cz-color-brand-700), var(--cz-color-brand-300));
 		text-decoration: underline;
 
