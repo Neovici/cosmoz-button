@@ -203,4 +203,75 @@ describe('cosmoz-button', () => {
 			expect(suffixSlot?.assignedNodes().length).to.be.above(0);
 		});
 	});
+
+	describe('icon-only', () => {
+		it('renders a square compact button', async () => {
+			const el = await fixture(
+				html`<cosmoz-button icon-only variant="tertiary">X</cosmoz-button>`,
+			);
+			const button = el.shadowRoot?.querySelector('button');
+			expect(button).to.not.be.null;
+		});
+
+		it('keeps the button clickable through the tooltip wrapper', async () => {
+			const clickSpy = spy();
+			const el = await fixture(
+				html`<cosmoz-button
+					icon-only
+					variant="tertiary"
+					tooltip="Close"
+					@click=${clickSpy}
+					>X</cosmoz-button
+				>`,
+			);
+			(el as HTMLElement).click();
+			expect(clickSpy.called).to.be.true;
+		});
+
+		it('prevents click when disabled and tooltip is set', async () => {
+			const clickSpy = spy();
+			const el = await fixture(
+				html`<cosmoz-button
+					icon-only
+					tooltip="Close"
+					disabled
+					@click=${clickSpy}
+					>X</cosmoz-button
+				>`,
+			);
+			(el as HTMLElement).click();
+			expect(clickSpy.called).to.be.false;
+		});
+
+		it('reflects aria-pressed for toggle styling', async () => {
+			const el = await fixture(
+				html`<cosmoz-button icon-only aria-pressed="true">X</cosmoz-button>`,
+			);
+			expect(el.getAttribute('aria-pressed')).to.equal('true');
+		});
+
+		it('always renders the tooltip wrapper', async () => {
+			const withTooltip = await fixture(
+				html`<cosmoz-button tooltip="Close">X</cosmoz-button>`,
+			);
+			const withoutTooltip = await fixture(
+				html`<cosmoz-button>X</cosmoz-button>`,
+			);
+			expect(withTooltip.shadowRoot?.querySelector('cosmoz-tooltip')).to.not.be
+				.null;
+			expect(withoutTooltip.shadowRoot?.querySelector('cosmoz-tooltip')).to.not
+				.be.null;
+		});
+
+		it('passes tooltip heading and placement to the wrapper', async () => {
+			const el = await fixture(
+				html`<cosmoz-button tooltip="Close panel" tooltip-placement="left"
+					>X</cosmoz-button
+				>`,
+			);
+			const tooltip = el.shadowRoot?.querySelector('cosmoz-tooltip');
+			expect(tooltip?.getAttribute('heading')).to.equal('Close panel');
+			expect(tooltip?.getAttribute('placement')).to.equal('left');
+		});
+	});
 });
