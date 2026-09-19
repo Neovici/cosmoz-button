@@ -95,7 +95,6 @@ export default {
 	},
 };
 
-// Helper to render button with args
 const renderButton = (args) => html`
 	<cosmoz-button
 		variant=${args.variant || 'primary'}
@@ -117,8 +116,7 @@ const renderButton = (args) => html`
 	</cosmoz-button>
 `;
 
-// Shared inline SVG icon helper: one place for the common svg attributes,
-// callers supply only the inner shapes. Pass slot="prefix"/"suffix" via opts.
+// One place for the shared svg attributes; callers supply the inner shapes.
 const iconSvg = (inner, opts = {}) =>
 	html`<svg
 		slot=${opts.slot || nothing}
@@ -156,8 +154,7 @@ const icons = {
 };
 /* eslint-enable max-len */
 
-// Toggle aria-pressed on a click; CSS restyles :host([aria-pressed='true'])
-// instantly, no re-render needed.
+// Toggles the aria-pressed attribute; the CSS state selector does the rest.
 const togglePressed = (e) => {
 	const btn = e.currentTarget;
 	btn.setAttribute(

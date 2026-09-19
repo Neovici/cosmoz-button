@@ -19,8 +19,7 @@ export const styles = css`
 		display: none;
 	}
 
-	/* The tooltip wrapper must fill the host so the inner control keeps
-	   stretching with host-driven sizing (flex: 1, width, ...). */
+	/* Keeps the inner control stretching with host-driven sizing. */
 	:host > cosmoz-tooltip {
 		display: flex;
 		width: 100%;
@@ -60,8 +59,7 @@ export const styles = css`
 	}
 
 	/* ========================================
-	 * ICON ONLY (Untitled UI utility button)
-	 * Square, icon-sized, padding p-1.5.
+	 * ICON ONLY
 	 * ======================================== */
 
 	:host([icon-only]) .button {
@@ -102,7 +100,7 @@ export const styles = css`
 	}
 
 	/* ========================================
-	 * BUTTON BASE STYLES (Primary - default)
+	 * BUTTON BASE STYLES
 	 * ======================================== */
 
 	.button {
@@ -124,14 +122,13 @@ export const styles = css`
 		background: none;
 		text-align: center;
 
-		/* Medium (md) - default size */
+		/* Medium (md) default size */
 		height: 40px;
 		padding: calc(var(--cz-spacing) * 2.5) calc(var(--cz-spacing) * 4);
 		font-size: var(--cz-text-sm);
 		line-height: var(--cz-text-sm-line-height);
 		border-radius: var(--cz-radius-md);
 
-		/* Primary - default variant */
 		${skeumorphicHighlight}
 		background-color: var(--cz-color-bg-brand-solid);
 		color: var(--cz-color-text-on-brand);
@@ -246,9 +243,6 @@ export const styles = css`
 
 	/* ========================================
 	 * ICON ONLY COLORS (Untitled UI utility button)
-	 * Muted icon color for the quiet variants with proper light/dark
-	 * contrast. Primary and destructive keep their on-brand / on-error
-	 * icon colors.
 	 * ======================================== */
 
 	:host([icon-only][variant='secondary']) .button,
@@ -266,9 +260,8 @@ export const styles = css`
 	/* ========================================
 	 * PRESSED / SELECTED STATE (aria-pressed)
 	 * Quiet variants (secondary, tertiary) shift to the selected brand
-	 * chip (light: brand-50, dark: brand-900 with brand-300 text);
-	 * primary and destructive stay solid but visually "sink" with an
-	 * inset shadow; link emphasizes text with no surface change.
+	 * chip; primary and destructive stay solid but visually "sink" with
+	 * an inset shadow; link emphasizes text with no surface change.
 	 * ======================================== */
 
 	:host([aria-pressed='true']) .button {
@@ -301,8 +294,7 @@ export const styles = css`
 		}
 	}
 
-	/* Icon-only quiet variants must pick up the chip's brand color — the
-	   muted icon rules above have higher host specificity otherwise. */
+	/* Overrides the muted icon-only colors above (higher specificity). */
 	:host([icon-only][variant='secondary'][aria-pressed='true']) .button,
 	:host([icon-only][variant='tertiary'][aria-pressed='true']) .button {
 		color: light-dark(var(--cz-color-brand-700), var(--cz-color-brand-300));

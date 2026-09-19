@@ -121,9 +121,8 @@ const CosmozButton = (host: CosmozButtonElement) => {
 					</button>
 				`;
 
-	/* Always render the tooltip wrapper. cosmoz-tooltip degrades to a
-	   pass-through <slot> when no heading/description/slotted content is
-	   present, so this is a no-op unless `tooltip` is set. */
+	/* Always rendered; cosmoz-tooltip degrades to a pass-through unless
+	   `tooltip` is set. */
 	return html`<cosmoz-tooltip
 		heading=${ifDefined(tooltip ?? undefined)}
 		placement=${ifDefined(tooltipPlacement ?? undefined)}
