@@ -266,8 +266,9 @@ export const styles = css`
 	/* ========================================
 	 * PRESSED / SELECTED STATE (aria-pressed)
 	 * Quiet variants (secondary, tertiary) shift to the selected brand
-	 * chip; primary and destructive stay solid but visually "sink" with
-	 * an inset shadow; link emphasizes text with no surface change.
+	 * chip (light: brand-50, dark: brand-900 with brand-300 text);
+	 * primary and destructive stay solid but visually "sink" with an
+	 * inset shadow; link emphasizes text with no surface change.
 	 * ======================================== */
 
 	:host([aria-pressed='true']) .button {
@@ -282,21 +283,32 @@ export const styles = css`
 		box-shadow:
 			var(--cz-shadow-pressed-3d),
 			inset 0 0 0 1px
-				light-dark(var(--cz-color-brand-300), var(--cz-color-brand-400));
+				light-dark(var(--cz-color-brand-300), var(--cz-color-brand-500));
 	}
 
 	:host([aria-pressed='true']) .button {
 		background-color: light-dark(
 			var(--cz-color-brand-50),
-			var(--cz-color-brand-600)
+			var(--cz-color-brand-900)
 		);
-		color: light-dark(var(--cz-color-brand-700), var(--cz-color-gray-50));
+		color: light-dark(var(--cz-color-brand-700), var(--cz-color-brand-300));
 
 		&:hover {
 			background-color: light-dark(
 				var(--cz-color-brand-100),
-				var(--cz-color-brand-500)
+				var(--cz-color-brand-800)
 			);
+		}
+	}
+
+	/* Icon-only quiet variants must pick up the chip's brand color — the
+	   muted icon rules above have higher host specificity otherwise. */
+	:host([icon-only][variant='secondary'][aria-pressed='true']) .button,
+	:host([icon-only][variant='tertiary'][aria-pressed='true']) .button {
+		color: light-dark(var(--cz-color-brand-700), var(--cz-color-brand-300));
+
+		&:hover {
+			color: light-dark(var(--cz-color-brand-700), var(--cz-color-brand-200));
 		}
 	}
 
