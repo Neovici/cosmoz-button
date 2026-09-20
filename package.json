@@ -35,6 +35,7 @@
     "storybook:build": "storybook build",
     "storybook:deploy": "storybook-to-ghpages",
     "storybook:preview": "npm run storybook:build && http-server ./storybook-static/ --silent",
+    "postinstall": "patch-package",
     "prepare": "husky",
     "changeset": "changeset"
   },
@@ -72,6 +73,7 @@
     "http-server": "^14.1.1",
     "husky": "^9.0.0",
     "lint-staged": "^16.2.7",
+    "patch-package": "^8.0.1",
     "sinon": "^21.0.1",
     "storybook": "^10.2.4",
     "typescript": "^5.4.3"
