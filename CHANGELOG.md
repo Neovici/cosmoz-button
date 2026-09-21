@@ -1,5 +1,46 @@
 ## [1.1.0](https://github.com/Neovici/cosmoz-button/compare/v1.0.2...v1.1.0) (2026-06-10)
 
+## 2.0.0
+
+### Major Changes
+
+- 781aeb4: BREAKING fix: require @neovici/cosmoz-tokens ^4.2.0
+
+  Pressed styles use `light-dark()` directly, which only resolves with
+  tokens v4's `color-scheme`-driven theming, and consume the
+  `--cz-shadow-pressed-3d(-solid)` inset tokens added in 4.1.0. Also
+  requires `@neovici/cosmoz-tooltip` ^1.4.0, which supports tokens v4, so
+  the dependency tree can resolve a single tokens copy.
+
+### Minor Changes
+
+- 781aeb4: Add icon-only mode (Untitled UI utility button)
+
+  The `icon-only` attribute renders a compact square button (28–40px
+  across sizes) with a muted icon color for the quiet variants
+  (secondary/tertiary).
+
+- 781aeb4: Redesign the pressed/selected state (`aria-pressed`)
+
+  - secondary and tertiary shift to a selected brand chip (dark:
+    `brand-900` with `brand-300` text); secondary keeps a visible inset
+    ring
+  - primary and destructive stay solid with a 3D inset sink; hover
+    matches the non-pressed solid pair
+  - link: underline only, no surface change
+  - icon-only pressed icons take the chip color (lighter on dark hover)
+
+- 781aeb4: Add tooltip support
+
+  `tooltip` wraps the button in `cosmoz-tooltip` with the heading;
+  `tooltip-placement` positions it (top, bottom, left, right). The wrapper
+  is always rendered and degrades to a pass-through when `tooltip` is
+  unset, so host-driven sizing keeps working.
+
+### Patch Changes
+
+- 9ea5162: add push-down click effect on :active
+
 ## 1.1.1
 
 ### Patch Changes
