@@ -19,6 +19,12 @@ export const styles = css`
 		display: none;
 	}
 
+	/* Keeps the inner control stretching with host-driven sizing. */
+	:host > cosmoz-tooltip {
+		display: flex;
+		width: 100%;
+	}
+
 	/* ========================================
 	 * SIZE VARIANTS
 	 * ======================================== */
@@ -53,7 +59,48 @@ export const styles = css`
 	}
 
 	/* ========================================
-	 * BUTTON BASE STYLES (Primary - default)
+	 * ICON ONLY
+	 * ======================================== */
+
+	:host([icon-only]) .button {
+		width: 32px;
+		height: 32px;
+		padding: calc(var(--cz-spacing) * 1.5);
+		font-size: var(--cz-text-sm);
+		line-height: var(--cz-text-sm-line-height);
+		border-radius: var(--cz-radius-md);
+	}
+
+	:host([icon-only][size='sm']) .button {
+		width: 28px;
+		height: 28px;
+		padding: calc(var(--cz-spacing) * 1.5);
+	}
+
+	:host([icon-only][size='lg']) .button {
+		width: 36px;
+		height: 36px;
+		padding: calc(var(--cz-spacing) * 1.5);
+	}
+
+	:host([icon-only][size='xl']) .button {
+		width: 40px;
+		height: 40px;
+		padding: calc(var(--cz-spacing) * 1.5);
+	}
+
+	:host([icon-only]) ::slotted(svg) {
+		width: 20px;
+		height: 20px;
+	}
+
+	:host([icon-only][size='sm']) ::slotted(svg) {
+		width: 16px;
+		height: 16px;
+	}
+
+	/* ========================================
+	 * BUTTON BASE STYLES
 	 * ======================================== */
 
 	.button {
@@ -75,14 +122,13 @@ export const styles = css`
 		background: none;
 		text-align: center;
 
-		/* Medium (md) - default size */
+		/* Medium (md) default size */
 		height: 40px;
 		padding: calc(var(--cz-spacing) * 2.5) calc(var(--cz-spacing) * 4);
 		font-size: var(--cz-text-sm);
 		line-height: var(--cz-text-sm-line-height);
 		border-radius: var(--cz-radius-md);
 
-		/* Primary - default variant */
 		${skeumorphicHighlight}
 		background-color: var(--cz-color-bg-brand-solid);
 		color: var(--cz-color-text-on-brand);
@@ -192,6 +238,103 @@ export const styles = css`
 			text-decoration: underline;
 			box-shadow: var(--cz-focus-ring);
 			border-radius: var(--cz-radius-xs);
+		}
+	}
+
+	/* ========================================
+	 * ICON ONLY COLORS (Untitled UI utility button)
+	 * ======================================== */
+
+	:host([icon-only][variant='secondary']) .button,
+	:host([icon-only][variant='tertiary']) .button {
+		color: var(--cz-color-text-tertiary);
+	}
+
+	:host([icon-only][variant='secondary']:not([disabled]):hover) .button,
+	:host([icon-only][variant='secondary']) .button:hover,
+	:host([icon-only][variant='tertiary']:not([disabled]):hover) .button,
+	:host([icon-only][variant='tertiary']) .button:hover {
+		color: var(--cz-color-text-secondary);
+	}
+
+	/* ========================================
+	 * PRESSED / SELECTED STATE (aria-pressed)
+	 * Quiet variants (secondary, tertiary) shift to the selected brand
+	 * chip; primary and destructive stay solid but visually "sink" with
+	 * an inset shadow; link emphasizes text with no surface change.
+	 * ======================================== */
+
+	:host([aria-pressed='true']) .button {
+		box-shadow: var(--cz-shadow-pressed-3d);
+
+		&::before {
+			display: none;
+		}
+	}
+
+	:host([variant='secondary'][aria-pressed='true']) .button {
+		box-shadow:
+			var(--cz-shadow-pressed-3d),
+			inset 0 0 0 1px
+				light-dark(var(--cz-color-brand-300), var(--cz-color-brand-500));
+	}
+
+	:host([aria-pressed='true']) .button {
+		background-color: light-dark(
+			var(--cz-color-brand-50),
+			var(--cz-color-brand-900)
+		);
+		color: light-dark(var(--cz-color-brand-700), var(--cz-color-brand-300));
+
+		&:hover {
+			background-color: light-dark(
+				var(--cz-color-brand-100),
+				var(--cz-color-brand-800)
+			);
+		}
+	}
+
+	/* Overrides the muted icon-only colors above (higher specificity). */
+	:host([icon-only][variant='secondary'][aria-pressed='true']) .button,
+	:host([icon-only][variant='tertiary'][aria-pressed='true']) .button {
+		color: light-dark(var(--cz-color-brand-700), var(--cz-color-brand-300));
+
+		&:hover {
+			color: light-dark(var(--cz-color-brand-700), var(--cz-color-brand-200));
+		}
+	}
+
+	:host(:not([variant])[aria-pressed='true']) .button,
+	:host([variant='primary'][aria-pressed='true']) .button {
+		background-color: var(--cz-color-bg-brand-solid);
+		color: var(--cz-color-text-on-brand);
+		box-shadow:
+			var(--cz-shadow-xs-skeumorphic), var(--cz-shadow-pressed-3d-solid);
+
+		&:hover {
+			background-color: var(--cz-color-bg-brand-solid-hover);
+		}
+	}
+
+	:host([variant='destructive'][aria-pressed='true']) .button {
+		background-color: var(--cz-color-bg-error-solid);
+		color: var(--cz-color-text-on-brand);
+		box-shadow:
+			var(--cz-shadow-xs-skeumorphic), var(--cz-shadow-pressed-3d-solid);
+
+		&:hover {
+			background-color: var(--cz-color-bg-error-solid-hover);
+		}
+	}
+
+	:host([variant='link'][aria-pressed='true']) .button {
+		background-color: transparent;
+		box-shadow: none;
+		color: light-dark(var(--cz-color-brand-700), var(--cz-color-brand-300));
+		text-decoration: underline;
+
+		&:hover {
+			background-color: transparent;
 		}
 	}
 
