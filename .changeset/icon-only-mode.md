@@ -1,5 +1,5 @@
 ---
-'@neovici/cosmoz-button': minor
+"@neovici/cosmoz-button": minor
 ---
 
 Add icon-only mode (Untitled UI utility button)
