@@ -3,6 +3,7 @@ import '@neovici/cosmoz-tooltip';
 import { component, html, useEffect } from '@pionjs/pion';
 import { nothing } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
+import { when } from 'lit-html/directives/when.js';
 import { styles } from './styles';
 
 export type ButtonVariant =
@@ -96,30 +97,26 @@ const CosmozButton = (host: CosmozButtonElement) => {
 		<slot name="suffix"></slot>
 	`;
 
-	const control =
-		href != null
-			? html`
-					<a
-						href=${href}
-						class="button"
-						part="button"
-						aria-disabled=${disabled ? 'true' : nothing}
-						target=${ifDefined(target)}
-						rel=${ifDefined(rel)}
-						download=${ifDefined(download)}
-						>${content}</a
-					>
-				`
-			: html`
-					<button
-						type=${type}
-						class="button"
-						part="button"
-						?disabled=${disabled}
-					>
-						${content}
-					</button>
-				`;
+	const control = when(
+		href != null,
+		() => html`
+			<a
+				href=${href}
+				class="button"
+				part="button"
+				aria-disabled=${disabled ? 'true' : nothing}
+				target=${ifDefined(target)}
+				rel=${ifDefined(rel)}
+				download=${ifDefined(download)}
+				>${content}</a
+			>
+		`,
+		() => html`
+			<button type=${type} class="button" part="button" ?disabled=${disabled}>
+				${content}
+			</button>
+		`,
+	);
 
 	/* Always rendered; cosmoz-tooltip degrades to a pass-through unless
 	   `tooltip` is set. */
