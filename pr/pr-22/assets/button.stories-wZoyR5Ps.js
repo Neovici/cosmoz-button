@@ -1,4 +1,4 @@
-import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import"./preload-helper-PPVm8Dsz.js";const wt={CHILD:2},xt=t=>(...o)=>({_$litDirective$:t,values:o});class kt{constructor(o){}get _$AU(){return this._$AM._$AU}_$AT(o,e,n){this._$Ct=o,this._$AM=e,this._$Ci=n}_$AS(o,e){return this.update(o,e)}update(o,e){return this.render(...e)}}class ot extends kt{constructor(o){if(super(o),this.it=h,o.type!==wt.CHILD)throw Error(this.constructor.directiveName+"() can only be used in child bindings")}render(o){if(o===h||o==null)return this._t=void 0,this.it=o;if(o===Tt)return o;if(typeof o!="string")throw Error(this.constructor.directiveName+"() called with a non-string value");if(o===this.it)return this._t;this.it=o;const e=[o];return e.raw=e,this._t={_$litType$:this.constructor.resultType,strings:e,values:[]}}}ot.directiveName="unsafeHTML",ot.resultType=1;class et extends ot{}et.directiveName="unsafeSVG",et.resultType=2;const Bt=xt(et);let X,$t=0;function bt(t){X=t}function pt(){X=null,$t=0}function Pt(){return $t++}const K=Symbol("haunted.phase"),Y=Symbol("haunted.hook"),mt=Symbol("haunted.update"),vt=Symbol("haunted.commit"),A=Symbol("haunted.effects"),P=Symbol("haunted.layoutEffects"),nt="haunted.context";class Dt{update;host;virtual;[Y];[A];[P];constructor(o,e){this.update=o,this.host=e,this[Y]=new Map,this[A]=[],this[P]=[]}run(o){bt(this);let e=o();return pt(),e}_runEffects(o){let e=this[o];bt(this);for(let n of e)n.call(this);pt()}runEffects(){this._runEffects(A)}runLayoutEffects(){this._runEffects(P)}teardown(){this[Y].forEach(e=>{typeof e.teardown=="function"&&e.teardown(!0)})}}class Mt extends Error{constructor(o){const e=o?` <${o}>`:"";super(`Infinite update loop detected in component${e}. This usually means a hook (useEffect, useMemo, useCallback) has dependencies that create new references on every render, such as [{}], [[]], or [Promise.resolve()]. Make sure your dependency arrays contain stable references.`),this.name="InfiniteLoopError"}}const It=100,Rt=Promise.resolve().then.bind(Promise.resolve());function St(){let t=[],o;function e(){o=null;let n=t;t=[];for(var s=0,a=n.length;s<a;s++)n[s]()}return function(n){t.push(n),o==null&&(o=Rt(e))}}const Nt=St(),zt=St();class rt{renderer;host;state;[K];_updateQueued;_active;_updateCount;_processing;static maxUpdates=It;constructor(o,e){this.renderer=o,this.host=e,this.state=new Dt(this.update.bind(this),e),this[K]=null,this._updateQueued=!1,this._active=!1,this._updateCount=0,this._processing=!1}_checkForInfiniteLoop(){if(this._processing||(this._updateCount=0),this._updateCount++,this._updateCount>rt.maxUpdates){const o=this.host instanceof HTMLElement?this.host.tagName.toLowerCase():void 0;throw this._active=!1,new Mt(o)}}update(){this._active&&(this._updateQueued||(this._checkForInfiniteLoop(),this._processing=!0,Nt(()=>{let o=this.handlePhase(mt);zt(()=>{this.handlePhase(vt,o),zt(()=>{this.handlePhase(A),this._updateQueued||(this._processing=!1)})}),this._updateQueued=!1}),this._updateQueued=!0))}handlePhase(o,e){switch(this[K]=o,o){case vt:this.commit(e),this.runEffects(P);return;case mt:return this.render();case A:return this.runEffects(A)}}render(){return this.state.run(()=>this.renderer.call(this.host,this.host))}runEffects(o){this.state._runEffects(o)}teardown(){this.state.teardown(),this._updateCount=0,this._processing=!1}pause(){this._active=!1}resume(){this._active=!0,this._updateCount=0}}const at=(...t)=>{const o=new CSSStyleSheet;return o.replaceSync(t.join("")),o},Ot=t=>t?.map(o=>typeof o=="string"?at(o):o),Ht=(t,...o)=>t.flatMap((e,n)=>[e,o[n]||""]).join(""),L=Ht,Ft=(t="")=>t.replace(/-+([a-z])?/g,(o,e)=>e?e.toUpperCase():"");function Vt(t){class o extends rt{frag;renderResult;constructor(s,a,m){super(s,m||a),this.frag=a}commit(s){this.renderResult=t(s,this.frag)}}function e(n,s,a){const m=(a||s||{}).baseElement||HTMLElement,{observedAttributes:y=[],useShadowDOM:p=!0,shadowRootInit:k={},styleSheets:S}=a||s||{},u=Ot(n.styleSheets||S);class g extends m{_scheduler;static get observedAttributes(){return n.observedAttributes||y||[]}constructor(){if(super(),p===!1)this._scheduler=new o(n,this);else{const i=this.attachShadow({mode:"open",...k});u&&(i.adoptedStyleSheets=u),this._scheduler=new o(n,i,this)}}connectedCallback(){this._scheduler.resume(),this._scheduler.update(),this._scheduler.renderResult?.setConnected(!0)}disconnectedCallback(){this._scheduler.pause(),this._scheduler.teardown(),this._scheduler.renderResult?.setConnected(!1)}attributeChangedCallback(i,b,z){if(b===z)return;let f=z===""?!0:z;Reflect.set(this,Ft(i),f)}}function d(v){let i=v,b=!1;return Object.freeze({enumerable:!0,configurable:!0,get(){return i},set(z){b&&i===z||(b=!0,i=z,this._scheduler&&this._scheduler.update())}})}const w=new Proxy(m.prototype,{getPrototypeOf(v){return v},set(v,i,b,z){let f;return i in v?(f=Object.getOwnPropertyDescriptor(v,i),f&&f.set?(f.set.call(z,b),!0):(Reflect.set(v,i,b,z),!0)):(typeof i=="symbol"||i[0]==="_"?f={enumerable:!0,configurable:!0,writable:!0,value:b}:f=d(b),Object.defineProperty(z,i,f),f.set&&f.set.call(z,b),!0)}});return Object.setPrototypeOf(g.prototype,w),g}return e}class E{id;state;constructor(o,e){this.id=o,this.state=e}}function Wt(t,...o){let e=Pt(),n=X[Y],s=n.get(e);return s||(s=new t(e,X,...o),n.set(e,s)),s.update(...o)}function T(t){return Wt.bind(null,t)}function _t(t){return T(class extends E{callback;lastValues;values;_teardown;constructor(o,e,n,s){super(o,e),t(e,this)}update(o,e){this.callback=o,this.values=e}call(){const o=!this.values||this.hasChanged();this.lastValues=this.values,o&&this.run()}run(){this.teardown(),this._teardown=this.callback.call(this.state)}teardown(o){typeof this._teardown=="function"&&(this._teardown(),this._teardown=void 0),o&&(this.lastValues=this.values=void 0)}hasChanged(){return!this.lastValues||this.values.some((o,e)=>this.lastValues[e]!==o)}})}function At(t,o){t[A].push(o)}const C=_t(At),Gt=t=>t instanceof Element?t:t.startNode||t.endNode||t.parentNode,jt=T(class extends E{Context;value;_ranEffect;_unsubscribe;constructor(t,o,e){super(t,o),this._updater=this._updater.bind(this),this._ranEffect=!1,this._unsubscribe=null,At(o,this)}update(t){return this.Context!==t&&(this._subscribe(t),this.Context=t),this.value}call(){this._ranEffect||(this._ranEffect=!0,this._unsubscribe&&this._unsubscribe(),this._subscribe(this.Context),this.state.update())}_updater(t){this.value=t,this.state.update()}_subscribe(t){const o={Context:t,callback:this._updater};Gt(this.state.host).dispatchEvent(new CustomEvent(nt,{detail:o,bubbles:!0,cancelable:!0,composed:!0}));const{unsubscribe:n=null,value:s}=o;this.value=n?s:t.defaultValue,this._unsubscribe=n}teardown(){this._unsubscribe&&this._unsubscribe()}});function Ut(t){return o=>{const e={Provider:class extends HTMLElement{listeners;_value;constructor(){super(),this.style.display="contents",this.listeners=new Set,this.addEventListener(nt,this)}disconnectedCallback(){this.removeEventListener(nt,this)}handleEvent(n){const{detail:s}=n;s.Context===e&&(s.value=this.value,s.unsubscribe=this.unsubscribe.bind(this,s.callback),this.listeners.add(s.callback),n.stopPropagation())}unsubscribe(n){this.listeners.delete(n)}set value(n){this._value=n;for(let s of this.listeners)s(n)}get value(){return this._value}},Consumer:t(function({render:n}){const s=jt(e);return n(s)},{useShadowDOM:!1}),defaultValue:o};return e}}const Ct=T(class extends E{value;values;constructor(t,o,e,n){super(t,o),this.value=e(),this.values=n}update(t,o){return this.hasChanged(o)&&(this.values=o,this.value=t()),this.value}hasChanged(t=[]){return t.some((o,e)=>this.values[e]!==o)}}),ft=(t,o)=>Ct(()=>t,o);function Qt(t,o){t[P].push(o)}_t(Qt);const Yt=T(class extends E{args;constructor(t,o,e){super(t,o),this.updater=this.updater.bind(this),typeof e=="function"&&(e=e()),this.makeArgs(e)}update(){return this.args}updater(t){const[o]=this.args;typeof t=="function"&&(t=t(o)),!Object.is(o,t)&&(this.makeArgs(t),this.state.update())}makeArgs(t){this.args=Object.freeze([t,this.updater])}});T(class extends E{reducer;currentState;constructor(t,o,e,n,s){super(t,o),this.dispatch=this.dispatch.bind(this),this.currentState=s!==void 0?s(n):n}update(t){return this.reducer=t,[this.currentState,this.dispatch]}dispatch(t){this.currentState=this.reducer(this.currentState,t),this.state.update()}});const qt=/([A-Z])/gu;T(class extends E{property;eventName;constructor(t,o,e,n){if(super(t,o),this.state.virtual)throw new Error("Can't be used with virtual components.");this.updater=this.updater.bind(this),this.property=e,this.eventName=e.replace(qt,"-$1").toLowerCase()+"-changed",this.state.host[this.property]==null&&(typeof n=="function"&&(n=n()),n!=null&&this.updater(n,!0))}update(t,o){return[this.state.host[this.property],this.updater]}resolve(t){const o=this.state.host[this.property],e=typeof t=="function"?t:void 0,n=e?e(o):t;return[o,n,e]}notify(t,o){const e=new CustomEvent(this.eventName,{detail:{value:t,updater:o,path:this.property},cancelable:!0});return this.state.host.dispatchEvent(e),e}updater(t,o=!1){const[e,n,s]=this.resolve(t),a=this.notify(n,s);!o&&a.defaultPrevented||Object.is(e,n)||(this.state.host[this.property]=n)}});function Xt(t){let o=t;return{get current(){return o},set current(e){o=e},get value(){return o},set value(e){o=e}}}function q(t){return Ct(()=>Xt(t),[])}T(class extends E{update(){return this.state.host}});function Zt({render:t}){const o=Vt(t),e=Ut(o);return{component:o,createContext:e}}const D=(t,o)=>{const e=t._$AN;if(e===void 0)return!1;for(const n of e)n._$AO?.(o,!1),D(n,o);return!0},Z=t=>{let o,e;do{if((o=t._$AM)===void 0)break;e=o._$AN,e.delete(t),t=o}while(e?.size===0)},Et=t=>{for(let o;o=t._$AM;t=o){let e=o._$AN;if(e===void 0)o._$AN=e=new Set;else if(e.has(t))break;e.add(t),to(o)}};function Kt(t){this._$AN!==void 0?(Z(this),this._$AM=t,Et(this)):this._$AM=t}function Jt(t,o=!1,e=0){const n=this._$AH,s=this._$AN;if(s!==void 0&&s.size!==0)if(o)if(Array.isArray(n))for(let a=e;a<n.length;a++)D(n[a],!1),Z(n[a]);else n!=null&&(D(n,!1),Z(n));else D(this,t)}const to=t=>{t.type==wt.CHILD&&(t._$AP??=Jt,t._$AQ??=Kt)};class oo extends kt{constructor(){super(...arguments),this._$AN=void 0}_$AT(o,e,n){super._$AT(o,e,n),Et(this),this.isConnected=o._$AU}_$AO(o,e=!0){o!==this.isConnected&&(this.isConnected=o,o?this.reconnected?.():this.disconnected?.()),e&&(D(this,o),Z(this))}setValue(o){if(Lt(this._$Ct))this._$Ct._$AI(o,this);else{const e=[...this._$Ct._$AH];e[this._$Ci]=o,this._$Ct._$AI(e,this,0)}}disconnected(){}reconnected(){}}const{component:it}=Zt({render:gt}),ct=at(L`
+import{n as e}from"./rolldown-runtime-DkW27tQK.js";import{a as t,c as n,i as r,n as i,o as a,r as o,s}from"./iframe-DNeo4lGQ.js";var c,l,u;function d(){return(d=e((()=>{c={ATTRIBUTE:1,CHILD:2,PROPERTY:3,BOOLEAN_ATTRIBUTE:4,EVENT:5,ELEMENT:6},l=e=>(...t)=>({_$litDirective$:e,values:t}),u=class{constructor(e){}get _$AU(){return this._$AM._$AU}_$AT(e,t,n){this._$Ct=e,this._$AM=t,this._$Ci=n}_$AS(e,t){return this.update(e,t)}update(e,t){return this.render(...t)}}})))()}var f;function p(){return(p=e((()=>{n(),d(),f=class extends u{constructor(e){if(super(e),this.it=r,e.type!==c.CHILD)throw Error(this.constructor.directiveName+`() can only be used in child bindings`)}render(e){if(e===r||e==null)return this._t=void 0,this.it=e;if(e===a)return e;if(typeof e!=`string`)throw Error(this.constructor.directiveName+`() called with a non-string value`);if(e===this.it)return this._t;this.it=e;let t=[e];return t.raw=t,this._t={_$litType$:this.constructor.resultType,strings:t,values:[]}}},f.directiveName=`unsafeHTML`,f.resultType=1,l(f)})))()}var m,h;function g(){return(g=e((()=>{d(),p(),m=class extends f{},m.directiveName=`unsafeSVG`,m.resultType=2,h=l(m)})))()}function _(e){y=e}function v(){y=null,te=0}function ee(){return te++}var y,te;function ne(){return(ne=e((()=>{te=0})))()}var b,x,re,ie,S,C,ae;function w(){return(w=e((()=>{b=Symbol(`haunted.phase`),x=Symbol(`haunted.hook`),re=Symbol(`haunted.update`),ie=Symbol(`haunted.commit`),S=Symbol(`haunted.effects`),C=Symbol(`haunted.layoutEffects`),ae=`haunted.context`})))()}var oe;function se(){return(se=e((()=>{ne(),w(),oe=class{update;host;virtual;[x];[S];[C];constructor(e,t){this.update=e,this.host=t,this[x]=new Map,this[S]=[],this[C]=[]}run(e){_(this);let t=e();return v(),t}_runEffects(e){let t=this[e];_(this);for(let e of t)e.call(this);v()}runEffects(){this._runEffects(S)}runLayoutEffects(){this._runEffects(C)}teardown(){this[x].forEach(e=>{typeof e.teardown==`function`&&e.teardown(!0)})}}})))()}var ce;function le(){return(le=e((()=>{ce=class extends Error{constructor(e){let t=e?` <${e}>`:``;super(`Infinite update loop detected in component${t}. This usually means a hook (useEffect, useMemo, useCallback) has dependencies that create new references on every render, such as [{}], [[]], or [Promise.resolve()]. Make sure your dependency arrays contain stable references.`),this.name=`InfiniteLoopError`}}})))()}function ue(){let e=[],t;function n(){t=null;let n=e;e=[];for(var r=0,i=n.length;r<i;r++)n[r]()}return function(r){e.push(r),t??=fe(n)}}var de,fe,pe,me,he;function T(){return(T=e((()=>{se(),w(),le(),de=100,fe=Promise.resolve().then.bind(Promise.resolve()),pe=ue(),me=ue(),he=class e{renderer;host;state;[b];_updateQueued;_active;_updateCount;_processing;static maxUpdates=de;constructor(e,t){this.renderer=e,this.host=t,this.state=new oe(this.update.bind(this),t),this[b]=null,this._updateQueued=!1,this._active=!1,this._updateCount=0,this._processing=!1}_checkForInfiniteLoop(){if(this._processing||(this._updateCount=0),this._updateCount++,this._updateCount>e.maxUpdates){let e=this.host instanceof HTMLElement?this.host.tagName.toLowerCase():void 0;throw this._active=!1,new ce(e)}}update(){this._active&&(this._updateQueued||=(this._checkForInfiniteLoop(),this._processing=!0,pe(()=>{let e=this.handlePhase(re);me(()=>{this.handlePhase(ie,e),me(()=>{this.handlePhase(S),this._updateQueued||(this._processing=!1)})}),this._updateQueued=!1}),!0))}handlePhase(e,t){switch(this[b]=e,e){case ie:this.commit(t),this.runEffects(C);return;case re:return this.render();case S:return this.runEffects(S)}}render(){return this.state.run(()=>this.renderer.call(this.host,this.host))}runEffects(e){this.state._runEffects(e)}teardown(){this.state.teardown(),this._updateCount=0,this._processing=!1}pause(){this._active=!1}resume(){this._active=!0,this._updateCount=0}}})))()}var E,ge,_e,D;function ve(){return(ve=e((()=>{E=(...e)=>{let t=new CSSStyleSheet;return t.replaceSync(e.join(``)),t},ge=e=>e?.map(e=>typeof e==`string`?E(e):e),_e=(e,...t)=>e.flatMap((e,n)=>[e,t[n]||``]).join(``),D=_e})))()}function ye(e){class t extends he{frag;renderResult;constructor(e,t,n){super(e,n||t),this.frag=t}commit(t){this.renderResult=e(t,this.frag)}}function n(e,n,r){let i=(r||n||{}).baseElement||HTMLElement,{observedAttributes:a=[],useShadowDOM:o=!0,shadowRootInit:s={},styleSheets:c}=r||n||{},l=ge(e.styleSheets||c);class u extends i{_scheduler;static get observedAttributes(){return e.observedAttributes||a||[]}constructor(){if(super(),o===!1)this._scheduler=new t(e,this);else{let n=this.attachShadow({mode:`open`,...s});l&&(n.adoptedStyleSheets=l),this._scheduler=new t(e,n,this)}}connectedCallback(){this._scheduler.resume(),this._scheduler.update(),this._scheduler.renderResult?.setConnected(!0)}disconnectedCallback(){this._scheduler.pause(),this._scheduler.teardown(),this._scheduler.renderResult?.setConnected(!1)}attributeChangedCallback(e,t,n){if(t===n)return;let r=n===``||n;Reflect.set(this,be(e),r)}}function d(e){let t=e,n=!1;return Object.freeze({enumerable:!0,configurable:!0,get(){return t},set(e){n&&t===e||(n=!0,t=e,this._scheduler&&this._scheduler.update())}})}let f=new Proxy(i.prototype,{getPrototypeOf(e){return e},set(e,t,n,r){let i;return t in e?(i=Object.getOwnPropertyDescriptor(e,t),i&&i.set?(i.set.call(r,n),!0):(Reflect.set(e,t,n,r),!0)):(i=typeof t==`symbol`||t[0]===`_`?{enumerable:!0,configurable:!0,writable:!0,value:n}:d(n),Object.defineProperty(r,t,i),i.set&&i.set.call(r,n),!0)}});return Object.setPrototypeOf(u.prototype,f),u}return n}var be;function xe(){return(xe=e((()=>{T(),ve(),be=(e=``)=>e.replace(/-+([a-z])?/g,(e,t)=>t?t.toUpperCase():``)})))()}function Se(e,...t){let n=ee(),r=y[x],i=r.get(n);return i||(i=new e(n,y,...t),r.set(n,i)),i.update(...t)}function O(e){return Se.bind(null,e)}var k;function A(){return(A=e((()=>{ne(),w(),k=class{id;state;constructor(e,t){this.id=e,this.state=t}}})))()}function Ce(e){return O(class extends k{callback;lastValues;values;_teardown;constructor(t,n,r,i){super(t,n),e(n,this)}update(e,t){this.callback=e,this.values=t}call(){let e=!this.values||this.hasChanged();this.lastValues=this.values,e&&this.run()}run(){this.teardown(),this._teardown=this.callback.call(this.state)}teardown(e){typeof this._teardown==`function`&&(this._teardown(),this._teardown=void 0),e&&(this.lastValues=this.values=void 0)}hasChanged(){return!this.lastValues||this.values.some((e,t)=>this.lastValues[t]!==e)}})}function we(){return(we=e((()=>{A()})))()}function Te(e,t){e[S].push(t)}var j;function Ee(){return(Ee=e((()=>{w(),we(),j=Ce(Te)})))()}var De,Oe;function ke(){return(ke=e((()=>{A(),w(),Ee(),De=e=>e instanceof Element?e:e.startNode||e.endNode||e.parentNode,Oe=O(class extends k{Context;value;_ranEffect;_unsubscribe;constructor(e,t,n){super(e,t),this._updater=this._updater.bind(this),this._ranEffect=!1,this._unsubscribe=null,Te(t,this)}update(e){return this.Context!==e&&(this._subscribe(e),this.Context=e),this.value}call(){this._ranEffect||(this._ranEffect=!0,this._unsubscribe&&this._unsubscribe(),this._subscribe(this.Context),this.state.update())}_updater(e){this.value=e,this.state.update()}_subscribe(e){let t={Context:e,callback:this._updater};De(this.state.host).dispatchEvent(new CustomEvent(ae,{detail:t,bubbles:!0,cancelable:!0,composed:!0}));let{unsubscribe:n=null,value:r}=t;this.value=n?r:e.defaultValue,this._unsubscribe=n}teardown(){this._unsubscribe&&this._unsubscribe()}})})))()}function Ae(e){return t=>{let n={Provider:class extends HTMLElement{listeners;_value;constructor(){super(),this.style.display=`contents`,this.listeners=new Set,this.addEventListener(ae,this)}disconnectedCallback(){this.removeEventListener(ae,this)}handleEvent(e){let{detail:t}=e;t.Context===n&&(t.value=this.value,t.unsubscribe=this.unsubscribe.bind(this,t.callback),this.listeners.add(t.callback),e.stopPropagation())}unsubscribe(e){this.listeners.delete(e)}set value(e){this._value=e;for(let t of this.listeners)t(e)}get value(){return this._value}},Consumer:e(function({render:e}){return e(Oe(n))},{useShadowDOM:!1}),defaultValue:t};return n}}function je(){return(je=e((()=>{w(),ke()})))()}var Me;function Ne(){return(Ne=e((()=>{A(),Me=O(class extends k{value;values;constructor(e,t,n,r){super(e,t),this.value=n(),this.values=r}update(e,t){return this.hasChanged(t)&&(this.values=t,this.value=e()),this.value}hasChanged(e=[]){return e.some((e,t)=>this.values[t]!==e)}})})))()}var Pe;function Fe(){return(Fe=e((()=>{Ne(),Pe=(e,t)=>Me(()=>e,t)})))()}function Ie(e,t){e[C].push(t)}function Le(){return(Le=e((()=>{w(),we(),Ce(Ie)})))()}var Re;function ze(){return(ze=e((()=>{A(),Re=O(class extends k{args;constructor(e,t,n){super(e,t),this.updater=this.updater.bind(this),typeof n==`function`&&(n=n()),this.makeArgs(n)}update(){return this.args}updater(e){let[t]=this.args;typeof e==`function`&&(e=e(t)),!Object.is(t,e)&&(this.makeArgs(e),this.state.update())}makeArgs(e){this.args=Object.freeze([e,this.updater])}})})))()}function Be(){return(Be=e((()=>{A(),O(class extends k{reducer;currentState;constructor(e,t,n,r,i){super(e,t),this.dispatch=this.dispatch.bind(this),this.currentState=i===void 0?r:i(r)}update(e){return this.reducer=e,[this.currentState,this.dispatch]}dispatch(e){this.currentState=this.reducer(this.currentState,e),this.state.update()}})})))()}var Ve;function He(){return(He=e((()=>{A(),Ve=/([A-Z])/gu,O(class extends k{property;eventName;constructor(e,t,n,r){if(super(e,t),this.state.virtual)throw Error(`Can't be used with virtual components.`);this.updater=this.updater.bind(this),this.property=n,this.eventName=n.replace(Ve,`-$1`).toLowerCase()+`-changed`,this.state.host[this.property]??(typeof r==`function`&&(r=r()),r!=null&&this.updater(r,!0))}update(e,t){return[this.state.host[this.property],this.updater]}resolve(e){let t=this.state.host[this.property],n=typeof e==`function`?e:void 0;return[t,n?n(t):e,n]}notify(e,t){let n=new CustomEvent(this.eventName,{detail:{value:e,updater:t,path:this.property},cancelable:!0});return this.state.host.dispatchEvent(n),n}updater(e,t=!1){let[n,r,i]=this.resolve(e),a=this.notify(r,i);(t||!a.defaultPrevented)&&(Object.is(n,r)||(this.state.host[this.property]=r))}})})))()}function Ue(e){let t=e;return{get current(){return t},set current(e){t=e},get value(){return t},set value(e){t=e}}}function We(e){return Me(()=>Ue(e),[])}function Ge(){return(Ge=e((()=>{Ne()})))()}function Ke(){return(Ke=e((()=>{A(),O(class extends k{update(){return this.state.host}})})))()}function qe({render:e}){let t=ye(e);return{component:t,createContext:Ae(t)}}function Je(){return(Je=e((()=>{xe(),je(),Fe(),Ee(),Le(),ze(),Be(),Ne(),ke(),He(),Ge(),Ke(),T()})))()}function Ye(e){this._$AN===void 0?this._$AM=e:(N(this),this._$AM=e,Ze(this))}function Xe(e,t=!1,n=0){let r=this._$AH,i=this._$AN;if(i!==void 0&&i.size!==0){if(t){if(Array.isArray(r))for(let e=n;e<r.length;e++)M(r[e],!1),N(r[e]);else r!=null&&(M(r,!1),N(r))}else M(this,e)}}var M,N,Ze,Qe,$e;function et(){return(et=e((()=>{i(),d(),M=(e,t)=>{let n=e._$AN;if(n===void 0)return!1;for(let e of n)e._$AO?.(t,!1),M(e,t);return!0},N=e=>{let t,n;do{if((t=e._$AM)===void 0)break;n=t._$AN,n.delete(e),e=t}while(n?.size===0)},Ze=e=>{for(let t;t=e._$AM;e=t){let n=t._$AN;if(n===void 0)t._$AN=n=new Set;else if(n.has(e))break;n.add(e),Qe(t)}},Qe=e=>{e.type==c.CHILD&&(e._$AP??=Xe,e._$AQ??=Ye)},$e=class extends u{constructor(){super(...arguments),this._$AN=void 0}_$AT(e,t,n){super._$AT(e,t,n),Ze(this),this.isConnected=e._$AU}_$AO(e,t=!0){e!==this.isConnected&&(this.isConnected=e,e?this.reconnected?.():this.disconnected?.()),t&&(M(this,e),N(this))}setValue(e){if(o(this._$Ct))this._$Ct._$AI(e,this);else{let t=[...this._$Ct._$AH];t[this._$Ci]=e,this._$Ct._$AI(t,this,0)}}disconnected(){}reconnected(){}}})))()}function tt(){return(tt=e((()=>{d(),n(),et(),T(),Array.prototype.includes})))()}var P,nt;function rt(){return(rt=e((()=>{n(),Je(),tt(),{component:P,createContext:nt}=qe({render:t})})))()}function F(){return(F=e((()=>{rt(),Je(),ve()})))()}var it;function at(){return(at=e((()=>{F(),it=E(D`
 	/*
 	 * Use border-box sizing for all elements.
 	 * This is safe and doesn't conflict with child component styles.
@@ -208,7 +208,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
 	[hidden]:where(:not([hidden='until-found'])) {
 		display: none !important;
 	}
-`),J=new WeakMap,tt=xt(class extends oo{render(t){return h}update(t,[o]){const e=o!==this.G;return e&&this.G!==void 0&&this.rt(void 0),(e||this.lt!==this.ct)&&(this.G=o,this.ht=t.options?.host,this.rt(this.ct=t.element)),h}rt(t){if(this.isConnected||(t=void 0),typeof this.G=="function"){const o=this.ht??globalThis;let e=J.get(o);e===void 0&&(e=new WeakMap,J.set(o,e)),e.get(this.G)!==void 0&&this.G.call(this.ht,void 0),e.set(this.G,t),t!==void 0&&this.G.call(this.ht,t)}else this.G.value=t}get lt(){return typeof this.G=="function"?J.get(this.ht??globalThis)?.get(this.G):this.G?.value}disconnected(){this.lt===this.ct&&this.rt(void 0)}reconnected(){this.rt(this.ct)}});function M(t,o,e){return t?o(t):e?.(t)}const eo=L`
+`)})))()}var ot,I;function st(){return(st=e((()=>{n(),et(),d(),ot=new WeakMap,I=l(class extends $e{render(e){return r}update(e,[t]){let n=t!==this.G;return n&&this.rt(void 0),(n||this.lt!==this.ct)&&(this.G=t,this.ht=e.options?.host,this.rt(this.ct=e.element)),r}rt(e){if(this.G!==void 0){if(this.isConnected||(e=void 0),typeof this.G==`function`){let t=this.ht??globalThis,n=ot.get(t);n===void 0&&(n=new WeakMap,ot.set(t,n)),n.get(this.G)!==void 0&&this.G.call(this.ht,void 0),n.set(this.G,e),e!==void 0&&this.G.call(this.ht,e)}else this.G.value=e}}get lt(){return typeof this.G==`function`?ot.get(this.ht??globalThis)?.get(this.G):this.G?.value}disconnected(){this.lt===this.ct&&this.rt(void 0)}reconnected(){this.rt(this.ct)}})})))()}function L(e,t,n){return e?t(e):n?.(e)}var ct;function lt(){return(lt=e((()=>{at(),F(),n(),ct=D`
 	:host {
 		display: flex;
 		flex-direction: column;
@@ -223,11 +223,11 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
 	::slotted([slot='description']) {
 		margin: 0;
 	}
-`;customElements.define("cosmoz-tooltip-content",it(()=>r`
+`,customElements.define(`cosmoz-tooltip-content`,P(()=>s`
 			<slot name="heading"></slot>
 			<slot name="description"></slot>
 			<slot></slot>
-		`,{styleSheets:[ct,eo]}));const st=at(L`
+		`,{styleSheets:[it,ct]}))})))()}var ut;function dt(){return(dt=e((()=>{F(),ut=E(D`
 	.cosmoz-tooltip-popover {
 		position: fixed;
 		inset: unset;
@@ -289,10 +289,10 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
 			transition: none;
 		}
 	}
-`),yt=(t,o,e)=>gt(r`<cosmoz-tooltip-content>
-			${M(o,()=>r`<strong slot="heading">${o}</strong>`)}
-			${M(e,()=>r`<p slot="description">${e}</p>`)}
-		</cosmoz-tooltip-content>`,t),no=(t,o)=>{const{for:e,heading:n,description:s,placement:a="top",delay:m=300,disabled:y=!1}=o,p=q(),S=!!(n||s)&&!y;C(()=>{if(!e||!S)return;const u=t.getRootNode(),g=u.adoptedStyleSheets??[];g.includes(st)||(u.adoptedStyleSheets=[...g,st]);const d=document.createElement("div");d.setAttribute("popover","manual"),d.setAttribute("role","tooltip"),d.classList.add("cosmoz-tooltip-popover"),t.after(d),p.current=d,yt(d,n,s);const w=`[name="${e}"]`,v=`--tooltip-anchor-${e}`;let i;const b=x=>{y||(clearTimeout(i),x.style.anchorName=v,d.style.positionAnchor=v,d.style.positionArea=a,i=window.setTimeout(()=>d.showPopover(),m))},z=()=>{clearTimeout(i),d.hidePopover()},f=x=>{const $=x.target.closest?.(w);$&&b($)},lt=x=>{const $=x.target.closest?.(w);if(!$)return;const ht=x.relatedTarget;ht&&$.contains(ht)||z()},dt=x=>{const $=x.target.closest?.(w);$&&b($)},ut=x=>{x.target.closest?.(w)&&z()};return u.addEventListener("pointerover",f),u.addEventListener("pointerout",lt),u.addEventListener("focusin",dt),u.addEventListener("focusout",ut),()=>{clearTimeout(i),u.removeEventListener("pointerover",f),u.removeEventListener("pointerout",lt),u.removeEventListener("focusin",dt),u.removeEventListener("focusout",ut),d.hidePopover(),d.remove(),p.current=void 0}},[e,a,m,S]),C(()=>{!e||!p.current||yt(p.current,n,s)},[n,s,e]),C(()=>{!y||!p.current||p.current.hidePopover()},[y])},so=t=>{const[o,e]=Yt(!1);return C(()=>{const n=t.current;if(!n)return;const s=()=>{e(n.assignedElements().length>0)};return s(),n.addEventListener("slotchange",s),()=>n.removeEventListener("slotchange",s)},[t.current]),o},ro=L`
+`)})))()}var ft,pt;function mt(){return(mt=e((()=>{F(),n(),lt(),dt(),ft=(e,n,r)=>t(s`<cosmoz-tooltip-content>
+			${L(n,()=>s`<strong slot="heading">${n}</strong>`)}
+			${L(r,()=>s`<p slot="description">${r}</p>`)}
+		</cosmoz-tooltip-content>`,e),pt=(e,t)=>{let{for:n,heading:r,description:i,placement:a=`top`,delay:o=300,disabled:s=!1}=t,c=We(),l=!!(r||i)&&!s;j(()=>{if(!n||!l)return;let t=e.getRootNode(),u=t.adoptedStyleSheets??[];u.includes(ut)||(t.adoptedStyleSheets=[...u,ut]);let d=document.createElement(`div`);d.setAttribute(`popover`,`manual`),d.setAttribute(`role`,`tooltip`),d.classList.add(`cosmoz-tooltip-popover`),e.after(d),c.current=d,ft(d,r,i);let f=`[name="${n}"]`,p=`--tooltip-anchor-${n}`,m,h=e=>{s||(clearTimeout(m),e.style.anchorName=p,d.style.positionAnchor=p,d.style.positionArea=a,m=window.setTimeout(()=>d.showPopover(),o))},g=()=>{clearTimeout(m),d.hidePopover()},_=e=>{let t=e.target.closest?.(f);t&&h(t)},v=e=>{let t=e.target.closest?.(f);if(!t)return;let n=e.relatedTarget;n&&t.contains(n)||g()},ee=e=>{let t=e.target.closest?.(f);t&&h(t)},y=e=>{e.target.closest?.(f)&&g()};return t.addEventListener(`pointerover`,_),t.addEventListener(`pointerout`,v),t.addEventListener(`focusin`,ee),t.addEventListener(`focusout`,y),()=>{clearTimeout(m),t.removeEventListener(`pointerover`,_),t.removeEventListener(`pointerout`,v),t.removeEventListener(`focusin`,ee),t.removeEventListener(`focusout`,y),d.hidePopover(),d.remove(),c.current=void 0}},[n,a,o,l]),j(()=>{n&&c.current&&ft(c.current,r,i)},[r,i,n]),j(()=>{s&&c.current&&c.current.hidePopover()},[s])}})))()}var ht;function gt(){return(gt=e((()=>{F(),ht=e=>{let[t,n]=Re(!1);return j(()=>{let t=e.current;if(!t)return;let r=()=>{n(t.assignedElements().length>0)};return r(),t.addEventListener(`slotchange`,r),()=>t.removeEventListener(`slotchange`,r)},[e.current]),t}})))()}var _t,vt;function yt(){return(yt=e((()=>{at(),F(),n(),st(),lt(),dt(),mt(),gt(),_t=D`
 	:host {
 		display: inline-block;
 		anchor-name: --tooltip-anchor;
@@ -306,25 +306,25 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
 	.cosmoz-tooltip-popover {
 		position-anchor: --tooltip-anchor;
 	}
-`,ao=t=>{const{heading:o,description:e,for:n,placement:s="top",delay:a=300,disabled:m=!1}=t,y=q(),p=q(),k=q(),S=so(k),g=!!(o||e||S)&&!m,d=ft(()=>{g&&(clearTimeout(p.current),p.current=window.setTimeout(()=>{y.current?.showPopover()},a))},[a,g]);C(()=>{m&&(clearTimeout(p.current),y.current?.hidePopover())},[m]);const w=ft(()=>{clearTimeout(p.current),y.current?.hidePopover()},[]);return C(()=>{if(n)return;const v=i=>{const b=i.relatedTarget;b&&t.contains(b)||w()};return t.addEventListener("pointerover",d),t.addEventListener("pointerout",v),()=>{t.removeEventListener("pointerover",d),t.removeEventListener("pointerout",v)}},[n,d,w]),no(t,{for:n,heading:o,description:e,placement:s,delay:a,disabled:m}),n?h:g?r`
-		<slot @focusin=${d} @focusout=${w}></slot>
+`,vt=e=>{let{heading:t,description:n,for:i,placement:a=`top`,delay:o=300,disabled:c=!1}=e,l=We(),u=We(),d=We(),f=ht(d),p=!!(t||n||f)&&!c,m=Pe(()=>{p&&(clearTimeout(u.current),u.current=window.setTimeout(()=>{l.current?.showPopover()},o))},[o,p]);j(()=>{c&&(clearTimeout(u.current),l.current?.hidePopover())},[c]);let h=Pe(()=>{clearTimeout(u.current),l.current?.hidePopover()},[]);return j(()=>{if(i)return;let t=t=>{let n=t.relatedTarget;n&&e.contains(n)||h()};return e.addEventListener(`pointerover`,m),e.addEventListener(`pointerout`,t),()=>{e.removeEventListener(`pointerover`,m),e.removeEventListener(`pointerout`,t)}},[i,m,h]),pt(e,{for:i,heading:t,description:n,placement:a,delay:o,disabled:c}),i?r:p?s`
+		<slot @focusin=${m} @focusout=${h}></slot>
 		<div
 			class="cosmoz-tooltip-popover"
 			popover="manual"
 			role="tooltip"
-			style="position-area: ${s}"
-			${tt(y)}
+			style="position-area: ${a}"
+			${I(l)}
 		>
 			<cosmoz-tooltip-content>
-				${M(o,()=>r`<strong slot="heading">${o}</strong>`)}
-				${M(e,()=>r`<p slot="description">${e}</p>`)}
-				<slot name="content" ${tt(k)}></slot>
+				${L(t,()=>s`<strong slot="heading">${t}</strong>`)}
+				${L(n,()=>s`<p slot="description">${n}</p>`)}
+				<slot name="content" ${I(d)}></slot>
 			</cosmoz-tooltip-content>
 		</div>
-	`:r`
+	`:s`
 			<slot></slot>
-			<slot name="content" ${tt(k)} hidden></slot>
-		`};customElements.define("cosmoz-tooltip",it(ao,{styleSheets:[ct,st,ro],observedAttributes:["heading","description","for","placement","delay","disabled"]}));const B=t=>t??h,io=L`
+			<slot name="content" ${I(d)} hidden></slot>
+		`},customElements.define(`cosmoz-tooltip`,P(vt,{styleSheets:[it,ut,_t],observedAttributes:[`heading`,`description`,`for`,`placement`,`delay`,`disabled`]}))})))()}function bt(){return(bt=e((()=>{yt()})))()}var R;function xt(){return(xt=e((()=>{n(),R=e=>e??r})))()}var St;function Ct(){return(Ct=e((()=>{F(),St=D`
 	position: relative;
 
 	&::before {
@@ -337,7 +337,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
 		mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
 		-webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
 	}
-`,co=L`
+`})))()}var wt;function Tt(){return(Tt=e((()=>{Ct(),F(),wt=D`
 	:host {
 		display: inline-flex;
 	}
@@ -461,7 +461,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
 		line-height: var(--cz-text-sm-line-height);
 		border-radius: var(--cz-radius-md);
 
-		${io}
+		${St}
 		background-color: var(--cz-color-bg-brand-solid);
 		color: var(--cz-color-text-on-brand);
 		box-shadow: var(--cz-shadow-xs-skeumorphic);
@@ -722,53 +722,53 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
 		height: 20px;
 		flex-shrink: 0;
 	}
-`,lo=["variant","size","disabled","full-width","icon-only","tooltip","tooltip-placement","type","value","href","target","rel","download"],uo=t=>{const o=t.hasAttribute("disabled"),e=t.getAttribute("type")||"button",n=t.getAttribute("href"),s=t.getAttribute("tooltip"),a=t.getAttribute("tooltip-placement"),m=t.getAttribute("target"),y=t.getAttribute("rel"),p=t.getAttribute("download");C(()=>{const u=g=>{t.hasAttribute("disabled")&&g.stopImmediatePropagation()};return t.addEventListener("click",u,{capture:!0}),()=>t.removeEventListener("click",u,{capture:!0})},[]);const k=r`
+`})))()}var Et,Dt;function Ot(){return(Ot=e((()=>{at(),bt(),F(),n(),xt(),Tt(),Et=[`variant`,`size`,`disabled`,`full-width`,`icon-only`,`tooltip`,`tooltip-placement`,`type`,`value`,`href`,`target`,`rel`,`download`],Dt=e=>{let t=e.hasAttribute(`disabled`),n=e.getAttribute(`type`)||`button`,i=e.getAttribute(`href`),a=e.getAttribute(`tooltip`),o=e.getAttribute(`tooltip-placement`),c=e.getAttribute(`target`),l=e.getAttribute(`rel`),u=e.getAttribute(`download`);j(()=>{let t=t=>{e.hasAttribute(`disabled`)&&t.stopImmediatePropagation()};return e.addEventListener(`click`,t,{capture:!0}),()=>e.removeEventListener(`click`,t,{capture:!0})},[]);let d=s`
 		<slot name="prefix"></slot>
 		<slot></slot>
 		<slot name="suffix"></slot>
-	`,S=M(n!=null,()=>r`
+	`,f=L(i!=null,()=>s`
 			<a
-				href=${n}
+				href=${i}
 				class="button"
 				part="button"
-				aria-disabled=${o?"true":h}
-				target=${B(m)}
-				rel=${B(y)}
-				download=${B(p)}
-				>${k}</a
+				aria-disabled=${t?`true`:r}
+				target=${R(c)}
+				rel=${R(l)}
+				download=${R(u)}
+				>${d}</a
 			>
-		`,()=>r`
-			<button type=${e} class="button" part="button" ?disabled=${o}>
-				${k}
+		`,()=>s`
+			<button type=${n} class="button" part="button" ?disabled=${t}>
+				${d}
 			</button>
-		`);return r`<cosmoz-tooltip
-		heading=${B(s??void 0)}
-		placement=${B(a??void 0)}
-		?disabled=${o}
+		`);return s`<cosmoz-tooltip
+		heading=${R(a??void 0)}
+		placement=${R(o??void 0)}
+		?disabled=${t}
 	>
-		${S}
-	</cosmoz-tooltip>`};customElements.define("cosmoz-button",it(uo,{observedAttributes:lo,styleSheets:[ct,co],shadowRootInit:{mode:"open",delegatesFocus:!0}}));const mo={title:"Cosmoz Button",component:"cosmoz-button",tags:["autodocs"],argTypes:{variant:{control:"select",options:["primary","secondary","tertiary","destructive","link"],description:"The visual style variant of the button",table:{defaultValue:{summary:"primary"}}},size:{control:"select",options:["sm","md","lg","xl"],description:"The size of the button",table:{defaultValue:{summary:"md"}}},disabled:{control:"boolean",description:"Whether the button is disabled",table:{defaultValue:{summary:"false"}}},fullWidth:{control:"boolean",description:"Whether the button should take full width",table:{defaultValue:{summary:"false"}}},type:{control:"select",options:["button","submit","reset"],description:"The button type attribute",table:{defaultValue:{summary:"button"}}},href:{control:"text",description:"When set, renders as an anchor link instead of a button"},target:{control:"text",description:"Target attribute for the anchor (only with href)"},rel:{control:"text",description:"Rel attribute for the anchor (only with href)"},download:{control:"text",description:"Download attribute for the anchor (only with href)"},ariaLabel:{control:"text",description:"Accessible label for icon-only buttons"},iconOnly:{control:"boolean",description:"Renders a compact square icon-only button (utility button)",table:{defaultValue:{summary:"false"}}},tooltip:{control:"text",description:"Wraps the button in a tooltip with this heading"},tooltipPlacement:{control:"select",options:["top","bottom","left","right"],description:"Tooltip placement (only with tooltip)",table:{defaultValue:{summary:"top"}}},ariaPressed:{control:"boolean",description:"Reflects a toggled/selected state"},label:{control:"text",description:"Button label text"}}},ho=t=>r`
+		${f}
+	</cosmoz-tooltip>`},customElements.define(`cosmoz-button`,P(Dt,{observedAttributes:Et,styleSheets:[it,wt],shadowRootInit:{mode:`open`,delegatesFocus:!0}}))})))()}var kt,At,z,B,V,H,U,W,G,K,q,J,Y,X,Z,Q,$,jt;function Mt(){return(Mt=e((()=>{n(),g(),Ot(),kt={title:`Cosmoz Button`,component:`cosmoz-button`,tags:[`autodocs`],argTypes:{variant:{control:`select`,options:[`primary`,`secondary`,`tertiary`,`destructive`,`link`],description:`The visual style variant of the button`,table:{defaultValue:{summary:`primary`}}},size:{control:`select`,options:[`sm`,`md`,`lg`,`xl`],description:`The size of the button`,table:{defaultValue:{summary:`md`}}},disabled:{control:`boolean`,description:`Whether the button is disabled`,table:{defaultValue:{summary:`false`}}},fullWidth:{control:`boolean`,description:`Whether the button should take full width`,table:{defaultValue:{summary:`false`}}},type:{control:`select`,options:[`button`,`submit`,`reset`],description:`The button type attribute`,table:{defaultValue:{summary:`button`}}},href:{control:`text`,description:`When set, renders as an anchor link instead of a button`},target:{control:`text`,description:`Target attribute for the anchor (only with href)`},rel:{control:`text`,description:`Rel attribute for the anchor (only with href)`},download:{control:`text`,description:`Download attribute for the anchor (only with href)`},ariaLabel:{control:`text`,description:`Accessible label for icon-only buttons`},iconOnly:{control:`boolean`,description:`Renders a compact square icon-only button (utility button)`,table:{defaultValue:{summary:`false`}}},tooltip:{control:`text`,description:`Wraps the button in a tooltip with this heading`},tooltipPlacement:{control:`select`,options:[`top`,`bottom`,`left`,`right`],description:`Tooltip placement (only with tooltip)`,table:{defaultValue:{summary:`top`}}},ariaPressed:{control:`boolean`,description:`Reflects a toggled/selected state`},label:{control:`text`,description:`Button label text`}}},At=e=>s`
     <cosmoz-button
-        variant=${t.variant||"primary"}
-        size=${t.size||"md"}
-        type=${t.type||"button"}
-        ?disabled=${t.disabled}
-        ?full-width=${t.fullWidth}
-        ?icon-only=${t.iconOnly}
-        tooltip=${t.tooltip||h}
-        tooltip-placement=${t.tooltipPlacement||h}
-        aria-pressed=${t.ariaPressed?"true":h}
-        href=${t.href||h}
-        target=${t.target||h}
-        rel=${t.rel||h}
-        download=${t.download||h}
-        aria-label=${t.ariaLabel||h}
+        variant=${e.variant||`primary`}
+        size=${e.size||`md`}
+        type=${e.type||`button`}
+        ?disabled=${e.disabled}
+        ?full-width=${e.fullWidth}
+        ?icon-only=${e.iconOnly}
+        tooltip=${e.tooltip||r}
+        tooltip-placement=${e.tooltipPlacement||r}
+        aria-pressed=${e.ariaPressed?`true`:r}
+        href=${e.href||r}
+        target=${e.target||r}
+        rel=${e.rel||r}
+        download=${e.download||r}
+        aria-label=${e.ariaLabel||r}
     >
-        ${t.label||"Button"}
+        ${e.label||`Button`}
     </cosmoz-button>
-`,c=(t,o={})=>r`<svg
-        slot=${o.slot||h}
-        class=${o.cls||h}
+`,z=(e,t={})=>s`<svg
+        slot=${t.slot||r}
+        class=${t.cls||r}
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -776,8 +776,8 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
         stroke-linecap="round"
         stroke-linejoin="round"
     >
-        ${Bt(t)}
-    </svg>`,l={plus:'<path d="M12 5v14M5 12h14" />',download:'<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />',search:'<circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />',trash:'<path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />',close:'<path d="M6 6l12 12M18 6L6 18" />',image:'<rect x="3" y="4" width="18" height="16" rx="2" /><circle cx="9" cy="10" r="1.6" /><path d="M4 18l5-5 4 4 3-3 4 4" />',edit:'<path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />',home:'<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9 22 9 12 15 12 15 22" />',dashboard:'<rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" />',external:'<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />',settings:'<circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />'},_=t=>{const o=t.currentTarget;o.setAttribute("aria-pressed",o.getAttribute("aria-pressed")==="true"?"false":"true")},I={args:{variant:"primary",size:"md",disabled:!1,fullWidth:!1,label:"Button"},render:ho},R={render:()=>r`
+        ${h(e)}
+    </svg>`,B={plus:`<path d="M12 5v14M5 12h14" />`,download:`<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />`,search:`<circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />`,trash:`<path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />`,close:`<path d="M6 6l12 12M18 6L6 18" />`,image:`<rect x="3" y="4" width="18" height="16" rx="2" /><circle cx="9" cy="10" r="1.6" /><path d="M4 18l5-5 4 4 3-3 4 4" />`,edit:`<path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />`,home:`<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9 22 9 12 15 12 15 22" />`,dashboard:`<rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" />`,external:`<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />`,settings:`<circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />`},V=e=>{let t=e.currentTarget;t.setAttribute(`aria-pressed`,t.getAttribute(`aria-pressed`)===`true`?`false`:`true`)},H={args:{variant:`primary`,size:`md`,disabled:!1,fullWidth:!1,label:`Button`},render:At},U={render:()=>s`
         <div class="story-row">
             <cosmoz-button variant="primary">Primary</cosmoz-button>
             <cosmoz-button variant="secondary">Secondary</cosmoz-button>
@@ -785,7 +785,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
             <cosmoz-button variant="destructive">Destructive</cosmoz-button>
             <cosmoz-button variant="link">Link</cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"The five visual style variants. Hover to see state changes, Tab to see focus rings."}}}},N={render:()=>r`
+    `,parameters:{docs:{description:{story:`The five visual style variants. Hover to see state changes, Tab to see focus rings.`}}}},W={render:()=>s`
         <div class="story-stack">
             <div class="story-row">
                 <cosmoz-button size="sm">Small</cosmoz-button>
@@ -798,35 +798,35 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
             </div>
             <div class="story-row">
                 <cosmoz-button icon-only variant="tertiary" size="sm" aria-label="Sm">
-                    ${c(l.plus)}
+                    ${z(B.plus)}
                 </cosmoz-button>
                 <cosmoz-button icon-only variant="tertiary" size="md" aria-label="Md">
-                    ${c(l.plus)}
+                    ${z(B.plus)}
                 </cosmoz-button>
                 <cosmoz-button icon-only variant="tertiary" size="lg" aria-label="Lg">
-                    ${c(l.plus)}
+                    ${z(B.plus)}
                 </cosmoz-button>
                 <cosmoz-button icon-only variant="tertiary" size="xl" aria-label="Xl">
-                    ${c(l.plus)}
+                    ${z(B.plus)}
                 </cosmoz-button>
             </div>
         </div>
-    `,parameters:{docs:{description:{story:"The four size variants, plus the icon-only size ladder (sm 28px, md 32px, lg 36px, xl 40px)."}}}},O={render:()=>r`
+    `,parameters:{docs:{description:{story:`The four size variants, plus the icon-only size ladder (sm 28px, md 32px, lg 36px, xl 40px).`}}}},G={render:()=>s`
         <div class="story-row">
             <cosmoz-button variant="primary">
-                ${c(l.plus,{slot:"prefix"})} Add Item
+                ${z(B.plus,{slot:`prefix`})} Add Item
             </cosmoz-button>
             <cosmoz-button variant="secondary">
-                Download ${c(l.download,{slot:"suffix"})}
+                Download ${z(B.download,{slot:`suffix`})}
             </cosmoz-button>
             <cosmoz-button variant="tertiary">
-                ${c(l.search,{slot:"prefix"})} Search
+                ${z(B.search,{slot:`prefix`})} Search
             </cosmoz-button>
             <cosmoz-button variant="destructive">
-                ${c(l.trash,{slot:"prefix"})} Delete
+                ${z(B.trash,{slot:`prefix`})} Delete
             </cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"Buttons with prefix and suffix icon slots."}}}},H={render:()=>r`
+    `,parameters:{docs:{description:{story:`Buttons with prefix and suffix icon slots.`}}}},K={render:()=>s`
         <div class="story-stack">
             <div>
                 <p class="story-label">
@@ -841,7 +841,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
                     tooltip="Add item"
                     aria-label="Add item"
                 >
-                    ${c(l.plus)}
+                    ${z(B.plus)}
                 </cosmoz-button>
                 <cosmoz-button
                     icon-only
@@ -849,7 +849,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
                     tooltip="Search"
                     aria-label="Search"
                 >
-                    ${c(l.search)}
+                    ${z(B.search)}
                 </cosmoz-button>
                 <cosmoz-button
                     icon-only
@@ -857,7 +857,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
                     tooltip="Close panel"
                     aria-label="Close panel"
                 >
-                    ${c(l.close)}
+                    ${z(B.close)}
                 </cosmoz-button>
                 <cosmoz-button
                     icon-only
@@ -865,11 +865,11 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
                     tooltip="Delete"
                     aria-label="Delete"
                 >
-                    ${c(l.trash)}
+                    ${z(B.trash)}
                 </cosmoz-button>
             </div>
         </div>
-    `,parameters:{docs:{description:{story:"Icon-only utility buttons in secondary, tertiary, and destructive variants. Sizes are shown in Sizes; toggled and disabled states in Pressed State and Disabled States."}}}},F={render:()=>r`
+    `,parameters:{docs:{description:{story:`Icon-only utility buttons in secondary, tertiary, and destructive variants. Sizes are shown in Sizes; toggled and disabled states in Pressed State and Disabled States.`}}}},q={render:()=>s`
         <div class="story-stack">
             <div>
                 <p class="story-label">
@@ -879,31 +879,31 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
                 </p>
             </div>
             <div class="story-row">
-                <cosmoz-button aria-pressed="false" @click=${_}
+                <cosmoz-button aria-pressed="false" @click=${V}
                     >Primary</cosmoz-button
                 >
                 <cosmoz-button
                     variant="secondary"
                     aria-pressed="false"
-                    @click=${_}
+                    @click=${V}
                     >Secondary</cosmoz-button
                 >
                 <cosmoz-button
                     variant="tertiary"
                     aria-pressed="false"
-                    @click=${_}
+                    @click=${V}
                     >Tertiary</cosmoz-button
                 >
                 <cosmoz-button
                     variant="destructive"
                     aria-pressed="false"
-                    @click=${_}
+                    @click=${V}
                     >Destructive</cosmoz-button
                 >
                 <cosmoz-button
                     variant="link"
                     aria-pressed="false"
-                    @click=${_}
+                    @click=${V}
                     >Link</cosmoz-button
                 >
             </div>
@@ -912,18 +912,18 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
                     icon-only
                     variant="tertiary"
                     aria-pressed="false"
-                    @click=${_}
+                    @click=${V}
                     tooltip="Invoice image"
                     aria-label="Invoice image"
                 >
-                    ${c(l.image)}
+                    ${z(B.image)}
                 </cosmoz-button>
                 <cosmoz-button variant="primary" tooltip="Normal state for comparison"
                     >Normal Primary</cosmoz-button
                 >
             </div>
         </div>
-    `,parameters:{docs:{description:{story:"The pressed/selected state (aria-pressed) across all variants, on text and icon-only buttons. Click any button to toggle it."}}}},V={render:()=>r`
+    `,parameters:{docs:{description:{story:`The pressed/selected state (aria-pressed) across all variants, on text and icon-only buttons. Click any button to toggle it.`}}}},J={render:()=>s`
         <div class="story-row">
             <cosmoz-button variant="primary" disabled>Primary</cosmoz-button>
             <cosmoz-button variant="secondary" disabled>Secondary</cosmoz-button>
@@ -931,10 +931,10 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
             <cosmoz-button variant="destructive" disabled>Destructive</cosmoz-button>
             <cosmoz-button variant="link" disabled>Link</cosmoz-button>
             <cosmoz-button icon-only variant="tertiary" disabled aria-label="Off">
-                ${c(l.close)}
+                ${z(B.close)}
             </cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"All variants in their disabled state, plus a disabled icon-only button."}}}},W={render:()=>r`
+    `,parameters:{docs:{description:{story:`All variants in their disabled state, plus a disabled icon-only button.`}}}},Y={render:()=>s`
         <div class="story-stack">
             <div>
                 <p class="story-label">
@@ -945,7 +945,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
             </div>
             <div class="story-row">
                 <cosmoz-button icon-only variant="tertiary" tooltip="Top placement">
-                    ${c(l.plus)}
+                    ${z(B.plus)}
                 </cosmoz-button>
                 <cosmoz-button
                     icon-only
@@ -954,7 +954,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
                     tooltip-placement="right"
                     aria-label="Right placement"
                 >
-                    ${c(l.search)}
+                    ${z(B.search)}
                 </cosmoz-button>
                 <cosmoz-button
                     icon-only
@@ -963,7 +963,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
                     tooltip-placement="bottom"
                     aria-label="Bottom placement"
                 >
-                    ${c(l.close)}
+                    ${z(B.close)}
                 </cosmoz-button>
             </div>
             <div class="story-row">
@@ -978,7 +978,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
                 >
             </div>
         </div>
-    `,parameters:{docs:{description:{story:"Tooltip integration via the tooltip and tooltip-placement attributes. Works on icon-only and text buttons; disabled buttons do not show the tooltip."}}}},G={render:()=>r`
+    `,parameters:{docs:{description:{story:`Tooltip integration via the tooltip and tooltip-placement attributes. Works on icon-only and text buttons; disabled buttons do not show the tooltip.`}}}},X={render:()=>s`
         <div style="width: 300px;" class="story-stack">
             <cosmoz-button variant="primary" full-width
                 >Full Width Primary</cosmoz-button
@@ -987,7 +987,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
                 >Full Width Secondary</cosmoz-button
             >
         </div>
-    `,parameters:{docs:{description:{story:"Buttons that take up 100% of their container width."}}}},j={render:()=>r`
+    `,parameters:{docs:{description:{story:`Buttons that take up 100% of their container width.`}}}},Z={render:()=>s`
         <style>
             .matrix {
                 display: grid;
@@ -1042,7 +1042,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
             <cosmoz-button variant="destructive" size="xl">Button</cosmoz-button>
             <cosmoz-button variant="link" size="xl">Button</cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"Complete matrix showing all size and variant combinations."}}}},U={render:()=>r`
+    `,parameters:{docs:{description:{story:`Complete matrix showing all size and variant combinations.`}}}},Q={render:()=>s`
         <style>
             .a11y-section {
                 margin-bottom: calc(var(--cz-spacing) * 6);
@@ -1082,9 +1082,9 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
                         tooltip="Edit"
                         aria-label="Edit"
                         aria-pressed="false"
-                        @click=${_}
+                        @click=${V}
                     >
-                        ${c(l.edit)}
+                        ${z(B.edit)}
                     </cosmoz-button>
                 </div>
             </div>
@@ -1098,7 +1098,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
                 <p id="delete-warning">This action cannot be undone.</p>
             </div>
         </div>
-    `,parameters:{docs:{description:{story:"Accessible patterns: aria-label on icon-only buttons, aria-pressed for toggles, and aria-describedby for additional context."}}}},Q={render:()=>r`
+    `,parameters:{docs:{description:{story:`Accessible patterns: aria-label on icon-only buttons, aria-pressed for toggles, and aria-describedby for additional context.`}}}},$={render:()=>s`
         <div class="story-stack">
             <div>
                 <p class="story-label">
@@ -1129,13 +1129,13 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
             </div>
             <div class="story-row">
                 <cosmoz-button variant="primary" href="/">
-                    ${c(l.home,{slot:"prefix"})} Home
+                    ${z(B.home,{slot:`prefix`})} Home
                 </cosmoz-button>
                 <cosmoz-button variant="secondary" href="/dashboard">
-                    ${c(l.dashboard,{slot:"prefix"})} Dashboard
+                    ${z(B.dashboard,{slot:`prefix`})} Dashboard
                 </cosmoz-button>
                 <cosmoz-button variant="tertiary" href="/settings">
-                    ${c(l.settings,{slot:"prefix"})} Settings
+                    ${z(B.settings,{slot:`prefix`})} Settings
                 </cosmoz-button>
                 <cosmoz-button
                     variant="secondary"
@@ -1143,7 +1143,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
                     target="_blank"
                     rel="noopener"
                 >
-                    Visit Docs ${c(l.external,{slot:"suffix"})}
+                    Visit Docs ${z(B.external,{slot:`suffix`})}
                 </cosmoz-button>
             </div>
             <div class="story-row">
@@ -1155,7 +1155,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
                 >
             </div>
         </div>
-    `,parameters:{docs:{description:{story:"Buttons rendered as anchor links using the href attribute, with optional target, rel, and download attributes, including prefix and suffix icons."}}}};I.parameters={...I.parameters,docs:{...I.parameters?.docs,source:{originalSource:`{
+    `,parameters:{docs:{description:{story:`Buttons rendered as anchor links using the href attribute, with optional target, rel, and download attributes, including prefix and suffix icons.`}}}},jt=[`Default`,`Variants`,`Sizes`,`WithIcons`,`IconOnly`,`PressedState`,`DisabledStates`,`Tooltips`,`FullWidth`,`SizeVariantMatrix`,`Accessibility`,`AnchorLinks`],H.parameters={...H.parameters,docs:{...H.parameters?.docs,source:{originalSource:`{
   args: {
     variant: 'primary',
     size: 'md',
@@ -1164,7 +1164,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
     label: 'Button'
   },
   render: renderButton
-}`,...I.parameters?.docs?.source}}};R.parameters={...R.parameters,docs:{...R.parameters?.docs,source:{originalSource:`{
+}`,...H.parameters?.docs?.source}}},U.parameters={...U.parameters,docs:{...U.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-row">
             <cosmoz-button variant="primary">Primary</cosmoz-button>
@@ -1181,7 +1181,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
       }
     }
   }
-}`,...R.parameters?.docs?.source}}};N.parameters={...N.parameters,docs:{...N.parameters?.docs,source:{originalSource:`{
+}`,...U.parameters?.docs?.source}}},W.parameters={...W.parameters,docs:{...W.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-stack">
             <div class="story-row">
@@ -1216,7 +1216,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
       }
     }
   }
-}`,...N.parameters?.docs?.source}}};O.parameters={...O.parameters,docs:{...O.parameters?.docs,source:{originalSource:`{
+}`,...W.parameters?.docs?.source}}},G.parameters={...G.parameters,docs:{...G.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-row">
             <cosmoz-button variant="primary">
@@ -1248,7 +1248,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
       }
     }
   }
-}`,...O.parameters?.docs?.source}}};H.parameters={...H.parameters,docs:{...H.parameters?.docs,source:{originalSource:`{
+}`,...G.parameters?.docs?.source}}},K.parameters={...K.parameters,docs:{...K.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-stack">
             <div>
@@ -1300,7 +1300,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
       }
     }
   }
-}`,...H.parameters?.docs?.source}}};F.parameters={...F.parameters,docs:{...F.parameters?.docs,source:{originalSource:`{
+}`,...K.parameters?.docs?.source}}},q.parameters={...q.parameters,docs:{...q.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-stack">
             <div>
@@ -1363,7 +1363,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
       }
     }
   }
-}`,...F.parameters?.docs?.source}}};V.parameters={...V.parameters,docs:{...V.parameters?.docs,source:{originalSource:`{
+}`,...q.parameters?.docs?.source}}},J.parameters={...J.parameters,docs:{...J.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-row">
             <cosmoz-button variant="primary" disabled>Primary</cosmoz-button>
@@ -1383,7 +1383,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
       }
     }
   }
-}`,...V.parameters?.docs?.source}}};W.parameters={...W.parameters,docs:{...W.parameters?.docs,source:{originalSource:`{
+}`,...J.parameters?.docs?.source}}},Y.parameters={...Y.parameters,docs:{...Y.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-stack">
             <div>
@@ -1436,7 +1436,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
       }
     }
   }
-}`,...W.parameters?.docs?.source}}};G.parameters={...G.parameters,docs:{...G.parameters?.docs,source:{originalSource:`{
+}`,...Y.parameters?.docs?.source}}},X.parameters={...X.parameters,docs:{...X.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div style="width: 300px;" class="story-stack">
             <cosmoz-button variant="primary" full-width
@@ -1454,7 +1454,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
       }
     }
   }
-}`,...G.parameters?.docs?.source}}};j.parameters={...j.parameters,docs:{...j.parameters?.docs,source:{originalSource:`{
+}`,...X.parameters?.docs?.source}}},Z.parameters={...Z.parameters,docs:{...Z.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <style>
             .matrix {
@@ -1518,7 +1518,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
       }
     }
   }
-}`,...j.parameters?.docs?.source}}};U.parameters={...U.parameters,docs:{...U.parameters?.docs,source:{originalSource:`{
+}`,...Z.parameters?.docs?.source}}},Q.parameters={...Q.parameters,docs:{...Q.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <style>
             .a11y-section {
@@ -1583,7 +1583,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
       }
     }
   }
-}`,...U.parameters?.docs?.source}}};Q.parameters={...Q.parameters,docs:{...Q.parameters?.docs,source:{originalSource:`{
+}`,...Q.parameters?.docs?.source}}},$.parameters={...$.parameters,docs:{...$.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-stack">
             <div>
@@ -1657,4 +1657,4 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import".
       }
     }
   }
-}`,...Q.parameters?.docs?.source}}};const vo=["Default","Variants","Sizes","WithIcons","IconOnly","PressedState","DisabledStates","Tooltips","FullWidth","SizeVariantMatrix","Accessibility","AnchorLinks"];export{U as Accessibility,Q as AnchorLinks,I as Default,V as DisabledStates,G as FullWidth,H as IconOnly,F as PressedState,j as SizeVariantMatrix,N as Sizes,W as Tooltips,R as Variants,O as WithIcons,vo as __namedExportsOrder,mo as default};
+}`,...$.parameters?.docs?.source}}}})))()}Mt();export{Q as Accessibility,$ as AnchorLinks,H as Default,J as DisabledStates,X as FullWidth,K as IconOnly,q as PressedState,Z as SizeVariantMatrix,W as Sizes,Y as Tooltips,U as Variants,G as WithIcons,jt as __namedExportsOrder,kt as default};
