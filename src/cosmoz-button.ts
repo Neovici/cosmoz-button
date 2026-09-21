@@ -16,19 +16,19 @@ export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonType = 'button' | 'submit' | 'reset';
 
 export interface CosmozButtonElement extends HTMLElement {
-	variant: ButtonVariant;
-	size: ButtonSize;
-	disabled: boolean;
-	'full-width': boolean;
-	'icon-only': boolean;
-	tooltip: string | null;
-	'tooltip-placement': string | null;
-	type: ButtonType;
-	value: string | null;
-	href: string | null;
-	target: string | null;
-	rel: string | null;
-	download: string | null;
+	variant?: ButtonVariant;
+	size?: ButtonSize;
+	disabled?: boolean;
+	fullWidth?: boolean;
+	iconOnly?: boolean;
+	tooltip?: string | null;
+	tooltipPlacement?: string | null;
+	type?: ButtonType;
+	value?: string | null;
+	href?: string | null;
+	target?: string | null;
+	rel?: string | null;
+	download?: string | null;
 }
 
 const observedAttributes = [
@@ -74,22 +74,25 @@ const observedAttributes = [
  * @csspart button - The native button or anchor element
  */
 const CosmozButton = (host: CosmozButtonElement) => {
-	const disabled = host.hasAttribute('disabled');
-	const type = host.getAttribute('type') || 'button';
-	const href = host.getAttribute('href');
-	const tooltip = host.getAttribute('tooltip');
-	const tooltipPlacement = host.getAttribute('tooltip-placement');
-	const target = host.getAttribute('target');
-	const rel = host.getAttribute('rel');
-	const download = host.getAttribute('download');
+	const {
+		disabled = false,
+		tooltip,
+		tooltipPlacement,
+		type = 'button',
+		href,
+		target,
+		rel,
+		download,
+	} = host;
+	const isDisabled = Boolean(disabled);
 
 	useEffect(() => {
 		const handler = (e: Event) => {
-			if (host.hasAttribute('disabled')) e.stopImmediatePropagation();
+			if (host.disabled) e.stopImmediatePropagation();
 		};
 		host.addEventListener('click', handler, { capture: true });
 		return () => host.removeEventListener('click', handler, { capture: true });
-	}, []);
+	}, [host.disabled]);
 
 	const content = html`
 		<slot name="prefix"></slot>
@@ -104,7 +107,7 @@ const CosmozButton = (host: CosmozButtonElement) => {
 				href=${href}
 				class="button"
 				part="button"
-				aria-disabled=${disabled ? 'true' : nothing}
+				aria-disabled=${isDisabled ? 'true' : nothing}
 				target=${ifDefined(target)}
 				rel=${ifDefined(rel)}
 				download=${ifDefined(download)}
@@ -112,10 +115,10 @@ const CosmozButton = (host: CosmozButtonElement) => {
 			>
 		`,
 		() => html`
-			<button type=${type} class="button" part="button" ?disabled=${disabled}>
+			<button type=${type} class="button" part="button" ?disabled=${isDisabled}>
 				${content}
 			</button>
-		`,
+		`
 	);
 
 	/* Always rendered; cosmoz-tooltip degrades to a pass-through unless
@@ -123,7 +126,7 @@ const CosmozButton = (host: CosmozButtonElement) => {
 	return html`<cosmoz-tooltip
 		heading=${ifDefined(tooltip ?? undefined)}
 		placement=${ifDefined(tooltipPlacement ?? undefined)}
-		?disabled=${disabled}
+		?disabled=${isDisabled}
 	>
 		${control}
 	</cosmoz-tooltip>`;
@@ -135,7 +138,7 @@ customElements.define(
 		observedAttributes,
 		styleSheets: [normalize, styles],
 		shadowRootInit: { mode: 'open', delegatesFocus: true },
-	}),
+	})
 );
 
 export { CosmozButton };
