@@ -1,4 +1,4 @@
-import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import"./preload-helper-PPVm8Dsz.js";const wt={CHILD:2},xt=t=>(...o)=>({_$litDirective$:t,values:o});class kt{constructor(o){}get _$AU(){return this._$AM._$AU}_$AT(o,e,n){this._$Ct=o,this._$AM=e,this._$Ci=n}_$AS(o,e){return this.update(o,e)}update(o,e){return this.render(...e)}}class ot extends kt{constructor(o){if(super(o),this.it=h,o.type!==wt.CHILD)throw Error(this.constructor.directiveName+"() can only be used in child bindings")}render(o){if(o===h||o==null)return this._t=void 0,this.it=o;if(o===Tt)return o;if(typeof o!="string")throw Error(this.constructor.directiveName+"() called with a non-string value");if(o===this.it)return this._t;this.it=o;const e=[o];return e.raw=e,this._t={_$litType$:this.constructor.resultType,strings:e,values:[]}}}ot.directiveName="unsafeHTML",ot.resultType=1;class et extends ot{}et.directiveName="unsafeSVG",et.resultType=2;const Bt=xt(et);let q,$t=0;function bt(t){q=t}function pt(){q=null,$t=0}function Pt(){return $t++}const K=Symbol("haunted.phase"),Q=Symbol("haunted.hook"),mt=Symbol("haunted.update"),vt=Symbol("haunted.commit"),A=Symbol("haunted.effects"),P=Symbol("haunted.layoutEffects"),nt="haunted.context";class Dt{update;host;virtual;[Q];[A];[P];constructor(o,e){this.update=o,this.host=e,this[Q]=new Map,this[A]=[],this[P]=[]}run(o){bt(this);let e=o();return pt(),e}_runEffects(o){let e=this[o];bt(this);for(let n of e)n.call(this);pt()}runEffects(){this._runEffects(A)}runLayoutEffects(){this._runEffects(P)}teardown(){this[Q].forEach(e=>{typeof e.teardown=="function"&&e.teardown(!0)})}}class Mt extends Error{constructor(o){const e=o?` <${o}>`:"";super(`Infinite update loop detected in component${e}. This usually means a hook (useEffect, useMemo, useCallback) has dependencies that create new references on every render, such as [{}], [[]], or [Promise.resolve()]. Make sure your dependency arrays contain stable references.`),this.name="InfiniteLoopError"}}const It=100,Rt=Promise.resolve().then.bind(Promise.resolve());function St(){let t=[],o;function e(){o=null;let n=t;t=[];for(var s=0,a=n.length;s<a;s++)n[s]()}return function(n){t.push(n),o==null&&(o=Rt(e))}}const Nt=St(),zt=St();class rt{renderer;host;state;[K];_updateQueued;_active;_updateCount;_processing;static maxUpdates=It;constructor(o,e){this.renderer=o,this.host=e,this.state=new Dt(this.update.bind(this),e),this[K]=null,this._updateQueued=!1,this._active=!1,this._updateCount=0,this._processing=!1}_checkForInfiniteLoop(){if(this._processing||(this._updateCount=0),this._updateCount++,this._updateCount>rt.maxUpdates){const o=this.host instanceof HTMLElement?this.host.tagName.toLowerCase():void 0;throw this._active=!1,new Mt(o)}}update(){this._active&&(this._updateQueued||(this._checkForInfiniteLoop(),this._processing=!0,Nt(()=>{let o=this.handlePhase(mt);zt(()=>{this.handlePhase(vt,o),zt(()=>{this.handlePhase(A),this._updateQueued||(this._processing=!1)})}),this._updateQueued=!1}),this._updateQueued=!0))}handlePhase(o,e){switch(this[K]=o,o){case vt:this.commit(e),this.runEffects(P);return;case mt:return this.render();case A:return this.runEffects(A)}}render(){return this.state.run(()=>this.renderer.call(this.host,this.host))}runEffects(o){this.state._runEffects(o)}teardown(){this.state.teardown(),this._updateCount=0,this._processing=!1}pause(){this._active=!1}resume(){this._active=!0,this._updateCount=0}}const at=(...t)=>{const o=new CSSStyleSheet;return o.replaceSync(t.join("")),o},Ot=t=>t?.map(o=>typeof o=="string"?at(o):o),Ht=(t,...o)=>t.flatMap((e,n)=>[e,o[n]||""]).join(""),L=Ht,Ft=(t="")=>t.replace(/-+([a-z])?/g,(o,e)=>e?e.toUpperCase():"");function Vt(t){class o extends rt{frag;renderResult;constructor(s,a,m){super(s,m||a),this.frag=a}commit(s){this.renderResult=t(s,this.frag)}}function e(n,s,a){const m=(a||s||{}).baseElement||HTMLElement,{observedAttributes:y=[],useShadowDOM:p=!0,shadowRootInit:k={},styleSheets:S}=a||s||{},u=Ot(n.styleSheets||S);class g extends m{_scheduler;static get observedAttributes(){return n.observedAttributes||y||[]}constructor(){if(super(),p===!1)this._scheduler=new o(n,this);else{const i=this.attachShadow({mode:"open",...k});u&&(i.adoptedStyleSheets=u),this._scheduler=new o(n,i,this)}}connectedCallback(){this._scheduler.resume(),this._scheduler.update(),this._scheduler.renderResult?.setConnected(!0)}disconnectedCallback(){this._scheduler.pause(),this._scheduler.teardown(),this._scheduler.renderResult?.setConnected(!1)}attributeChangedCallback(i,b,z){if(b===z)return;let f=z===""?!0:z;Reflect.set(this,Ft(i),f)}}function d(v){let i=v,b=!1;return Object.freeze({enumerable:!0,configurable:!0,get(){return i},set(z){b&&i===z||(b=!0,i=z,this._scheduler&&this._scheduler.update())}})}const w=new Proxy(m.prototype,{getPrototypeOf(v){return v},set(v,i,b,z){let f;return i in v?(f=Object.getOwnPropertyDescriptor(v,i),f&&f.set?(f.set.call(z,b),!0):(Reflect.set(v,i,b,z),!0)):(typeof i=="symbol"||i[0]==="_"?f={enumerable:!0,configurable:!0,writable:!0,value:b}:f=d(b),Object.defineProperty(z,i,f),f.set&&f.set.call(z,b),!0)}});return Object.setPrototypeOf(g.prototype,w),g}return e}class E{id;state;constructor(o,e){this.id=o,this.state=e}}function Wt(t,...o){let e=Pt(),n=q[Q],s=n.get(e);return s||(s=new t(e,q,...o),n.set(e,s)),s.update(...o)}function T(t){return Wt.bind(null,t)}function _t(t){return T(class extends E{callback;lastValues;values;_teardown;constructor(o,e,n,s){super(o,e),t(e,this)}update(o,e){this.callback=o,this.values=e}call(){const o=!this.values||this.hasChanged();this.lastValues=this.values,o&&this.run()}run(){this.teardown(),this._teardown=this.callback.call(this.state)}teardown(o){typeof this._teardown=="function"&&(this._teardown(),this._teardown=void 0),o&&(this.lastValues=this.values=void 0)}hasChanged(){return!this.lastValues||this.values.some((o,e)=>this.lastValues[e]!==o)}})}function At(t,o){t[A].push(o)}const C=_t(At),Gt=t=>t instanceof Element?t:t.startNode||t.endNode||t.parentNode,jt=T(class extends E{Context;value;_ranEffect;_unsubscribe;constructor(t,o,e){super(t,o),this._updater=this._updater.bind(this),this._ranEffect=!1,this._unsubscribe=null,At(o,this)}update(t){return this.Context!==t&&(this._subscribe(t),this.Context=t),this.value}call(){this._ranEffect||(this._ranEffect=!0,this._unsubscribe&&this._unsubscribe(),this._subscribe(this.Context),this.state.update())}_updater(t){this.value=t,this.state.update()}_subscribe(t){const o={Context:t,callback:this._updater};Gt(this.state.host).dispatchEvent(new CustomEvent(nt,{detail:o,bubbles:!0,cancelable:!0,composed:!0}));const{unsubscribe:n=null,value:s}=o;this.value=n?s:t.defaultValue,this._unsubscribe=n}teardown(){this._unsubscribe&&this._unsubscribe()}});function Ut(t){return o=>{const e={Provider:class extends HTMLElement{listeners;_value;constructor(){super(),this.style.display="contents",this.listeners=new Set,this.addEventListener(nt,this)}disconnectedCallback(){this.removeEventListener(nt,this)}handleEvent(n){const{detail:s}=n;s.Context===e&&(s.value=this.value,s.unsubscribe=this.unsubscribe.bind(this,s.callback),this.listeners.add(s.callback),n.stopPropagation())}unsubscribe(n){this.listeners.delete(n)}set value(n){this._value=n;for(let s of this.listeners)s(n)}get value(){return this._value}},Consumer:t(function({render:n}){const s=jt(e);return n(s)},{useShadowDOM:!1}),defaultValue:o};return e}}const Ct=T(class extends E{value;values;constructor(t,o,e,n){super(t,o),this.value=e(),this.values=n}update(t,o){return this.hasChanged(o)&&(this.values=o,this.value=t()),this.value}hasChanged(t=[]){return t.some((o,e)=>this.values[e]!==o)}}),ft=(t,o)=>Ct(()=>t,o);function Qt(t,o){t[P].push(o)}_t(Qt);const Yt=T(class extends E{args;constructor(t,o,e){super(t,o),this.updater=this.updater.bind(this),typeof e=="function"&&(e=e()),this.makeArgs(e)}update(){return this.args}updater(t){const[o]=this.args;typeof t=="function"&&(t=t(o)),!Object.is(o,t)&&(this.makeArgs(t),this.state.update())}makeArgs(t){this.args=Object.freeze([t,this.updater])}});T(class extends E{reducer;currentState;constructor(t,o,e,n,s){super(t,o),this.dispatch=this.dispatch.bind(this),this.currentState=s!==void 0?s(n):n}update(t){return this.reducer=t,[this.currentState,this.dispatch]}dispatch(t){this.currentState=this.reducer(this.currentState,t),this.state.update()}});const qt=/([A-Z])/gu;T(class extends E{property;eventName;constructor(t,o,e,n){if(super(t,o),this.state.virtual)throw new Error("Can't be used with virtual components.");this.updater=this.updater.bind(this),this.property=e,this.eventName=e.replace(qt,"-$1").toLowerCase()+"-changed",this.state.host[this.property]==null&&(typeof n=="function"&&(n=n()),n!=null&&this.updater(n,!0))}update(t,o){return[this.state.host[this.property],this.updater]}resolve(t){const o=this.state.host[this.property],e=typeof t=="function"?t:void 0,n=e?e(o):t;return[o,n,e]}notify(t,o){const e=new CustomEvent(this.eventName,{detail:{value:t,updater:o,path:this.property},cancelable:!0});return this.state.host.dispatchEvent(e),e}updater(t,o=!1){const[e,n,s]=this.resolve(t),a=this.notify(n,s);!o&&a.defaultPrevented||Object.is(e,n)||(this.state.host[this.property]=n)}});function Xt(t){let o=t;return{get current(){return o},set current(e){o=e},get value(){return o},set value(e){o=e}}}function Y(t){return Ct(()=>Xt(t),[])}T(class extends E{update(){return this.state.host}});function Zt({render:t}){const o=Vt(t),e=Ut(o);return{component:o,createContext:e}}const D=(t,o)=>{const e=t._$AN;if(e===void 0)return!1;for(const n of e)n._$AO?.(o,!1),D(n,o);return!0},X=t=>{let o,e;do{if((o=t._$AM)===void 0)break;e=o._$AN,e.delete(t),t=o}while(e?.size===0)},Et=t=>{for(let o;o=t._$AM;t=o){let e=o._$AN;if(e===void 0)o._$AN=e=new Set;else if(e.has(t))break;e.add(t),to(o)}};function Kt(t){this._$AN!==void 0?(X(this),this._$AM=t,Et(this)):this._$AM=t}function Jt(t,o=!1,e=0){const n=this._$AH,s=this._$AN;if(s!==void 0&&s.size!==0)if(o)if(Array.isArray(n))for(let a=e;a<n.length;a++)D(n[a],!1),X(n[a]);else n!=null&&(D(n,!1),X(n));else D(this,t)}const to=t=>{t.type==wt.CHILD&&(t._$AP??=Jt,t._$AQ??=Kt)};class oo extends kt{constructor(){super(...arguments),this._$AN=void 0}_$AT(o,e,n){super._$AT(o,e,n),Et(this),this.isConnected=o._$AU}_$AO(o,e=!0){o!==this.isConnected&&(this.isConnected=o,o?this.reconnected?.():this.disconnected?.()),e&&(D(this,o),X(this))}setValue(o){if(Lt(this._$Ct))this._$Ct._$AI(o,this);else{const e=[...this._$Ct._$AH];e[this._$Ci]=o,this._$Ct._$AI(e,this,0)}}disconnected(){}reconnected(){}}const{component:it}=Zt({render:gt}),ct=at(L`
+import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-Cjkih-Jb.js";import"./preload-helper-PPVm8Dsz.js";const wt={CHILD:2},xt=t=>(...o)=>({_$litDirective$:t,values:o});class kt{constructor(o){}get _$AU(){return this._$AM._$AU}_$AT(o,e,n){this._$Ct=o,this._$AM=e,this._$Ci=n}_$AS(o,e){return this.update(o,e)}update(o,e){return this.render(...e)}}class ot extends kt{constructor(o){if(super(o),this.it=h,o.type!==wt.CHILD)throw Error(this.constructor.directiveName+"() can only be used in child bindings")}render(o){if(o===h||o==null)return this._t=void 0,this.it=o;if(o===Tt)return o;if(typeof o!="string")throw Error(this.constructor.directiveName+"() called with a non-string value");if(o===this.it)return this._t;this.it=o;const e=[o];return e.raw=e,this._t={_$litType$:this.constructor.resultType,strings:e,values:[]}}}ot.directiveName="unsafeHTML",ot.resultType=1;class et extends ot{}et.directiveName="unsafeSVG",et.resultType=2;const Bt=xt(et);let X,$t=0;function bt(t){X=t}function pt(){X=null,$t=0}function Pt(){return $t++}const K=Symbol("haunted.phase"),Y=Symbol("haunted.hook"),mt=Symbol("haunted.update"),vt=Symbol("haunted.commit"),A=Symbol("haunted.effects"),P=Symbol("haunted.layoutEffects"),nt="haunted.context";class Dt{update;host;virtual;[Y];[A];[P];constructor(o,e){this.update=o,this.host=e,this[Y]=new Map,this[A]=[],this[P]=[]}run(o){bt(this);let e=o();return pt(),e}_runEffects(o){let e=this[o];bt(this);for(let n of e)n.call(this);pt()}runEffects(){this._runEffects(A)}runLayoutEffects(){this._runEffects(P)}teardown(){this[Y].forEach(e=>{typeof e.teardown=="function"&&e.teardown(!0)})}}class Mt extends Error{constructor(o){const e=o?` <${o}>`:"";super(`Infinite update loop detected in component${e}. This usually means a hook (useEffect, useMemo, useCallback) has dependencies that create new references on every render, such as [{}], [[]], or [Promise.resolve()]. Make sure your dependency arrays contain stable references.`),this.name="InfiniteLoopError"}}const It=100,Rt=Promise.resolve().then.bind(Promise.resolve());function St(){let t=[],o;function e(){o=null;let n=t;t=[];for(var s=0,a=n.length;s<a;s++)n[s]()}return function(n){t.push(n),o==null&&(o=Rt(e))}}const Nt=St(),zt=St();class rt{renderer;host;state;[K];_updateQueued;_active;_updateCount;_processing;static maxUpdates=It;constructor(o,e){this.renderer=o,this.host=e,this.state=new Dt(this.update.bind(this),e),this[K]=null,this._updateQueued=!1,this._active=!1,this._updateCount=0,this._processing=!1}_checkForInfiniteLoop(){if(this._processing||(this._updateCount=0),this._updateCount++,this._updateCount>rt.maxUpdates){const o=this.host instanceof HTMLElement?this.host.tagName.toLowerCase():void 0;throw this._active=!1,new Mt(o)}}update(){this._active&&(this._updateQueued||(this._checkForInfiniteLoop(),this._processing=!0,Nt(()=>{let o=this.handlePhase(mt);zt(()=>{this.handlePhase(vt,o),zt(()=>{this.handlePhase(A),this._updateQueued||(this._processing=!1)})}),this._updateQueued=!1}),this._updateQueued=!0))}handlePhase(o,e){switch(this[K]=o,o){case vt:this.commit(e),this.runEffects(P);return;case mt:return this.render();case A:return this.runEffects(A)}}render(){return this.state.run(()=>this.renderer.call(this.host,this.host))}runEffects(o){this.state._runEffects(o)}teardown(){this.state.teardown(),this._updateCount=0,this._processing=!1}pause(){this._active=!1}resume(){this._active=!0,this._updateCount=0}}const at=(...t)=>{const o=new CSSStyleSheet;return o.replaceSync(t.join("")),o},Ot=t=>t?.map(o=>typeof o=="string"?at(o):o),Ht=(t,...o)=>t.flatMap((e,n)=>[e,o[n]||""]).join(""),L=Ht,Ft=(t="")=>t.replace(/-+([a-z])?/g,(o,e)=>e?e.toUpperCase():"");function Vt(t){class o extends rt{frag;renderResult;constructor(s,a,m){super(s,m||a),this.frag=a}commit(s){this.renderResult=t(s,this.frag)}}function e(n,s,a){const m=(a||s||{}).baseElement||HTMLElement,{observedAttributes:y=[],useShadowDOM:p=!0,shadowRootInit:k={},styleSheets:S}=a||s||{},u=Ot(n.styleSheets||S);class g extends m{_scheduler;static get observedAttributes(){return n.observedAttributes||y||[]}constructor(){if(super(),p===!1)this._scheduler=new o(n,this);else{const i=this.attachShadow({mode:"open",...k});u&&(i.adoptedStyleSheets=u),this._scheduler=new o(n,i,this)}}connectedCallback(){this._scheduler.resume(),this._scheduler.update(),this._scheduler.renderResult?.setConnected(!0)}disconnectedCallback(){this._scheduler.pause(),this._scheduler.teardown(),this._scheduler.renderResult?.setConnected(!1)}attributeChangedCallback(i,b,z){if(b===z)return;let f=z===""?!0:z;Reflect.set(this,Ft(i),f)}}function d(v){let i=v,b=!1;return Object.freeze({enumerable:!0,configurable:!0,get(){return i},set(z){b&&i===z||(b=!0,i=z,this._scheduler&&this._scheduler.update())}})}const w=new Proxy(m.prototype,{getPrototypeOf(v){return v},set(v,i,b,z){let f;return i in v?(f=Object.getOwnPropertyDescriptor(v,i),f&&f.set?(f.set.call(z,b),!0):(Reflect.set(v,i,b,z),!0)):(typeof i=="symbol"||i[0]==="_"?f={enumerable:!0,configurable:!0,writable:!0,value:b}:f=d(b),Object.defineProperty(z,i,f),f.set&&f.set.call(z,b),!0)}});return Object.setPrototypeOf(g.prototype,w),g}return e}class E{id;state;constructor(o,e){this.id=o,this.state=e}}function Wt(t,...o){let e=Pt(),n=X[Y],s=n.get(e);return s||(s=new t(e,X,...o),n.set(e,s)),s.update(...o)}function T(t){return Wt.bind(null,t)}function _t(t){return T(class extends E{callback;lastValues;values;_teardown;constructor(o,e,n,s){super(o,e),t(e,this)}update(o,e){this.callback=o,this.values=e}call(){const o=!this.values||this.hasChanged();this.lastValues=this.values,o&&this.run()}run(){this.teardown(),this._teardown=this.callback.call(this.state)}teardown(o){typeof this._teardown=="function"&&(this._teardown(),this._teardown=void 0),o&&(this.lastValues=this.values=void 0)}hasChanged(){return!this.lastValues||this.values.some((o,e)=>this.lastValues[e]!==o)}})}function At(t,o){t[A].push(o)}const C=_t(At),Gt=t=>t instanceof Element?t:t.startNode||t.endNode||t.parentNode,jt=T(class extends E{Context;value;_ranEffect;_unsubscribe;constructor(t,o,e){super(t,o),this._updater=this._updater.bind(this),this._ranEffect=!1,this._unsubscribe=null,At(o,this)}update(t){return this.Context!==t&&(this._subscribe(t),this.Context=t),this.value}call(){this._ranEffect||(this._ranEffect=!0,this._unsubscribe&&this._unsubscribe(),this._subscribe(this.Context),this.state.update())}_updater(t){this.value=t,this.state.update()}_subscribe(t){const o={Context:t,callback:this._updater};Gt(this.state.host).dispatchEvent(new CustomEvent(nt,{detail:o,bubbles:!0,cancelable:!0,composed:!0}));const{unsubscribe:n=null,value:s}=o;this.value=n?s:t.defaultValue,this._unsubscribe=n}teardown(){this._unsubscribe&&this._unsubscribe()}});function Ut(t){return o=>{const e={Provider:class extends HTMLElement{listeners;_value;constructor(){super(),this.style.display="contents",this.listeners=new Set,this.addEventListener(nt,this)}disconnectedCallback(){this.removeEventListener(nt,this)}handleEvent(n){const{detail:s}=n;s.Context===e&&(s.value=this.value,s.unsubscribe=this.unsubscribe.bind(this,s.callback),this.listeners.add(s.callback),n.stopPropagation())}unsubscribe(n){this.listeners.delete(n)}set value(n){this._value=n;for(let s of this.listeners)s(n)}get value(){return this._value}},Consumer:t(function({render:n}){const s=jt(e);return n(s)},{useShadowDOM:!1}),defaultValue:o};return e}}const Ct=T(class extends E{value;values;constructor(t,o,e,n){super(t,o),this.value=e(),this.values=n}update(t,o){return this.hasChanged(o)&&(this.values=o,this.value=t()),this.value}hasChanged(t=[]){return t.some((o,e)=>this.values[e]!==o)}}),ft=(t,o)=>Ct(()=>t,o);function Qt(t,o){t[P].push(o)}_t(Qt);const Yt=T(class extends E{args;constructor(t,o,e){super(t,o),this.updater=this.updater.bind(this),typeof e=="function"&&(e=e()),this.makeArgs(e)}update(){return this.args}updater(t){const[o]=this.args;typeof t=="function"&&(t=t(o)),!Object.is(o,t)&&(this.makeArgs(t),this.state.update())}makeArgs(t){this.args=Object.freeze([t,this.updater])}});T(class extends E{reducer;currentState;constructor(t,o,e,n,s){super(t,o),this.dispatch=this.dispatch.bind(this),this.currentState=s!==void 0?s(n):n}update(t){return this.reducer=t,[this.currentState,this.dispatch]}dispatch(t){this.currentState=this.reducer(this.currentState,t),this.state.update()}});const qt=/([A-Z])/gu;T(class extends E{property;eventName;constructor(t,o,e,n){if(super(t,o),this.state.virtual)throw new Error("Can't be used with virtual components.");this.updater=this.updater.bind(this),this.property=e,this.eventName=e.replace(qt,"-$1").toLowerCase()+"-changed",this.state.host[this.property]==null&&(typeof n=="function"&&(n=n()),n!=null&&this.updater(n,!0))}update(t,o){return[this.state.host[this.property],this.updater]}resolve(t){const o=this.state.host[this.property],e=typeof t=="function"?t:void 0,n=e?e(o):t;return[o,n,e]}notify(t,o){const e=new CustomEvent(this.eventName,{detail:{value:t,updater:o,path:this.property},cancelable:!0});return this.state.host.dispatchEvent(e),e}updater(t,o=!1){const[e,n,s]=this.resolve(t),a=this.notify(n,s);!o&&a.defaultPrevented||Object.is(e,n)||(this.state.host[this.property]=n)}});function Xt(t){let o=t;return{get current(){return o},set current(e){o=e},get value(){return o},set value(e){o=e}}}function q(t){return Ct(()=>Xt(t),[])}T(class extends E{update(){return this.state.host}});function Zt({render:t}){const o=Vt(t),e=Ut(o);return{component:o,createContext:e}}const D=(t,o)=>{const e=t._$AN;if(e===void 0)return!1;for(const n of e)n._$AO?.(o,!1),D(n,o);return!0},Z=t=>{let o,e;do{if((o=t._$AM)===void 0)break;e=o._$AN,e.delete(t),t=o}while(e?.size===0)},Et=t=>{for(let o;o=t._$AM;t=o){let e=o._$AN;if(e===void 0)o._$AN=e=new Set;else if(e.has(t))break;e.add(t),to(o)}};function Kt(t){this._$AN!==void 0?(Z(this),this._$AM=t,Et(this)):this._$AM=t}function Jt(t,o=!1,e=0){const n=this._$AH,s=this._$AN;if(s!==void 0&&s.size!==0)if(o)if(Array.isArray(n))for(let a=e;a<n.length;a++)D(n[a],!1),Z(n[a]);else n!=null&&(D(n,!1),Z(n));else D(this,t)}const to=t=>{t.type==wt.CHILD&&(t._$AP??=Jt,t._$AQ??=Kt)};class oo extends kt{constructor(){super(...arguments),this._$AN=void 0}_$AT(o,e,n){super._$AT(o,e,n),Et(this),this.isConnected=o._$AU}_$AO(o,e=!0){o!==this.isConnected&&(this.isConnected=o,o?this.reconnected?.():this.disconnected?.()),e&&(D(this,o),Z(this))}setValue(o){if(Lt(this._$Ct))this._$Ct._$AI(o,this);else{const e=[...this._$Ct._$AH];e[this._$Ci]=o,this._$Ct._$AI(e,this,0)}}disconnected(){}reconnected(){}}const{component:it}=Zt({render:gt}),ct=at(L`
 	/*
 	 * Use border-box sizing for all elements.
 	 * This is safe and doesn't conflict with child component styles.
@@ -208,7 +208,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
 	[hidden]:where(:not([hidden='until-found'])) {
 		display: none !important;
 	}
-`),J=new WeakMap,tt=xt(class extends oo{render(t){return h}update(t,[o]){const e=o!==this.G;return e&&this.G!==void 0&&this.rt(void 0),(e||this.lt!==this.ct)&&(this.G=o,this.ht=t.options?.host,this.rt(this.ct=t.element)),h}rt(t){if(this.isConnected||(t=void 0),typeof this.G=="function"){const o=this.ht??globalThis;let e=J.get(o);e===void 0&&(e=new WeakMap,J.set(o,e)),e.get(this.G)!==void 0&&this.G.call(this.ht,void 0),e.set(this.G,t),t!==void 0&&this.G.call(this.ht,t)}else this.G.value=t}get lt(){return typeof this.G=="function"?J.get(this.ht??globalThis)?.get(this.G):this.G?.value}disconnected(){this.lt===this.ct&&this.rt(void 0)}reconnected(){this.rt(this.ct)}});function Z(t,o,e){return t?o(t):e?.(t)}const eo=L`
+`),J=new WeakMap,tt=xt(class extends oo{render(t){return h}update(t,[o]){const e=o!==this.G;return e&&this.G!==void 0&&this.rt(void 0),(e||this.lt!==this.ct)&&(this.G=o,this.ht=t.options?.host,this.rt(this.ct=t.element)),h}rt(t){if(this.isConnected||(t=void 0),typeof this.G=="function"){const o=this.ht??globalThis;let e=J.get(o);e===void 0&&(e=new WeakMap,J.set(o,e)),e.get(this.G)!==void 0&&this.G.call(this.ht,void 0),e.set(this.G,t),t!==void 0&&this.G.call(this.ht,t)}else this.G.value=t}get lt(){return typeof this.G=="function"?J.get(this.ht??globalThis)?.get(this.G):this.G?.value}disconnected(){this.lt===this.ct&&this.rt(void 0)}reconnected(){this.rt(this.ct)}});function M(t,o,e){return t?o(t):e?.(t)}const eo=L`
 	:host {
 		display: flex;
 		flex-direction: column;
@@ -290,9 +290,9 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
 		}
 	}
 `),yt=(t,o,e)=>gt(r`<cosmoz-tooltip-content>
-			${Z(o,()=>r`<strong slot="heading">${o}</strong>`)}
-			${Z(e,()=>r`<p slot="description">${e}</p>`)}
-		</cosmoz-tooltip-content>`,t),no=(t,o)=>{const{for:e,heading:n,description:s,placement:a="top",delay:m=300,disabled:y=!1}=o,p=Y(),S=!!(n||s)&&!y;C(()=>{if(!e||!S)return;const u=t.getRootNode(),g=u.adoptedStyleSheets??[];g.includes(st)||(u.adoptedStyleSheets=[...g,st]);const d=document.createElement("div");d.setAttribute("popover","manual"),d.setAttribute("role","tooltip"),d.classList.add("cosmoz-tooltip-popover"),t.after(d),p.current=d,yt(d,n,s);const w=`[name="${e}"]`,v=`--tooltip-anchor-${e}`;let i;const b=x=>{y||(clearTimeout(i),x.style.anchorName=v,d.style.positionAnchor=v,d.style.positionArea=a,i=window.setTimeout(()=>d.showPopover(),m))},z=()=>{clearTimeout(i),d.hidePopover()},f=x=>{const $=x.target.closest?.(w);$&&b($)},lt=x=>{const $=x.target.closest?.(w);if(!$)return;const ht=x.relatedTarget;ht&&$.contains(ht)||z()},dt=x=>{const $=x.target.closest?.(w);$&&b($)},ut=x=>{x.target.closest?.(w)&&z()};return u.addEventListener("pointerover",f),u.addEventListener("pointerout",lt),u.addEventListener("focusin",dt),u.addEventListener("focusout",ut),()=>{clearTimeout(i),u.removeEventListener("pointerover",f),u.removeEventListener("pointerout",lt),u.removeEventListener("focusin",dt),u.removeEventListener("focusout",ut),d.hidePopover(),d.remove(),p.current=void 0}},[e,a,m,S]),C(()=>{!e||!p.current||yt(p.current,n,s)},[n,s,e]),C(()=>{!y||!p.current||p.current.hidePopover()},[y])},so=t=>{const[o,e]=Yt(!1);return C(()=>{const n=t.current;if(!n)return;const s=()=>{e(n.assignedElements().length>0)};return s(),n.addEventListener("slotchange",s),()=>n.removeEventListener("slotchange",s)},[t.current]),o},ro=L`
+			${M(o,()=>r`<strong slot="heading">${o}</strong>`)}
+			${M(e,()=>r`<p slot="description">${e}</p>`)}
+		</cosmoz-tooltip-content>`,t),no=(t,o)=>{const{for:e,heading:n,description:s,placement:a="top",delay:m=300,disabled:y=!1}=o,p=q(),S=!!(n||s)&&!y;C(()=>{if(!e||!S)return;const u=t.getRootNode(),g=u.adoptedStyleSheets??[];g.includes(st)||(u.adoptedStyleSheets=[...g,st]);const d=document.createElement("div");d.setAttribute("popover","manual"),d.setAttribute("role","tooltip"),d.classList.add("cosmoz-tooltip-popover"),t.after(d),p.current=d,yt(d,n,s);const w=`[name="${e}"]`,v=`--tooltip-anchor-${e}`;let i;const b=x=>{y||(clearTimeout(i),x.style.anchorName=v,d.style.positionAnchor=v,d.style.positionArea=a,i=window.setTimeout(()=>d.showPopover(),m))},z=()=>{clearTimeout(i),d.hidePopover()},f=x=>{const $=x.target.closest?.(w);$&&b($)},lt=x=>{const $=x.target.closest?.(w);if(!$)return;const ht=x.relatedTarget;ht&&$.contains(ht)||z()},dt=x=>{const $=x.target.closest?.(w);$&&b($)},ut=x=>{x.target.closest?.(w)&&z()};return u.addEventListener("pointerover",f),u.addEventListener("pointerout",lt),u.addEventListener("focusin",dt),u.addEventListener("focusout",ut),()=>{clearTimeout(i),u.removeEventListener("pointerover",f),u.removeEventListener("pointerout",lt),u.removeEventListener("focusin",dt),u.removeEventListener("focusout",ut),d.hidePopover(),d.remove(),p.current=void 0}},[e,a,m,S]),C(()=>{!e||!p.current||yt(p.current,n,s)},[n,s,e]),C(()=>{!y||!p.current||p.current.hidePopover()},[y])},so=t=>{const[o,e]=Yt(!1);return C(()=>{const n=t.current;if(!n)return;const s=()=>{e(n.assignedElements().length>0)};return s(),n.addEventListener("slotchange",s),()=>n.removeEventListener("slotchange",s)},[t.current]),o},ro=L`
 	:host {
 		display: inline-block;
 		anchor-name: --tooltip-anchor;
@@ -306,7 +306,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
 	.cosmoz-tooltip-popover {
 		position-anchor: --tooltip-anchor;
 	}
-`,ao=t=>{const{heading:o,description:e,for:n,placement:s="top",delay:a=300,disabled:m=!1}=t,y=Y(),p=Y(),k=Y(),S=so(k),g=!!(o||e||S)&&!m,d=ft(()=>{g&&(clearTimeout(p.current),p.current=window.setTimeout(()=>{y.current?.showPopover()},a))},[a,g]);C(()=>{m&&(clearTimeout(p.current),y.current?.hidePopover())},[m]);const w=ft(()=>{clearTimeout(p.current),y.current?.hidePopover()},[]);return C(()=>{if(n)return;const v=i=>{const b=i.relatedTarget;b&&t.contains(b)||w()};return t.addEventListener("pointerover",d),t.addEventListener("pointerout",v),()=>{t.removeEventListener("pointerover",d),t.removeEventListener("pointerout",v)}},[n,d,w]),no(t,{for:n,heading:o,description:e,placement:s,delay:a,disabled:m}),n?h:g?r`
+`,ao=t=>{const{heading:o,description:e,for:n,placement:s="top",delay:a=300,disabled:m=!1}=t,y=q(),p=q(),k=q(),S=so(k),g=!!(o||e||S)&&!m,d=ft(()=>{g&&(clearTimeout(p.current),p.current=window.setTimeout(()=>{y.current?.showPopover()},a))},[a,g]);C(()=>{m&&(clearTimeout(p.current),y.current?.hidePopover())},[m]);const w=ft(()=>{clearTimeout(p.current),y.current?.hidePopover()},[]);return C(()=>{if(n)return;const v=i=>{const b=i.relatedTarget;b&&t.contains(b)||w()};return t.addEventListener("pointerover",d),t.addEventListener("pointerout",v),()=>{t.removeEventListener("pointerover",d),t.removeEventListener("pointerout",v)}},[n,d,w]),no(t,{for:n,heading:o,description:e,placement:s,delay:a,disabled:m}),n?h:g?r`
 		<slot @focusin=${d} @focusout=${w}></slot>
 		<div
 			class="cosmoz-tooltip-popover"
@@ -316,8 +316,8 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
 			${tt(y)}
 		>
 			<cosmoz-tooltip-content>
-				${Z(o,()=>r`<strong slot="heading">${o}</strong>`)}
-				${Z(e,()=>r`<p slot="description">${e}</p>`)}
+				${M(o,()=>r`<strong slot="heading">${o}</strong>`)}
+				${M(e,()=>r`<p slot="description">${e}</p>`)}
 				<slot name="content" ${tt(k)}></slot>
 			</cosmoz-tooltip-content>
 		</div>
@@ -726,27 +726,22 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
 		<slot name="prefix"></slot>
 		<slot></slot>
 		<slot name="suffix"></slot>
-	`,S=n!=null?r`
-					<a
-						href=${n}
-						class="button"
-						part="button"
-						aria-disabled=${o?"true":h}
-						target=${B(m)}
-						rel=${B(y)}
-						download=${B(p)}
-						>${k}</a
-					>
-				`:r`
-					<button
-						type=${e}
-						class="button"
-						part="button"
-						?disabled=${o}
-					>
-						${k}
-					</button>
-				`;return r`<cosmoz-tooltip
+	`,S=M(n!=null,()=>r`
+			<a
+				href=${n}
+				class="button"
+				part="button"
+				aria-disabled=${o?"true":h}
+				target=${B(m)}
+				rel=${B(y)}
+				download=${B(p)}
+				>${k}</a
+			>
+		`,()=>r`
+			<button type=${e} class="button" part="button" ?disabled=${o}>
+				${k}
+			</button>
+		`);return r`<cosmoz-tooltip
 		heading=${B(s??void 0)}
 		placement=${B(a??void 0)}
 		?disabled=${o}
@@ -782,7 +777,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
         stroke-linejoin="round"
     >
         ${Bt(t)}
-    </svg>`,l={plus:'<path d="M12 5v14M5 12h14" />',download:'<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />',search:'<circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />',trash:'<path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />',close:'<path d="M6 6l12 12M18 6L6 18" />',image:'<rect x="3" y="4" width="18" height="16" rx="2" /><circle cx="9" cy="10" r="1.6" /><path d="M4 18l5-5 4 4 3-3 4 4" />',edit:'<path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />',home:'<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9 22 9 12 15 12 15 22" />',dashboard:'<rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" />',external:'<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />',settings:'<circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />'},_=t=>{const o=t.currentTarget;o.setAttribute("aria-pressed",o.getAttribute("aria-pressed")==="true"?"false":"true")},M={args:{variant:"primary",size:"md",disabled:!1,fullWidth:!1,label:"Button"},render:ho},I={render:()=>r`
+    </svg>`,l={plus:'<path d="M12 5v14M5 12h14" />',download:'<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />',search:'<circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />',trash:'<path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />',close:'<path d="M6 6l12 12M18 6L6 18" />',image:'<rect x="3" y="4" width="18" height="16" rx="2" /><circle cx="9" cy="10" r="1.6" /><path d="M4 18l5-5 4 4 3-3 4 4" />',edit:'<path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />',home:'<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9 22 9 12 15 12 15 22" />',dashboard:'<rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" />',external:'<path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />',settings:'<circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />'},_=t=>{const o=t.currentTarget;o.setAttribute("aria-pressed",o.getAttribute("aria-pressed")==="true"?"false":"true")},I={args:{variant:"primary",size:"md",disabled:!1,fullWidth:!1,label:"Button"},render:ho},R={render:()=>r`
         <div class="story-row">
             <cosmoz-button variant="primary">Primary</cosmoz-button>
             <cosmoz-button variant="secondary">Secondary</cosmoz-button>
@@ -790,7 +785,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
             <cosmoz-button variant="destructive">Destructive</cosmoz-button>
             <cosmoz-button variant="link">Link</cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"The five visual style variants. Hover to see state changes, Tab to see focus rings."}}}},R={render:()=>r`
+    `,parameters:{docs:{description:{story:"The five visual style variants. Hover to see state changes, Tab to see focus rings."}}}},N={render:()=>r`
         <div class="story-stack">
             <div class="story-row">
                 <cosmoz-button size="sm">Small</cosmoz-button>
@@ -816,7 +811,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
                 </cosmoz-button>
             </div>
         </div>
-    `,parameters:{docs:{description:{story:"The four size variants, plus the icon-only size ladder (sm 28px, md 32px, lg 36px, xl 40px)."}}}},N={render:()=>r`
+    `,parameters:{docs:{description:{story:"The four size variants, plus the icon-only size ladder (sm 28px, md 32px, lg 36px, xl 40px)."}}}},O={render:()=>r`
         <div class="story-row">
             <cosmoz-button variant="primary">
                 ${c(l.plus,{slot:"prefix"})} Add Item
@@ -831,7 +826,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
                 ${c(l.trash,{slot:"prefix"})} Delete
             </cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"Buttons with prefix and suffix icon slots."}}}},O={render:()=>r`
+    `,parameters:{docs:{description:{story:"Buttons with prefix and suffix icon slots."}}}},H={render:()=>r`
         <div class="story-stack">
             <div>
                 <p class="story-label">
@@ -874,7 +869,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
                 </cosmoz-button>
             </div>
         </div>
-    `,parameters:{docs:{description:{story:"Icon-only utility buttons in secondary, tertiary, and destructive variants. Sizes are shown in Sizes; toggled and disabled states in Pressed State and Disabled States."}}}},H={render:()=>r`
+    `,parameters:{docs:{description:{story:"Icon-only utility buttons in secondary, tertiary, and destructive variants. Sizes are shown in Sizes; toggled and disabled states in Pressed State and Disabled States."}}}},F={render:()=>r`
         <div class="story-stack">
             <div>
                 <p class="story-label">
@@ -928,7 +923,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
                 >
             </div>
         </div>
-    `,parameters:{docs:{description:{story:"The pressed/selected state (aria-pressed) across all variants, on text and icon-only buttons. Click any button to toggle it."}}}},F={render:()=>r`
+    `,parameters:{docs:{description:{story:"The pressed/selected state (aria-pressed) across all variants, on text and icon-only buttons. Click any button to toggle it."}}}},V={render:()=>r`
         <div class="story-row">
             <cosmoz-button variant="primary" disabled>Primary</cosmoz-button>
             <cosmoz-button variant="secondary" disabled>Secondary</cosmoz-button>
@@ -939,7 +934,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
                 ${c(l.close)}
             </cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"All variants in their disabled state, plus a disabled icon-only button."}}}},V={render:()=>r`
+    `,parameters:{docs:{description:{story:"All variants in their disabled state, plus a disabled icon-only button."}}}},W={render:()=>r`
         <div class="story-stack">
             <div>
                 <p class="story-label">
@@ -983,7 +978,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
                 >
             </div>
         </div>
-    `,parameters:{docs:{description:{story:"Tooltip integration via the tooltip and tooltip-placement attributes. Works on icon-only and text buttons; disabled buttons do not show the tooltip."}}}},W={render:()=>r`
+    `,parameters:{docs:{description:{story:"Tooltip integration via the tooltip and tooltip-placement attributes. Works on icon-only and text buttons; disabled buttons do not show the tooltip."}}}},G={render:()=>r`
         <div style="width: 300px;" class="story-stack">
             <cosmoz-button variant="primary" full-width
                 >Full Width Primary</cosmoz-button
@@ -992,7 +987,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
                 >Full Width Secondary</cosmoz-button
             >
         </div>
-    `,parameters:{docs:{description:{story:"Buttons that take up 100% of their container width."}}}},G={render:()=>r`
+    `,parameters:{docs:{description:{story:"Buttons that take up 100% of their container width."}}}},j={render:()=>r`
         <style>
             .matrix {
                 display: grid;
@@ -1047,7 +1042,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
             <cosmoz-button variant="destructive" size="xl">Button</cosmoz-button>
             <cosmoz-button variant="link" size="xl">Button</cosmoz-button>
         </div>
-    `,parameters:{docs:{description:{story:"Complete matrix showing all size and variant combinations."}}}},j={render:()=>r`
+    `,parameters:{docs:{description:{story:"Complete matrix showing all size and variant combinations."}}}},U={render:()=>r`
         <style>
             .a11y-section {
                 margin-bottom: calc(var(--cz-spacing) * 6);
@@ -1103,7 +1098,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
                 <p id="delete-warning">This action cannot be undone.</p>
             </div>
         </div>
-    `,parameters:{docs:{description:{story:"Accessible patterns: aria-label on icon-only buttons, aria-pressed for toggles, and aria-describedby for additional context."}}}},U={render:()=>r`
+    `,parameters:{docs:{description:{story:"Accessible patterns: aria-label on icon-only buttons, aria-pressed for toggles, and aria-describedby for additional context."}}}},Q={render:()=>r`
         <div class="story-stack">
             <div>
                 <p class="story-label">
@@ -1160,7 +1155,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
                 >
             </div>
         </div>
-    `,parameters:{docs:{description:{story:"Buttons rendered as anchor links using the href attribute, with optional target, rel, and download attributes, including prefix and suffix icons."}}}};M.parameters={...M.parameters,docs:{...M.parameters?.docs,source:{originalSource:`{
+    `,parameters:{docs:{description:{story:"Buttons rendered as anchor links using the href attribute, with optional target, rel, and download attributes, including prefix and suffix icons."}}}};I.parameters={...I.parameters,docs:{...I.parameters?.docs,source:{originalSource:`{
   args: {
     variant: 'primary',
     size: 'md',
@@ -1169,7 +1164,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
     label: 'Button'
   },
   render: renderButton
-}`,...M.parameters?.docs?.source}}};I.parameters={...I.parameters,docs:{...I.parameters?.docs,source:{originalSource:`{
+}`,...I.parameters?.docs?.source}}};R.parameters={...R.parameters,docs:{...R.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-row">
             <cosmoz-button variant="primary">Primary</cosmoz-button>
@@ -1186,7 +1181,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
       }
     }
   }
-}`,...I.parameters?.docs?.source}}};R.parameters={...R.parameters,docs:{...R.parameters?.docs,source:{originalSource:`{
+}`,...R.parameters?.docs?.source}}};N.parameters={...N.parameters,docs:{...N.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-stack">
             <div class="story-row">
@@ -1221,7 +1216,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
       }
     }
   }
-}`,...R.parameters?.docs?.source}}};N.parameters={...N.parameters,docs:{...N.parameters?.docs,source:{originalSource:`{
+}`,...N.parameters?.docs?.source}}};O.parameters={...O.parameters,docs:{...O.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-row">
             <cosmoz-button variant="primary">
@@ -1253,7 +1248,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
       }
     }
   }
-}`,...N.parameters?.docs?.source}}};O.parameters={...O.parameters,docs:{...O.parameters?.docs,source:{originalSource:`{
+}`,...O.parameters?.docs?.source}}};H.parameters={...H.parameters,docs:{...H.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-stack">
             <div>
@@ -1305,7 +1300,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
       }
     }
   }
-}`,...O.parameters?.docs?.source}}};H.parameters={...H.parameters,docs:{...H.parameters?.docs,source:{originalSource:`{
+}`,...H.parameters?.docs?.source}}};F.parameters={...F.parameters,docs:{...F.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-stack">
             <div>
@@ -1368,7 +1363,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
       }
     }
   }
-}`,...H.parameters?.docs?.source}}};F.parameters={...F.parameters,docs:{...F.parameters?.docs,source:{originalSource:`{
+}`,...F.parameters?.docs?.source}}};V.parameters={...V.parameters,docs:{...V.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-row">
             <cosmoz-button variant="primary" disabled>Primary</cosmoz-button>
@@ -1388,7 +1383,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
       }
     }
   }
-}`,...F.parameters?.docs?.source}}};V.parameters={...V.parameters,docs:{...V.parameters?.docs,source:{originalSource:`{
+}`,...V.parameters?.docs?.source}}};W.parameters={...W.parameters,docs:{...W.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-stack">
             <div>
@@ -1441,7 +1436,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
       }
     }
   }
-}`,...V.parameters?.docs?.source}}};W.parameters={...W.parameters,docs:{...W.parameters?.docs,source:{originalSource:`{
+}`,...W.parameters?.docs?.source}}};G.parameters={...G.parameters,docs:{...G.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div style="width: 300px;" class="story-stack">
             <cosmoz-button variant="primary" full-width
@@ -1459,7 +1454,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
       }
     }
   }
-}`,...W.parameters?.docs?.source}}};G.parameters={...G.parameters,docs:{...G.parameters?.docs,source:{originalSource:`{
+}`,...G.parameters?.docs?.source}}};j.parameters={...j.parameters,docs:{...j.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <style>
             .matrix {
@@ -1523,7 +1518,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
       }
     }
   }
-}`,...G.parameters?.docs?.source}}};j.parameters={...j.parameters,docs:{...j.parameters?.docs,source:{originalSource:`{
+}`,...j.parameters?.docs?.source}}};U.parameters={...U.parameters,docs:{...U.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <style>
             .a11y-section {
@@ -1588,7 +1583,7 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
       }
     }
   }
-}`,...j.parameters?.docs?.source}}};U.parameters={...U.parameters,docs:{...U.parameters?.docs,source:{originalSource:`{
+}`,...U.parameters?.docs?.source}}};Q.parameters={...Q.parameters,docs:{...Q.parameters?.docs,source:{originalSource:`{
   render: () => html\`
         <div class="story-stack">
             <div>
@@ -1662,4 +1657,4 @@ import{A as h,E as Tt,r as Lt,D as gt,b as r}from"./iframe-CDPMrHQx.js";import".
       }
     }
   }
-}`,...U.parameters?.docs?.source}}};const vo=["Default","Variants","Sizes","WithIcons","IconOnly","PressedState","DisabledStates","Tooltips","FullWidth","SizeVariantMatrix","Accessibility","AnchorLinks"];export{j as Accessibility,U as AnchorLinks,M as Default,F as DisabledStates,W as FullWidth,O as IconOnly,H as PressedState,G as SizeVariantMatrix,R as Sizes,V as Tooltips,I as Variants,N as WithIcons,vo as __namedExportsOrder,mo as default};
+}`,...Q.parameters?.docs?.source}}};const vo=["Default","Variants","Sizes","WithIcons","IconOnly","PressedState","DisabledStates","Tooltips","FullWidth","SizeVariantMatrix","Accessibility","AnchorLinks"];export{U as Accessibility,Q as AnchorLinks,I as Default,V as DisabledStates,G as FullWidth,H as IconOnly,F as PressedState,j as SizeVariantMatrix,N as Sizes,W as Tooltips,R as Variants,O as WithIcons,vo as __namedExportsOrder,mo as default};
