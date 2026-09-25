@@ -90,6 +90,8 @@ import '@neovici/cosmoz-button';
 | `lg` | 36px   | 36px           | 14px      |
 | `xl` | 40px   | 40px           | 14px      |
 
+Heights come from the `--cz-control-height-{sm,md,lg,xl}` tokens in `@neovici/cosmoz-tokens`, which inputs use too.
+
 ## Icons
 
 The button supports prefix and suffix icon slots:
