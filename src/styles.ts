@@ -124,8 +124,8 @@ export const styles = css`
 		/* Medium (md) default size */
 		height: 32px;
 		padding: calc(var(--cz-spacing) * 1.5) calc(var(--cz-spacing) * 3);
-		font-size: 0.8125rem;
-		line-height: 1.25rem;
+		font-size: var(--cz-text-sm);
+		line-height: var(--cz-text-sm-line-height);
 		border-radius: var(--cz-radius-md);
 
 		background-color: var(--cz-color-bg-brand-solid);

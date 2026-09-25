@@ -86,7 +86,7 @@ import '@neovici/cosmoz-button';
 | Size | Height | Icon-only Size | Font Size |
 | ---- | ------ | -------------- | --------- |
 | `sm` | 28px   | 28px           | 12px      |
-| `md` | 32px   | 32px           | 13px      |
+| `md` | 32px   | 32px           | 14px      |
 | `lg` | 36px   | 36px           | 14px      |
 | `xl` | 40px   | 40px           | 14px      |
 
