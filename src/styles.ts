@@ -1,4 +1,3 @@
-import { skeumorphicHighlight } from '@neovici/cosmoz-tokens/skeumorphic';
 import { css } from '@pionjs/pion';
 
 /**
@@ -30,11 +29,11 @@ export const styles = css`
 	 * ======================================== */
 
 	:host([size='sm']) .button {
-		height: 36px;
-		padding: calc(var(--cz-spacing) * 2) calc(var(--cz-spacing) * 3.5);
-		font-size: var(--cz-text-sm);
-		line-height: var(--cz-text-sm-line-height);
-		border-radius: var(--cz-radius-md);
+		height: 28px;
+		padding: calc(var(--cz-spacing) * 1) calc(var(--cz-spacing) * 2.5);
+		font-size: var(--cz-text-xs);
+		line-height: var(--cz-text-xs-line-height);
+		border-radius: var(--cz-radius-sm);
 	}
 
 	:host([size='sm']) ::slotted(svg) {
@@ -43,18 +42,18 @@ export const styles = css`
 	}
 
 	:host([size='lg']) .button {
-		height: 44px;
-		padding: calc(var(--cz-spacing) * 2.5) calc(var(--cz-spacing) * 4.5);
-		font-size: var(--cz-text-base);
-		line-height: var(--cz-text-base-line-height);
+		height: 36px;
+		padding: calc(var(--cz-spacing) * 2) calc(var(--cz-spacing) * 3.5);
+		font-size: var(--cz-text-sm);
+		line-height: var(--cz-text-sm-line-height);
 		border-radius: var(--cz-radius-md);
 	}
 
 	:host([size='xl']) .button {
-		height: 48px;
-		padding: calc(var(--cz-spacing) * 3) calc(var(--cz-spacing) * 5);
-		font-size: var(--cz-text-base);
-		line-height: var(--cz-text-base-line-height);
+		height: 40px;
+		padding: calc(var(--cz-spacing) * 2.5) calc(var(--cz-spacing) * 4);
+		font-size: var(--cz-text-sm);
+		line-height: var(--cz-text-sm-line-height);
 		border-radius: var(--cz-radius-md);
 	}
 
@@ -110,7 +109,7 @@ export const styles = css`
 		gap: 8px;
 		cursor: pointer;
 		font-family: var(--cz-font-body);
-		font-weight: var(--cz-font-weight-semibold);
+		font-weight: var(--cz-font-weight-medium);
 		text-decoration: none;
 		transition:
 			background-color 0.15s ease,
@@ -123,16 +122,15 @@ export const styles = css`
 		text-align: center;
 
 		/* Medium (md) default size */
-		height: 40px;
-		padding: calc(var(--cz-spacing) * 2.5) calc(var(--cz-spacing) * 4);
+		height: 32px;
+		padding: calc(var(--cz-spacing) * 1.5) calc(var(--cz-spacing) * 3);
 		font-size: var(--cz-text-sm);
 		line-height: var(--cz-text-sm-line-height);
 		border-radius: var(--cz-radius-md);
 
-		${skeumorphicHighlight}
 		background-color: var(--cz-color-bg-brand-solid);
 		color: var(--cz-color-text-on-brand);
-		box-shadow: var(--cz-shadow-xs-skeumorphic);
+		box-shadow: var(--cz-shadow-xs);
 
 		&:hover {
 			background-color: var(--cz-color-bg-brand-solid-hover);
@@ -148,7 +146,7 @@ export const styles = css`
 
 		&:focus-visible {
 			outline: none;
-			box-shadow: var(--cz-shadow-xs-skeumorphic), var(--cz-focus-ring);
+			box-shadow: var(--cz-shadow-xs), var(--cz-focus-ring);
 		}
 	}
 
@@ -159,6 +157,9 @@ export const styles = css`
 	:host([variant='secondary']) .button {
 		background-color: var(--cz-color-bg-primary);
 		color: var(--cz-color-text-secondary);
+		box-shadow:
+			inset 0 0 0 1px var(--cz-color-border-primary),
+			var(--cz-shadow-xs);
 
 		&:hover {
 			background-color: var(--cz-color-bg-primary-hover);
@@ -170,7 +171,7 @@ export const styles = css`
 		}
 
 		&:focus-visible {
-			box-shadow: var(--cz-shadow-xs-skeumorphic), var(--cz-focus-ring);
+			box-shadow: var(--cz-shadow-xs), var(--cz-focus-ring);
 		}
 	}
 
@@ -178,10 +179,6 @@ export const styles = css`
 		background-color: transparent;
 		color: var(--cz-color-text-secondary);
 		box-shadow: none;
-
-		&::before {
-			display: none;
-		}
 
 		&:hover {
 			background-color: var(--cz-color-bg-primary-hover);
@@ -209,7 +206,7 @@ export const styles = css`
 		}
 
 		&:focus-visible {
-			box-shadow: var(--cz-shadow-xs-skeumorphic), var(--cz-focus-ring-error);
+			box-shadow: var(--cz-shadow-xs), var(--cz-focus-ring-error);
 		}
 	}
 
@@ -219,10 +216,6 @@ export const styles = css`
 		box-shadow: none;
 		padding: 0;
 		height: auto;
-
-		&::before {
-			display: none;
-		}
 
 		&:hover {
 			text-decoration: underline;
@@ -266,10 +259,6 @@ export const styles = css`
 
 	:host([aria-pressed='true']) .button {
 		box-shadow: var(--cz-shadow-pressed-3d);
-
-		&::before {
-			display: none;
-		}
 	}
 
 	:host([variant='secondary'][aria-pressed='true']) .button {
@@ -308,8 +297,7 @@ export const styles = css`
 	:host([variant='primary'][aria-pressed='true']) .button {
 		background-color: var(--cz-color-bg-brand-solid);
 		color: var(--cz-color-text-on-brand);
-		box-shadow:
-			var(--cz-shadow-xs-skeumorphic), var(--cz-shadow-pressed-3d-solid);
+		box-shadow: var(--cz-shadow-xs), var(--cz-shadow-pressed-3d-solid);
 
 		&:hover {
 			background-color: var(--cz-color-bg-brand-solid-hover);
@@ -319,8 +307,7 @@ export const styles = css`
 	:host([variant='destructive'][aria-pressed='true']) .button {
 		background-color: var(--cz-color-bg-error-solid);
 		color: var(--cz-color-text-on-brand);
-		box-shadow:
-			var(--cz-shadow-xs-skeumorphic), var(--cz-shadow-pressed-3d-solid);
+		box-shadow: var(--cz-shadow-xs), var(--cz-shadow-pressed-3d-solid);
 
 		&:hover {
 			background-color: var(--cz-color-bg-error-solid-hover);
@@ -345,10 +332,6 @@ export const styles = css`
 	:host([disabled]) .button {
 		cursor: not-allowed;
 		pointer-events: none;
-
-		&::before {
-			display: none;
-		}
 	}
 
 	:host([disabled]) .button,
