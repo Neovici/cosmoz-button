@@ -105,7 +105,7 @@ export const styles = css`
 	.button {
 		display: inline-flex;
 		align-items: center;
-		justify-content: center;
+		justify-content: var(--cosmoz-button-justify-content, center);
 		gap: 8px;
 		cursor: pointer;
 		font-family: var(--cz-font-body);

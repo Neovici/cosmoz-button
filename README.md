@@ -207,6 +207,10 @@ cosmoz-button::part(button) {
 
 This component uses CSS custom properties from `@neovici/cosmoz-tokens`. The tokens are automatically applied but can be customized at the application level.
 
+| Property                          | Default  | Description                                                                             |
+| --------------------------------- | -------- | --------------------------------------------------------------------------------------- |
+| `--cosmoz-button-justify-content` | `center` | Alignment of the label and icons. Containers set `flex-start` for full-width menu rows. |
+
 ## Accessibility
 
 ### Button Type
