@@ -58,7 +58,7 @@
   "devDependencies": {
     "@changesets/cli": "^3.0.3",
     "@fontsource-variable/geist": "^5.3.0",
-    "@neovici/cfg": "^2.13.0",
+    "@neovici/cfg": "^2.15.0",
     "@neovici/testing": "^2.0.0",
     "@open-wc/testing": "^4.0.0",
     "@playwright/test": "1.60.0",
