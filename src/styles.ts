@@ -130,12 +130,18 @@ export const styles = css`
 		border-radius: var(--cz-radius-md);
 
 		${skeumorphicHighlight}
-		background-color: var(--cz-color-bg-brand-solid);
+		background-color: light-dark(
+			var(--cz-color-gray-800),
+			var(--cz-color-gray-700)
+		);
 		color: var(--cz-color-text-on-brand);
 		box-shadow: var(--cz-shadow-xs-skeumorphic);
 
 		&:hover {
-			background-color: var(--cz-color-bg-brand-solid-hover);
+			background-color: light-dark(
+				var(--cz-color-gray-700),
+				var(--cz-color-gray-600)
+			);
 		}
 
 		&:active:not(:disabled) {
@@ -143,7 +149,10 @@ export const styles = css`
 		}
 
 		&:active {
-			background-color: var(--cz-color-brand-800);
+			background-color: light-dark(
+				var(--cz-color-gray-900),
+				var(--cz-color-gray-800)
+			);
 		}
 
 		&:focus-visible {
@@ -306,13 +315,19 @@ export const styles = css`
 
 	:host(:not([variant])[aria-pressed='true']) .button,
 	:host([variant='primary'][aria-pressed='true']) .button {
-		background-color: var(--cz-color-bg-brand-solid);
+		background-color: light-dark(
+			var(--cz-color-gray-800),
+			var(--cz-color-gray-700)
+		);
 		color: var(--cz-color-text-on-brand);
 		box-shadow:
 			var(--cz-shadow-xs-skeumorphic), var(--cz-shadow-pressed-3d-solid);
 
 		&:hover {
-			background-color: var(--cz-color-bg-brand-solid-hover);
+			background-color: light-dark(
+				var(--cz-color-gray-700),
+				var(--cz-color-gray-600)
+			);
 		}
 	}
 
