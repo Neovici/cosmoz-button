@@ -1,5 +1,15 @@
 ## [1.1.0](https://github.com/Neovici/cosmoz-button/compare/v1.0.2...v1.1.0) (2026-06-10)
 
+## 2.2.0
+
+### Minor Changes
+
+- b091008: Add `--cosmoz-button-justify-content`
+
+  Lets a container align a button's content, for example `flex-start` for
+  full-width rows in an overflow menu. Defaults to `center`, so nothing changes
+  unless it's set.
+
 ## 2.1.0
 
 ### Minor Changes
