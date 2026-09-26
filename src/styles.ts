@@ -29,7 +29,7 @@ export const styles = css`
 	 * ======================================== */
 
 	:host([size='sm']) .button {
-		height: 28px;
+		height: var(--cz-control-height-sm);
 		padding: calc(var(--cz-spacing) * 1) calc(var(--cz-spacing) * 2.5);
 		font-size: var(--cz-text-xs);
 		line-height: var(--cz-text-xs-line-height);
@@ -42,7 +42,7 @@ export const styles = css`
 	}
 
 	:host([size='lg']) .button {
-		height: 36px;
+		height: var(--cz-control-height-lg);
 		padding: calc(var(--cz-spacing) * 2) calc(var(--cz-spacing) * 3.5);
 		font-size: var(--cz-text-sm);
 		line-height: var(--cz-text-sm-line-height);
@@ -50,7 +50,7 @@ export const styles = css`
 	}
 
 	:host([size='xl']) .button {
-		height: 40px;
+		height: var(--cz-control-height-xl);
 		padding: calc(var(--cz-spacing) * 2.5) calc(var(--cz-spacing) * 4);
 		font-size: var(--cz-text-sm);
 		line-height: var(--cz-text-sm-line-height);
@@ -62,8 +62,8 @@ export const styles = css`
 	 * ======================================== */
 
 	:host([icon-only]) .button {
-		width: 32px;
-		height: 32px;
+		width: var(--cz-control-height-md);
+		height: var(--cz-control-height-md);
 		padding: calc(var(--cz-spacing) * 1.5);
 		font-size: var(--cz-text-sm);
 		line-height: var(--cz-text-sm-line-height);
@@ -71,20 +71,20 @@ export const styles = css`
 	}
 
 	:host([icon-only][size='sm']) .button {
-		width: 28px;
-		height: 28px;
+		width: var(--cz-control-height-sm);
+		height: var(--cz-control-height-sm);
 		padding: calc(var(--cz-spacing) * 1.5);
 	}
 
 	:host([icon-only][size='lg']) .button {
-		width: 36px;
-		height: 36px;
+		width: var(--cz-control-height-lg);
+		height: var(--cz-control-height-lg);
 		padding: calc(var(--cz-spacing) * 1.5);
 	}
 
 	:host([icon-only][size='xl']) .button {
-		width: 40px;
-		height: 40px;
+		width: var(--cz-control-height-xl);
+		height: var(--cz-control-height-xl);
 		padding: calc(var(--cz-spacing) * 1.5);
 	}
 
@@ -122,7 +122,7 @@ export const styles = css`
 		text-align: center;
 
 		/* Medium (md) default size */
-		height: 32px;
+		height: var(--cz-control-height-md);
 		padding: calc(var(--cz-spacing) * 1.5) calc(var(--cz-spacing) * 3);
 		font-size: var(--cz-text-sm);
 		line-height: var(--cz-text-sm-line-height);
