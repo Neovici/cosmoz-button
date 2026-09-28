@@ -328,6 +328,24 @@ export const styles = css`
 	/* ========================================
 	 * DISABLED STATE
 	 * ======================================== */
+	/* Optional material layer; variants keep their semantic fill and states. */
+	:host(:not([disabled]):not([variant='link']):not([variant='tertiary']))
+		.button {
+		background-image: var(--cz-control-sheen, none);
+	}
+
+	@media (forced-colors: active) {
+		:host(:not([variant='link']):not([variant='tertiary'])) .button {
+			outline: 1px solid ButtonText;
+			outline-offset: -1px;
+		}
+		.button:focus-visible,
+		:host(:not([variant='link']):not([variant='tertiary']))
+			.button:focus-visible {
+			outline: 2px solid Highlight;
+			outline-offset: -3px;
+		}
+	}
 
 	:host([disabled]) .button {
 		cursor: not-allowed;
