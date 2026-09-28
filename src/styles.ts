@@ -109,7 +109,7 @@ export const styles = css`
 		gap: 8px;
 		cursor: pointer;
 		font-family: var(--cz-font-body);
-		font-weight: var(--cz-font-weight-medium);
+		font-weight: var(--cz-button-font-weight, var(--cz-font-weight-medium));
 		text-decoration: none;
 		transition:
 			background-color 0.15s ease,
@@ -130,18 +130,23 @@ export const styles = css`
 
 		background-color: var(--cz-color-bg-brand-solid);
 		color: var(--cz-color-text-on-brand);
-		box-shadow: var(--cz-shadow-xs);
+		box-shadow: var(--cz-button-shadow, var(--cz-shadow-xs));
 
 		&:hover {
+			--cz-button-shadow: var(--cz-button-hover-shadow);
 			background-color: var(--cz-color-bg-brand-solid-hover);
 		}
 
 		&:active:not(:disabled) {
+			--cz-button-shadow: var(--cz-button-pressed-shadow);
 			transform: translateY(1px);
 		}
 
 		&:active {
-			background-color: var(--cz-color-brand-800);
+			background-color: var(
+				--cz-button-active-color,
+				var(--cz-color-brand-800)
+			);
 		}
 
 		&:focus-visible {
@@ -157,9 +162,11 @@ export const styles = css`
 	:host([variant='secondary']) .button {
 		background-color: var(--cz-color-bg-primary);
 		color: var(--cz-color-text-secondary);
-		box-shadow:
+		box-shadow: var(
+			--cz-button-shadow,
 			inset 0 0 0 1px var(--cz-color-border-primary),
-			var(--cz-shadow-xs);
+			var(--cz-shadow-xs)
+		);
 
 		&:hover {
 			background-color: var(--cz-color-bg-primary-hover);
@@ -331,7 +338,7 @@ export const styles = css`
 	/* Optional material layer; variants keep their semantic fill and states. */
 	:host(:not([disabled]):not([variant='link']):not([variant='tertiary']))
 		.button {
-		background-image: var(--cz-control-sheen, none);
+		background-image: var(--cz-button-sheen, var(--cz-control-sheen, none));
 	}
 
 	@media (forced-colors: active) {
@@ -387,6 +394,7 @@ export const styles = css`
 	 * ======================================== */
 
 	::slotted(svg) {
+		filter: var(--cz-icon-filter, none);
 		width: 20px;
 		height: 20px;
 		flex-shrink: 0;

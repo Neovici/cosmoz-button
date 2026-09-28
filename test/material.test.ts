@@ -1,4 +1,4 @@
-import { expect, fixture, html } from '@open-wc/testing';
+import { expect, fixture, html, waitUntil } from '@open-wc/testing';
 import '../src/cosmoz-button';
 
 describe('optional button material', () => {
@@ -35,5 +35,34 @@ describe('optional button material', () => {
 					.backgroundImage,
 			).to.equal('none');
 		}
+	});
+
+	it('applies and removes an optional icon material', async () => {
+		const el = await fixture<HTMLElement>(
+			html`<cosmoz-button><svg slot="prefix"></svg>Run</cosmoz-button>`,
+		);
+		const icon = el.querySelector('svg')!;
+		expect(getComputedStyle(icon).filter).to.equal('none');
+		el.style.setProperty('--cz-icon-filter', 'drop-shadow(0 1px 0 white)');
+		expect(getComputedStyle(icon).filter).to.contain('drop-shadow');
+		el.style.removeProperty('--cz-icon-filter');
+		expect(getComputedStyle(icon).filter).to.equal('none');
+	});
+
+	it('applies elevation and restores the default when material is removed', async () => {
+		const el = await fixture<HTMLElement>(
+			html`<cosmoz-button variant="secondary">Review</cosmoz-button>`,
+		);
+		const button = el.shadowRoot!.querySelector('button')!;
+		const original = getComputedStyle(button).boxShadow;
+		el.style.setProperty(
+			'--cz-button-shadow',
+			'inset 0 1px 0 white, 0 2px 4px navy',
+		);
+		await waitUntil(() =>
+			getComputedStyle(button).boxShadow.includes('rgb(0, 0, 128)'),
+		);
+		el.style.removeProperty('--cz-button-shadow');
+		await waitUntil(() => getComputedStyle(button).boxShadow === original);
 	});
 });
