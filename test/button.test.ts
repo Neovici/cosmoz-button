@@ -1,4 +1,4 @@
-import { expect, fixture, nextFrame } from '@open-wc/testing';
+import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit-html';
 import { spy } from 'sinon';
 import '../src/cosmoz-button';
@@ -31,10 +31,10 @@ describe('cosmoz-button', () => {
 				</cosmoz-button>
 			`);
 			const prefixSlot = el.shadowRoot?.querySelector(
-				'slot[name="prefix"]',
+				'slot[name="prefix"]'
 			) as HTMLSlotElement;
 			const suffixSlot = el.shadowRoot?.querySelector(
-				'slot[name="suffix"]',
+				'slot[name="suffix"]'
 			) as HTMLSlotElement;
 			expect(prefixSlot?.assignedNodes().length).to.be.above(0);
 			expect(suffixSlot?.assignedNodes().length).to.be.above(0);
@@ -44,7 +44,7 @@ describe('cosmoz-button', () => {
 	describe('disabled state', () => {
 		it('forwards disabled to inner button', async () => {
 			const el = await fixture(
-				html`<cosmoz-button disabled>Button</cosmoz-button>`,
+				html`<cosmoz-button disabled>Button</cosmoz-button>`
 			);
 			const button = el.shadowRoot?.querySelector('button');
 			expect(button?.disabled).to.be.true;
@@ -53,7 +53,7 @@ describe('cosmoz-button', () => {
 		it('prevents click when disabled', async () => {
 			const clickSpy = spy();
 			const el = await fixture(
-				html`<cosmoz-button disabled @click=${clickSpy}>Button</cosmoz-button>`,
+				html`<cosmoz-button disabled @click=${clickSpy}>Button</cosmoz-button>`
 			);
 			(el as HTMLElement).click();
 			expect(clickSpy.called).to.be.false;
@@ -61,7 +61,7 @@ describe('cosmoz-button', () => {
 
 		it('reflects attribute changes to the disabled property', async () => {
 			const el: any = await fixture(
-				html`<cosmoz-button>Button</cosmoz-button>`,
+				html`<cosmoz-button>Button</cosmoz-button>`
 			);
 			expect(el.disabled).to.equal(undefined);
 			el.setAttribute('disabled', '');
@@ -73,7 +73,7 @@ describe('cosmoz-button', () => {
 		it('supports property-based consumption', async () => {
 			const clickSpy = spy();
 			const el: any = await fixture(
-				html`<cosmoz-button @click=${clickSpy}>Button</cosmoz-button>`,
+				html`<cosmoz-button @click=${clickSpy}>Button</cosmoz-button>`
 			);
 			el.disabled = true;
 			await new Promise((r) => setTimeout(r, 50));
@@ -84,7 +84,7 @@ describe('cosmoz-button', () => {
 			el.tooltip = 'Set via property';
 			await new Promise((r) => setTimeout(r, 50));
 			expect(
-				el.shadowRoot?.querySelector('cosmoz-tooltip')?.getAttribute('heading'),
+				el.shadowRoot?.querySelector('cosmoz-tooltip')?.getAttribute('heading')
 			).to.equal('Set via property');
 		});
 	});
@@ -92,14 +92,14 @@ describe('cosmoz-button', () => {
 	describe('value attribute', () => {
 		it('reflects value attribute to property', async () => {
 			const el = await fixture(
-				html`<cosmoz-button value="cancel">Button</cosmoz-button>`,
+				html`<cosmoz-button value="cancel">Button</cosmoz-button>`
 			);
 			expect((el as any).value).to.equal('cancel');
 		});
 
 		it('updates value property when attribute changes', async () => {
 			const el = await fixture<HTMLElement>(
-				html`<cosmoz-button value="cancel">Button</cosmoz-button>`,
+				html`<cosmoz-button value="cancel">Button</cosmoz-button>`
 			);
 			el.setAttribute('value', 'confirm');
 			expect((el as any).value).to.equal('confirm');
@@ -107,7 +107,7 @@ describe('cosmoz-button', () => {
 
 		it('sets value to null when attribute is removed', async () => {
 			const el = await fixture<HTMLElement>(
-				html`<cosmoz-button value="cancel">Button</cosmoz-button>`,
+				html`<cosmoz-button value="cancel">Button</cosmoz-button>`
 			);
 			el.removeAttribute('value');
 			expect((el as any).value).to.be.null;
@@ -115,38 +115,6 @@ describe('cosmoz-button', () => {
 	});
 
 	describe('accessibility', () => {
-		it('forwards an icon-only accessible name to either native control', async () => {
-			for (const href of [null, '/home']) {
-				const el = await fixture<HTMLElement>(
-					html`<cosmoz-button icon-only aria-label="Open details" .href=${href}
-						>X</cosmoz-button
-					>`,
-				);
-				const control = el.shadowRoot!.querySelector('button, a')!;
-				expect(control.getAttribute('aria-label')).to.equal('Open details');
-				el.setAttribute('aria-label', 'Updated details');
-				await nextFrame();
-				expect(control.getAttribute('aria-label')).to.equal('Updated details');
-				el.removeAttribute('aria-label');
-				await nextFrame();
-				expect(control.hasAttribute('aria-label')).to.be.false;
-			}
-		});
-
-		it('updates and removes the native toggle state', async () => {
-			const el = await fixture<HTMLElement>(
-				html`<cosmoz-button aria-pressed="true">Chart view</cosmoz-button>`,
-			);
-			const button = el.shadowRoot!.querySelector('button')!;
-			expect(button.getAttribute('aria-pressed')).to.equal('true');
-			el.setAttribute('aria-pressed', 'false');
-			await nextFrame();
-			expect(button.getAttribute('aria-pressed')).to.equal('false');
-			el.removeAttribute('aria-pressed');
-			await nextFrame();
-			expect(button.hasAttribute('aria-pressed')).to.be.false;
-		});
-
 		it('has type="button" by default', async () => {
 			const el = await fixture(html`<cosmoz-button>Button</cosmoz-button>`);
 			const button = el.shadowRoot?.querySelector('button');
@@ -155,7 +123,7 @@ describe('cosmoz-button', () => {
 
 		it('delegates focus to inner button', async () => {
 			const el = await fixture<HTMLElement>(
-				html`<cosmoz-button>Button</cosmoz-button>`,
+				html`<cosmoz-button>Button</cosmoz-button>`
 			);
 			el.focus();
 			const button = el.shadowRoot?.querySelector('button');
@@ -166,7 +134,7 @@ describe('cosmoz-button', () => {
 	describe('anchor link mode', () => {
 		it('renders an anchor when href is present', async () => {
 			const el = await fixture(
-				html`<cosmoz-button href="/home">Home</cosmoz-button>`,
+				html`<cosmoz-button href="/home">Home</cosmoz-button>`
 			);
 			const anchor = el.shadowRoot?.querySelector('a');
 			const button = el.shadowRoot?.querySelector('button');
@@ -191,7 +159,7 @@ describe('cosmoz-button', () => {
 					rel="noopener"
 					download="report.pdf"
 					>Download</cosmoz-button
-				>`,
+				>`
 			);
 			const anchor = el.shadowRoot?.querySelector('a');
 			expect(anchor?.getAttribute('target')).to.equal('_blank');
@@ -209,9 +177,7 @@ describe('cosmoz-button', () => {
 
 		it('applies button class to anchor element', async () => {
 			const el = await fixture(
-				html`<cosmoz-button href="/home" variant="primary"
-					>Home</cosmoz-button
-				>`,
+				html`<cosmoz-button href="/home" variant="primary">Home</cosmoz-button>`
 			);
 			const anchor = el.shadowRoot?.querySelector('a');
 			expect(anchor?.classList.contains('button')).to.be.true;
@@ -219,7 +185,7 @@ describe('cosmoz-button', () => {
 
 		it('exposes anchor part for external styling', async () => {
 			const el = await fixture(
-				html`<cosmoz-button href="/home">Home</cosmoz-button>`,
+				html`<cosmoz-button href="/home">Home</cosmoz-button>`
 			);
 			const anchor = el.shadowRoot?.querySelector('[part="button"]');
 			expect(anchor).to.not.be.null;
@@ -228,7 +194,7 @@ describe('cosmoz-button', () => {
 
 		it('applies aria-disabled when href and disabled are both set', async () => {
 			const el = await fixture(
-				html`<cosmoz-button href="/home" disabled>Home</cosmoz-button>`,
+				html`<cosmoz-button href="/home" disabled>Home</cosmoz-button>`
 			);
 			const anchor = el.shadowRoot?.querySelector('a');
 			expect(anchor?.getAttribute('aria-disabled')).to.equal('true');
@@ -239,7 +205,7 @@ describe('cosmoz-button', () => {
 			const el = await fixture(
 				html`<cosmoz-button href="/home" disabled @click=${clickSpy}
 					>Home</cosmoz-button
-				>`,
+				>`
 			);
 			(el as HTMLElement).click();
 			expect(clickSpy.called).to.be.false;
@@ -255,10 +221,10 @@ describe('cosmoz-button', () => {
 			`);
 			const anchor = el.shadowRoot?.querySelector('a');
 			const prefixSlot = anchor?.querySelector(
-				'slot[name="prefix"]',
+				'slot[name="prefix"]'
 			) as HTMLSlotElement;
 			const suffixSlot = anchor?.querySelector(
-				'slot[name="suffix"]',
+				'slot[name="suffix"]'
 			) as HTMLSlotElement;
 			expect(prefixSlot?.assignedNodes().length).to.be.above(0);
 			expect(suffixSlot?.assignedNodes().length).to.be.above(0);
@@ -268,7 +234,7 @@ describe('cosmoz-button', () => {
 	describe('icon-only', () => {
 		it('renders a square compact button', async () => {
 			const el = await fixture(
-				html`<cosmoz-button icon-only variant="tertiary">X</cosmoz-button>`,
+				html`<cosmoz-button icon-only variant="tertiary">X</cosmoz-button>`
 			);
 			const button = el.shadowRoot?.querySelector('button');
 			expect(button).to.not.be.null;
@@ -283,7 +249,7 @@ describe('cosmoz-button', () => {
 					tooltip="Close"
 					@click=${clickSpy}
 					>X</cosmoz-button
-				>`,
+				>`
 			);
 			(el as HTMLElement).click();
 			expect(clickSpy.called).to.be.true;
@@ -298,7 +264,7 @@ describe('cosmoz-button', () => {
 					disabled
 					@click=${clickSpy}
 					>X</cosmoz-button
-				>`,
+				>`
 			);
 			(el as HTMLElement).click();
 			expect(clickSpy.called).to.be.false;
@@ -306,17 +272,17 @@ describe('cosmoz-button', () => {
 
 		it('reflects aria-pressed for toggle styling', async () => {
 			const el = await fixture(
-				html`<cosmoz-button icon-only aria-pressed="true">X</cosmoz-button>`,
+				html`<cosmoz-button icon-only aria-pressed="true">X</cosmoz-button>`
 			);
 			expect(el.getAttribute('aria-pressed')).to.equal('true');
 		});
 
 		it('always renders the tooltip wrapper', async () => {
 			const withTooltip = await fixture(
-				html`<cosmoz-button tooltip="Close">X</cosmoz-button>`,
+				html`<cosmoz-button tooltip="Close">X</cosmoz-button>`
 			);
 			const withoutTooltip = await fixture(
-				html`<cosmoz-button>X</cosmoz-button>`,
+				html`<cosmoz-button>X</cosmoz-button>`
 			);
 			expect(withTooltip.shadowRoot?.querySelector('cosmoz-tooltip')).to.not.be
 				.null;
@@ -328,7 +294,7 @@ describe('cosmoz-button', () => {
 			const el = await fixture(
 				html`<cosmoz-button tooltip="Close panel" tooltip-placement="left"
 					>X</cosmoz-button
-				>`,
+				>`
 			);
 			const tooltip = el.shadowRoot?.querySelector('cosmoz-tooltip');
 			expect(tooltip?.getAttribute('heading')).to.equal('Close panel');

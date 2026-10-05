@@ -1,13 +1,17 @@
 import { normalize } from '@neovici/cosmoz-tokens/normalize';
 import '@neovici/cosmoz-tooltip';
-import { component, html, useEffect, useState } from '@pionjs/pion';
+import { component, html, useEffect } from '@pionjs/pion';
 import { nothing } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { when } from 'lit-html/directives/when.js';
 import { styles } from './styles';
 
 export type ButtonVariant =
-	'primary' | 'secondary' | 'tertiary' | 'destructive' | 'link';
+	| 'primary'
+	| 'secondary'
+	| 'tertiary'
+	| 'destructive'
+	| 'link';
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonType = 'button' | 'submit' | 'reset';
 
@@ -61,7 +65,6 @@ const observedAttributes = [
  * @attr {string} target - Target attribute for the anchor (only with href)
  * @attr {string} rel - Rel attribute for the anchor (only with href)
  * @attr {string} download - Download attribute for the anchor (only with href)
- * @attr {string} aria-label - Accessible name forwarded to the native control
  * @attr {string} aria-pressed - Reflects a toggled/selected state (styled for icon-only buttons)
  *
  * @slot - Default slot for button text content
@@ -82,24 +85,6 @@ const CosmozButton = (host: CosmozButtonElement) => {
 		download,
 	} = host;
 	const isDisabled = Boolean(disabled);
-	const readAccessibility = () => ({
-		label: host.getAttribute('aria-label') ?? undefined,
-		pressed: host.getAttribute('aria-pressed') ?? undefined,
-	});
-	const [accessibility, setAccessibility] = useState(readAccessibility);
-
-	useEffect(() => {
-		// Native ARIA reflection setters do not schedule a Pion render.
-		const observer = new MutationObserver(() =>
-			setAccessibility(readAccessibility()),
-		);
-		observer.observe(host, {
-			attributes: true,
-			attributeFilter: ['aria-label', 'aria-pressed'],
-		});
-		setAccessibility(readAccessibility());
-		return () => observer.disconnect();
-	}, [host]);
 
 	useEffect(() => {
 		const handler = (e: Event) => {
@@ -122,7 +107,6 @@ const CosmozButton = (host: CosmozButtonElement) => {
 				href=${href}
 				class="button"
 				part="button"
-				aria-label=${ifDefined(accessibility.label)}
 				aria-disabled=${isDisabled ? 'true' : nothing}
 				target=${ifDefined(target)}
 				rel=${ifDefined(rel)}
@@ -131,17 +115,10 @@ const CosmozButton = (host: CosmozButtonElement) => {
 			>
 		`,
 		() => html`
-			<button
-				type=${type}
-				class="button"
-				part="button"
-				?disabled=${isDisabled}
-				aria-label=${ifDefined(accessibility.label)}
-				aria-pressed=${ifDefined(accessibility.pressed)}
-			>
+			<button type=${type} class="button" part="button" ?disabled=${isDisabled}>
 				${content}
 			</button>
-		`,
+		`
 	);
 
 	/* Always rendered; cosmoz-tooltip degrades to a pass-through unless
@@ -161,7 +138,7 @@ customElements.define(
 		observedAttributes,
 		styleSheets: [normalize, styles],
 		shadowRootInit: { mode: 'open', delegatesFocus: true },
-	}),
+	})
 );
 
 export { CosmozButton };
