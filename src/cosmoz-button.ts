@@ -7,11 +7,7 @@ import { when } from 'lit-html/directives/when.js';
 import { styles } from './styles';
 
 export type ButtonVariant =
-	| 'primary'
-	| 'secondary'
-	| 'tertiary'
-	| 'destructive'
-	| 'link';
+	'primary' | 'secondary' | 'tertiary' | 'destructive' | 'link';
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonType = 'button' | 'submit' | 'reset';
 
@@ -45,6 +41,9 @@ const observedAttributes = [
 	'target',
 	'rel',
 	'download',
+	'aria-expanded',
+	'aria-label',
+	'aria-pressed',
 ] as const;
 
 /**
@@ -65,6 +64,8 @@ const observedAttributes = [
  * @attr {string} target - Target attribute for the anchor (only with href)
  * @attr {string} rel - Rel attribute for the anchor (only with href)
  * @attr {string} download - Download attribute for the anchor (only with href)
+ * @attr {string} aria-expanded - Toggled/expanded state, forwarded to the native control
+ * @attr {string} aria-label - Accessible name forwarded to the native control (icon-only buttons)
  * @attr {string} aria-pressed - Reflects a toggled/selected state (styled for icon-only buttons)
  *
  * @slot - Default slot for button text content
@@ -108,6 +109,10 @@ const CosmozButton = (host: CosmozButtonElement) => {
 				class="button"
 				part="button"
 				aria-disabled=${isDisabled ? 'true' : nothing}
+				aria-expanded=${ifDefined(
+					host.getAttribute('aria-expanded') ?? undefined,
+				)}
+				aria-label=${ifDefined(host.getAttribute('aria-label') ?? undefined)}
 				target=${ifDefined(target)}
 				rel=${ifDefined(rel)}
 				download=${ifDefined(download)}
@@ -115,10 +120,22 @@ const CosmozButton = (host: CosmozButtonElement) => {
 			>
 		`,
 		() => html`
-			<button type=${type} class="button" part="button" ?disabled=${isDisabled}>
+			<button
+				type=${type}
+				class="button"
+				part="button"
+				?disabled=${isDisabled}
+				aria-expanded=${ifDefined(
+					host.getAttribute('aria-expanded') ?? undefined,
+				)}
+				aria-label=${ifDefined(host.getAttribute('aria-label') ?? undefined)}
+				aria-pressed=${ifDefined(
+					host.getAttribute('aria-pressed') ?? undefined,
+				)}
+			>
 				${content}
 			</button>
-		`
+		`,
 	);
 
 	/* Always rendered; cosmoz-tooltip degrades to a pass-through unless
@@ -138,7 +155,7 @@ customElements.define(
 		observedAttributes,
 		styleSheets: [normalize, styles],
 		shadowRootInit: { mode: 'open', delegatesFocus: true },
-	})
+	}),
 );
 
 export { CosmozButton };

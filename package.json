@@ -52,7 +52,7 @@
   "dependencies": {
     "@neovici/cosmoz-tokens": "^4.8.0",
     "@neovici/cosmoz-tooltip": "^1.4.0",
-    "@pionjs/pion": "^2.5.2",
+    "@pionjs/pion": "^2.16.3",
     "lit-html": "^3.3.1"
   },
   "devDependencies": {

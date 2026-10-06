@@ -31,10 +31,10 @@ describe('cosmoz-button', () => {
 				</cosmoz-button>
 			`);
 			const prefixSlot = el.shadowRoot?.querySelector(
-				'slot[name="prefix"]'
+				'slot[name="prefix"]',
 			) as HTMLSlotElement;
 			const suffixSlot = el.shadowRoot?.querySelector(
-				'slot[name="suffix"]'
+				'slot[name="suffix"]',
 			) as HTMLSlotElement;
 			expect(prefixSlot?.assignedNodes().length).to.be.above(0);
 			expect(suffixSlot?.assignedNodes().length).to.be.above(0);
@@ -44,7 +44,7 @@ describe('cosmoz-button', () => {
 	describe('disabled state', () => {
 		it('forwards disabled to inner button', async () => {
 			const el = await fixture(
-				html`<cosmoz-button disabled>Button</cosmoz-button>`
+				html`<cosmoz-button disabled>Button</cosmoz-button>`,
 			);
 			const button = el.shadowRoot?.querySelector('button');
 			expect(button?.disabled).to.be.true;
@@ -53,7 +53,7 @@ describe('cosmoz-button', () => {
 		it('prevents click when disabled', async () => {
 			const clickSpy = spy();
 			const el = await fixture(
-				html`<cosmoz-button disabled @click=${clickSpy}>Button</cosmoz-button>`
+				html`<cosmoz-button disabled @click=${clickSpy}>Button</cosmoz-button>`,
 			);
 			(el as HTMLElement).click();
 			expect(clickSpy.called).to.be.false;
@@ -61,7 +61,7 @@ describe('cosmoz-button', () => {
 
 		it('reflects attribute changes to the disabled property', async () => {
 			const el: any = await fixture(
-				html`<cosmoz-button>Button</cosmoz-button>`
+				html`<cosmoz-button>Button</cosmoz-button>`,
 			);
 			expect(el.disabled).to.equal(undefined);
 			el.setAttribute('disabled', '');
@@ -73,7 +73,7 @@ describe('cosmoz-button', () => {
 		it('supports property-based consumption', async () => {
 			const clickSpy = spy();
 			const el: any = await fixture(
-				html`<cosmoz-button @click=${clickSpy}>Button</cosmoz-button>`
+				html`<cosmoz-button @click=${clickSpy}>Button</cosmoz-button>`,
 			);
 			el.disabled = true;
 			await new Promise((r) => setTimeout(r, 50));
@@ -84,7 +84,7 @@ describe('cosmoz-button', () => {
 			el.tooltip = 'Set via property';
 			await new Promise((r) => setTimeout(r, 50));
 			expect(
-				el.shadowRoot?.querySelector('cosmoz-tooltip')?.getAttribute('heading')
+				el.shadowRoot?.querySelector('cosmoz-tooltip')?.getAttribute('heading'),
 			).to.equal('Set via property');
 		});
 	});
@@ -92,14 +92,14 @@ describe('cosmoz-button', () => {
 	describe('value attribute', () => {
 		it('reflects value attribute to property', async () => {
 			const el = await fixture(
-				html`<cosmoz-button value="cancel">Button</cosmoz-button>`
+				html`<cosmoz-button value="cancel">Button</cosmoz-button>`,
 			);
 			expect((el as any).value).to.equal('cancel');
 		});
 
 		it('updates value property when attribute changes', async () => {
 			const el = await fixture<HTMLElement>(
-				html`<cosmoz-button value="cancel">Button</cosmoz-button>`
+				html`<cosmoz-button value="cancel">Button</cosmoz-button>`,
 			);
 			el.setAttribute('value', 'confirm');
 			expect((el as any).value).to.equal('confirm');
@@ -107,7 +107,7 @@ describe('cosmoz-button', () => {
 
 		it('sets value to null when attribute is removed', async () => {
 			const el = await fixture<HTMLElement>(
-				html`<cosmoz-button value="cancel">Button</cosmoz-button>`
+				html`<cosmoz-button value="cancel">Button</cosmoz-button>`,
 			);
 			el.removeAttribute('value');
 			expect((el as any).value).to.be.null;
@@ -123,7 +123,7 @@ describe('cosmoz-button', () => {
 
 		it('delegates focus to inner button', async () => {
 			const el = await fixture<HTMLElement>(
-				html`<cosmoz-button>Button</cosmoz-button>`
+				html`<cosmoz-button>Button</cosmoz-button>`,
 			);
 			el.focus();
 			const button = el.shadowRoot?.querySelector('button');
@@ -134,7 +134,7 @@ describe('cosmoz-button', () => {
 	describe('anchor link mode', () => {
 		it('renders an anchor when href is present', async () => {
 			const el = await fixture(
-				html`<cosmoz-button href="/home">Home</cosmoz-button>`
+				html`<cosmoz-button href="/home">Home</cosmoz-button>`,
 			);
 			const anchor = el.shadowRoot?.querySelector('a');
 			const button = el.shadowRoot?.querySelector('button');
@@ -159,7 +159,7 @@ describe('cosmoz-button', () => {
 					rel="noopener"
 					download="report.pdf"
 					>Download</cosmoz-button
-				>`
+				>`,
 			);
 			const anchor = el.shadowRoot?.querySelector('a');
 			expect(anchor?.getAttribute('target')).to.equal('_blank');
@@ -177,7 +177,9 @@ describe('cosmoz-button', () => {
 
 		it('applies button class to anchor element', async () => {
 			const el = await fixture(
-				html`<cosmoz-button href="/home" variant="primary">Home</cosmoz-button>`
+				html`<cosmoz-button href="/home" variant="primary"
+					>Home</cosmoz-button
+				>`,
 			);
 			const anchor = el.shadowRoot?.querySelector('a');
 			expect(anchor?.classList.contains('button')).to.be.true;
@@ -185,7 +187,7 @@ describe('cosmoz-button', () => {
 
 		it('exposes anchor part for external styling', async () => {
 			const el = await fixture(
-				html`<cosmoz-button href="/home">Home</cosmoz-button>`
+				html`<cosmoz-button href="/home">Home</cosmoz-button>`,
 			);
 			const anchor = el.shadowRoot?.querySelector('[part="button"]');
 			expect(anchor).to.not.be.null;
@@ -194,7 +196,7 @@ describe('cosmoz-button', () => {
 
 		it('applies aria-disabled when href and disabled are both set', async () => {
 			const el = await fixture(
-				html`<cosmoz-button href="/home" disabled>Home</cosmoz-button>`
+				html`<cosmoz-button href="/home" disabled>Home</cosmoz-button>`,
 			);
 			const anchor = el.shadowRoot?.querySelector('a');
 			expect(anchor?.getAttribute('aria-disabled')).to.equal('true');
@@ -205,7 +207,7 @@ describe('cosmoz-button', () => {
 			const el = await fixture(
 				html`<cosmoz-button href="/home" disabled @click=${clickSpy}
 					>Home</cosmoz-button
-				>`
+				>`,
 			);
 			(el as HTMLElement).click();
 			expect(clickSpy.called).to.be.false;
@@ -221,10 +223,10 @@ describe('cosmoz-button', () => {
 			`);
 			const anchor = el.shadowRoot?.querySelector('a');
 			const prefixSlot = anchor?.querySelector(
-				'slot[name="prefix"]'
+				'slot[name="prefix"]',
 			) as HTMLSlotElement;
 			const suffixSlot = anchor?.querySelector(
-				'slot[name="suffix"]'
+				'slot[name="suffix"]',
 			) as HTMLSlotElement;
 			expect(prefixSlot?.assignedNodes().length).to.be.above(0);
 			expect(suffixSlot?.assignedNodes().length).to.be.above(0);
@@ -234,7 +236,7 @@ describe('cosmoz-button', () => {
 	describe('icon-only', () => {
 		it('renders a square compact button', async () => {
 			const el = await fixture(
-				html`<cosmoz-button icon-only variant="tertiary">X</cosmoz-button>`
+				html`<cosmoz-button icon-only variant="tertiary">X</cosmoz-button>`,
 			);
 			const button = el.shadowRoot?.querySelector('button');
 			expect(button).to.not.be.null;
@@ -249,7 +251,7 @@ describe('cosmoz-button', () => {
 					tooltip="Close"
 					@click=${clickSpy}
 					>X</cosmoz-button
-				>`
+				>`,
 			);
 			(el as HTMLElement).click();
 			expect(clickSpy.called).to.be.true;
@@ -264,7 +266,7 @@ describe('cosmoz-button', () => {
 					disabled
 					@click=${clickSpy}
 					>X</cosmoz-button
-				>`
+				>`,
 			);
 			(el as HTMLElement).click();
 			expect(clickSpy.called).to.be.false;
@@ -272,17 +274,17 @@ describe('cosmoz-button', () => {
 
 		it('reflects aria-pressed for toggle styling', async () => {
 			const el = await fixture(
-				html`<cosmoz-button icon-only aria-pressed="true">X</cosmoz-button>`
+				html`<cosmoz-button icon-only aria-pressed="true">X</cosmoz-button>`,
 			);
 			expect(el.getAttribute('aria-pressed')).to.equal('true');
 		});
 
 		it('always renders the tooltip wrapper', async () => {
 			const withTooltip = await fixture(
-				html`<cosmoz-button tooltip="Close">X</cosmoz-button>`
+				html`<cosmoz-button tooltip="Close">X</cosmoz-button>`,
 			);
 			const withoutTooltip = await fixture(
-				html`<cosmoz-button>X</cosmoz-button>`
+				html`<cosmoz-button>X</cosmoz-button>`,
 			);
 			expect(withTooltip.shadowRoot?.querySelector('cosmoz-tooltip')).to.not.be
 				.null;
@@ -294,11 +296,106 @@ describe('cosmoz-button', () => {
 			const el = await fixture(
 				html`<cosmoz-button tooltip="Close panel" tooltip-placement="left"
 					>X</cosmoz-button
-				>`
+				>`,
 			);
 			const tooltip = el.shadowRoot?.querySelector('cosmoz-tooltip');
 			expect(tooltip?.getAttribute('heading')).to.equal('Close panel');
 			expect(tooltip?.getAttribute('placement')).to.equal('left');
 		});
+	});
+
+	describe('aria state forwarding', () => {
+		const getButton = (el: Element) =>
+			el.shadowRoot?.querySelector('button') as HTMLButtonElement;
+
+		it('forwards aria-expanded to the native button on initial render', async () => {
+			const el = await fixture(
+				html`<cosmoz-button aria-expanded="false">Menu</cosmoz-button>`,
+			);
+			expect(getButton(el).getAttribute('aria-expanded')).to.equal('false');
+		});
+
+		it('forwards aria-expanded changes while rendering', async () => {
+			const el = await fixture(
+				html`<cosmoz-button aria-expanded="false">Menu</cosmoz-button>`,
+			);
+			el.setAttribute('aria-expanded', 'true');
+			await new Promise((r) => setTimeout(r, 50));
+			expect(getButton(el).getAttribute('aria-expanded')).to.equal('true');
+			// "" is coerced to "true" by pion's property path (deferred, next
+			// major: pionjs/pion#196 documents it); only removal is asserted
+			el.removeAttribute('aria-expanded');
+			await new Promise((r) => setTimeout(r, 50));
+			expect(getButton(el).hasAttribute('aria-expanded')).to.be.false;
+		});
+
+		it('forwards aria-label to the native button across changes', async () => {
+			const el = await fixture(
+				html`<cosmoz-button icon-only aria-label="Close panel"
+					><svg viewBox="0 0 10 10"></svg
+				></cosmoz-button>`,
+			);
+			expect(getButton(el).getAttribute('aria-label')).to.equal('Close panel');
+			el.setAttribute('aria-label', 'Dismiss');
+			await new Promise((r) => setTimeout(r, 50));
+			expect(getButton(el).getAttribute('aria-label')).to.equal('Dismiss');
+			el.removeAttribute('aria-label');
+			await new Promise((r) => setTimeout(r, 50));
+			expect(getButton(el).hasAttribute('aria-label')).to.be.false;
+		});
+
+		it('names the icon-only button from aria-label alone', async () => {
+			// icon-only renders no text; the slotted svg is a graphic
+			const el = await fixture(
+				html`<cosmoz-button icon-only aria-label="Invoice image"
+					><svg viewBox="0 0 10 10"></svg
+				></cosmoz-button>`,
+			);
+			expect(getButton(el).getAttribute('aria-label')).to.equal(
+				'Invoice image',
+			);
+		});
+
+		it('forwards aria-label to the native anchor', async () => {
+			const el = await fixture(
+				html`<cosmoz-button href="/home" aria-label="External link"
+					>↗</cosmoz-button
+				>`,
+			);
+			const anchor = el.shadowRoot?.querySelector('a') as HTMLAnchorElement;
+			expect(anchor.getAttribute('aria-label')).to.equal('External link');
+		});
+
+		it('forwards aria-pressed to the native button', async () => {
+			const el = await fixture(
+				html`<cosmoz-button icon-only aria-label="Select" aria-pressed="false"
+					>X</cosmoz-button
+				>`,
+			);
+			expect(getButton(el).getAttribute('aria-pressed')).to.equal('false');
+			el.setAttribute('aria-pressed', 'true');
+			await new Promise((r) => setTimeout(r, 50));
+			expect(getButton(el).getAttribute('aria-pressed')).to.equal('true');
+			el.removeAttribute('aria-pressed');
+			await new Promise((r) => setTimeout(r, 50));
+			expect(getButton(el).hasAttribute('aria-pressed')).to.be.false;
+		});
+
+		it('forwards aria-expanded to the native anchor', async () => {
+			const el = await fixture(
+				html`<cosmoz-button href="/home" aria-expanded="false"
+					>Home</cosmoz-button
+				>`,
+			);
+			const anchor = el.shadowRoot?.querySelector('a') as HTMLAnchorElement;
+			expect(anchor.getAttribute('aria-expanded')).to.equal('false');
+			el.setAttribute('aria-expanded', 'true');
+			await new Promise((r) => setTimeout(r, 50));
+			expect(anchor.getAttribute('aria-expanded')).to.equal('true');
+		});
+
+		// "" is coerced to "true" from pion on every attribute->render path
+		// (initial render and changes alike), deferred to pion next major;
+		// documented in pionjs/pion#196
 	});
 });
