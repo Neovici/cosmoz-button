@@ -1,5 +1,11 @@
 ## [1.1.0](https://github.com/Neovici/cosmoz-button/compare/v1.0.2...v1.1.0) (2026-06-10)
 
+## 2.2.2
+
+### Patch Changes
+
+- a2e7687: Forward aria-label and aria-pressed to the native control, including attribute updates and removals.
+
 ## 2.2.1
 
 ### Patch Changes
