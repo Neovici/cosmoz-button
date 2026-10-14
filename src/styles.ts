@@ -56,15 +56,20 @@ export const styles = css`
 			outline-color 120ms ease-out,
 			transform 80ms ease-out;
 
-		background: var(--_sheen), var(--cz-color-bg-brand-solid);
-		color: var(--cz-color-text-on-brand);
+		background:
+			var(--_sheen),
+			var(--cz-color-bg-action-solid, var(--cz-color-bg-brand-solid));
+		color: var(--cz-color-text-on-action, var(--cz-color-text-on-brand));
 		box-shadow:
 			inset 0 1px 0 rgb(255 255 255 / 0.14),
 			inset 0 0 0 1px light-dark(rgb(10 13 18 / 0.4), transparent),
 			var(--_lift);
 
 		&:hover {
-			background-color: var(--cz-color-bg-brand-solid-hover);
+			background-color: var(
+				--cz-color-bg-action-solid-hover,
+				var(--cz-color-bg-brand-solid-hover)
+			);
 		}
 
 		&:active {
