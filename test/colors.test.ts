@@ -25,6 +25,15 @@ describe('cosmoz-button colors', () => {
 		expect(style.color).to.equal('rgb(4, 5, 6)');
 	});
 
+	it('raises the primary button with the action shadow', async () => {
+		const el = await withTokens(
+			'--cz-shadow-action: rgb(1, 2, 3) 0px 1px 2px 0px',
+		);
+		expect(inner(el, 'cosmoz-button:not([variant])').boxShadow).to.equal(
+			'rgb(1, 2, 3) 0px 1px 2px 0px',
+		);
+	});
+
 	it('falls back to the brand fill when action tokens are missing', async () => {
 		const el = await withTokens('--cz-color-bg-brand-solid: rgb(9, 9, 9)');
 		expect(inner(el, 'cosmoz-button:not([variant])').backgroundColor).to.equal(

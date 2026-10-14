@@ -57,13 +57,15 @@ export const styles = css`
 			transform 80ms ease-out;
 
 		background:
-			var(--_sheen),
+			var(--cz-action-sheen, var(--_sheen)),
 			var(--cz-color-bg-action-solid, var(--cz-color-bg-brand-solid));
 		color: var(--cz-color-text-on-action, var(--cz-color-text-on-brand));
-		box-shadow:
+		box-shadow: var(
+			--cz-shadow-action,
 			inset 0 1px 0 rgb(255 255 255 / 0.14),
 			inset 0 0 0 1px light-dark(rgb(10 13 18 / 0.4), transparent),
-			var(--_lift);
+			var(--_lift)
+		);
 
 		&:hover {
 			background-color: var(
