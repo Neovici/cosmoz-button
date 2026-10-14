@@ -19,3 +19,7 @@ Refresh the button look
 
 Primary uses `--cz-color-bg-brand-solid`; it looks its best with the graphite
 fill from `@neovici/cosmoz-tokens` (Neovici/cosmoz-tokens#62).
+
+The `link` variant uses `--cz-color-text-link` (falling back to
+`--cz-color-text-brand` on older tokens), so links stay distinct from body
+text now that the brand ramp is gray.

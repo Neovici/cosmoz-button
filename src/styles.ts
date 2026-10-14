@@ -194,7 +194,7 @@ export const styles = css`
 		height: auto;
 		padding: 0;
 		background: transparent;
-		color: var(--cz-color-text-brand);
+		color: var(--cz-color-text-link, var(--cz-color-text-brand));
 		box-shadow: none;
 		border-radius: var(--cz-radius-xs);
 		outline-offset: 3px;
@@ -204,7 +204,7 @@ export const styles = css`
 		transition-property: color, text-decoration-color, outline-color;
 
 		&:hover {
-			color: var(--cz-color-text-brand-hover);
+			color: var(--cz-color-text-link-hover, var(--cz-color-text-brand-hover));
 			text-decoration-color: currentColor;
 		}
 
