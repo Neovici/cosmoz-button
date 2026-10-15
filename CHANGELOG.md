@@ -1,5 +1,40 @@
 ## [1.1.0](https://github.com/Neovici/cosmoz-button/compare/v1.0.2...v1.1.0) (2026-06-10)
 
+## 2.3.0
+
+### Minor Changes
+
+- f6acf80: Fill primary buttons with the `action` tokens and raise them with `--cz-shadow-action`
+
+  Primary buttons read `--cz-color-bg-action-solid`,
+  `--cz-color-bg-action-solid-hover` and `--cz-color-text-on-action`, so they
+  stay gray while the brand hue marks selection. Their depth comes from
+  `--cz-shadow-action` and `--cz-action-sheen`, so every primary button in the
+  app is raised the same way. The link variant reads `--cz-color-text-link`.
+  Requires `@neovici/cosmoz-tokens` 4.9.0.
+
+- a28703f: Refresh the button look
+
+  - Primary and destructive get a soft top sheen, a crisp edge and a small
+    lift; secondary is a raised surface with a hairline border; tertiary
+    hovers with a translucent wash that works on any background.
+  - Labels are 13px at md with slightly tighter tracking, icons 16px (14px at
+    sm, 18px at xl), and icons sit closer to the label.
+  - Pressing scales the button down slightly instead of only darkening it
+    (off with reduced motion).
+  - Focus shows a 2px outline outside the button. Containers that clip
+    overflow need at least 4px of room around the button.
+  - Disabled buttons fade instead of turning gray, so they keep their variant.
+  - Toggled secondary and tertiary buttons use a neutral translucent fill
+    instead of the brand chip.
+
+  Primary uses `--cz-color-bg-brand-solid`; it looks its best with the graphite
+  fill from `@neovici/cosmoz-tokens` (Neovici/cosmoz-tokens#62).
+
+  The `link` variant uses `--cz-color-text-link` (falling back to
+  `--cz-color-text-brand` on older tokens), so links stay distinct from body
+  text now that the brand ramp is gray.
+
 ## 2.2.3
 
 ### Patch Changes
