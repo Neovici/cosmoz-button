@@ -56,22 +56,12 @@ export const styles = css`
 			outline-color 120ms ease-out,
 			transform 80ms ease-out;
 
-		background:
-			var(--cz-action-sheen, var(--_sheen)),
-			var(--cz-color-bg-action-solid, var(--cz-color-bg-brand-solid));
-		color: var(--cz-color-text-on-action, var(--cz-color-text-on-brand));
-		box-shadow: var(
-			--cz-shadow-action,
-			inset 0 1px 0 rgb(255 255 255 / 0.14),
-			inset 0 0 0 1px light-dark(rgb(10 13 18 / 0.4), transparent),
-			var(--_lift)
-		);
+		background: var(--cz-action-sheen, none), var(--cz-color-bg-action-solid);
+		color: var(--cz-color-text-on-action);
+		box-shadow: var(--cz-shadow-action);
 
 		&:hover {
-			background-color: var(
-				--cz-color-bg-action-solid-hover,
-				var(--cz-color-bg-brand-solid-hover)
-			);
+			background-color: var(--cz-color-bg-action-solid-hover);
 		}
 
 		&:active {
@@ -201,7 +191,7 @@ export const styles = css`
 		height: auto;
 		padding: 0;
 		background: transparent;
-		color: var(--cz-color-text-link, var(--cz-color-text-brand));
+		color: var(--cz-color-text-link);
 		box-shadow: none;
 		border-radius: var(--cz-radius-xs);
 		outline-offset: 3px;
@@ -211,7 +201,7 @@ export const styles = css`
 		transition-property: color, text-decoration-color, outline-color;
 
 		&:hover {
-			color: var(--cz-color-text-link-hover, var(--cz-color-text-brand-hover));
+			color: var(--cz-color-text-link-hover);
 			text-decoration-color: currentColor;
 		}
 

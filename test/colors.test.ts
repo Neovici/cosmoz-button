@@ -34,13 +34,6 @@ describe('cosmoz-button colors', () => {
 		);
 	});
 
-	it('falls back to the brand fill when action tokens are missing', async () => {
-		const el = await withTokens('--cz-color-bg-brand-solid: rgb(9, 9, 9)');
-		expect(inner(el, 'cosmoz-button:not([variant])').backgroundColor).to.equal(
-			'rgb(9, 9, 9)',
-		);
-	});
-
 	it('colors the link variant with the link token', async () => {
 		const el = await withTokens(
 			'--cz-color-text-link: rgb(7, 8, 9); --cz-color-text-brand: rgb(9, 9, 9)',
