@@ -73,22 +73,26 @@ import '@neovici/cosmoz-button';
 
 ### Style Variants
 
-| Variant       | Description                        |
-| ------------- | ---------------------------------- |
-| `primary`     | Brand solid background, white text |
-| `secondary`   | White background, gray border      |
-| `tertiary`    | Transparent, text only             |
-| `destructive` | Error/danger styling               |
-| `link`        | No padding, underline on hover     |
+| Variant       | Description                                     |
+| ------------- | ----------------------------------------------- |
+| `primary`     | Brand solid fill with a soft top sheen and lift |
+| `secondary`   | Raised surface with a hairline border           |
+| `tertiary`    | Transparent, translucent wash on hover          |
+| `destructive` | Error solid fill with the same sheen as primary |
+| `link`        | No padding, underline on hover                  |
+
+All variants scale down slightly while pressed (not with reduced motion),
+show a 2px focus outline offset outside the button, and fade to 45% opacity
+when disabled so they keep their look.
 
 ### Size Variants
 
-| Size | Height | Icon-only Size | Font Size |
-| ---- | ------ | -------------- | --------- |
-| `sm` | 28px   | 28px           | 12px      |
-| `md` | 32px   | 32px           | 14px      |
-| `lg` | 36px   | 36px           | 14px      |
-| `xl` | 40px   | 40px           | 14px      |
+| Size | Height | Icon-only Size | Font Size | Icon Size |
+| ---- | ------ | -------------- | --------- | --------- |
+| `sm` | 28px   | 28px           | 12px      | 14px      |
+| `md` | 32px   | 32px           | 13px      | 16px      |
+| `lg` | 36px   | 36px           | 14px      | 16px      |
+| `xl` | 40px   | 40px           | 14px      | 18px      |
 
 Heights come from the `--cz-control-height-{sm,md,lg,xl}` tokens in `@neovici/cosmoz-tokens`, which inputs use too.
 
@@ -128,14 +132,12 @@ Set the `icon-only` attribute to render a compact square utility button
 </cosmoz-button>
 ```
 
-- Square sizing per `size`: sm 28px, md 32px, lg 36px, xl 40px, with `p-1.5` padding
+- Square sizing per `size`: sm 28px, md 32px, lg 36px, xl 40px, icon centered
 - Quiet variants (`secondary`, `tertiary`) get the muted utility look: icon
-  color `--cz-color-text-tertiary`, hover `--cz-color-text-secondary` on
-  `--cz-color-bg-primary-hover` (correct contrast in both light and dark
-  mode)
+  color `--cz-color-text-tertiary`, `--cz-color-text-primary` on hover
 - Solid variants (`primary`, `destructive`) keep their own on-brand /
   on-error icon colors
-- Slotted SVG sizing: 16px (sm), 20px (md and up)
+- Slotted SVG sizing follows the size table above
 - All existing variants, focus rings, disabled and pressed-down `:active`
   states apply as usual
 
@@ -144,12 +146,10 @@ Set the `icon-only` attribute to render a compact square utility button
 Set `aria-pressed="true"` to show the selected state. It is available on
 every variant, with colors matching each variant's intent:
 
-- **primary / secondary / tertiary** (quiet variants) shift to the selected
-  brand chip: `brand-50`/`brand-600` surface with a `brand-700`/`gray-50`
-  icon or text
-- **destructive** keeps the error intent: `error-100`/`error-600` surface
-  with an `error-800`/`gray-50` icon or text
-- **link** emphasizes the text (deeper brand color + underline), no fill
+- **secondary / tertiary** get a translucent fill with primary text, like a
+  selected segment
+- **primary / destructive** keep their fill and sink with an inset shadow
+- **link** keeps its underline
 
 ```html
 <cosmoz-button icon-only aria-pressed="true" aria-label="Invoice image">
