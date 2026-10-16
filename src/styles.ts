@@ -36,14 +36,14 @@ export const styles = css`
 		gap: 6px;
 		width: 100%;
 		height: var(--cz-control-height-md);
-		padding: 0 12px;
+		padding: 0 14px;
 		border: 1px solid transparent;
 		border-radius: var(--cz-radius-full);
 		font-family: var(--cz-font-body);
-		font-size: var(--cz-text-sm);
-		font-weight: var(--cz-font-weight-medium);
-		line-height: 1;
-		letter-spacing: -0.006em;
+		font-size: calc((var(--cz-text-sm) + var(--cz-text-xs)) / 2);
+		font-weight: var(--cz-font-weight-regular);
+		line-height: 1.25;
+		letter-spacing: normal;
 		text-align: center;
 		text-decoration: none;
 		white-space: nowrap;
@@ -62,6 +62,8 @@ export const styles = css`
 		background:
 			var(--cz-glass-action-sheen, var(--cz-action-sheen, none)),
 			var(--cz-color-bg-glass-action, var(--cz-color-bg-action-solid));
+		border-color: var(--cz-color-border-glass-action, transparent);
+		backdrop-filter: var(--cz-backdrop-filter-glass, none);
 		color: var(--cz-color-text-on-action);
 		box-shadow: var(--cz-shadow-glass-action, var(--cz-shadow-action));
 
@@ -100,7 +102,7 @@ export const styles = css`
 
 	:host([size='sm']) .button {
 		height: var(--cz-control-height-sm);
-		padding: 0 10px;
+		padding: 0 12px;
 		border-radius: var(--cz-radius-full);
 		font-size: var(--cz-text-xs);
 	}
@@ -112,13 +114,13 @@ export const styles = css`
 
 	:host([size='lg']) .button {
 		height: var(--cz-control-height-lg);
-		padding: 0 14px;
+		padding: 0 16px;
 		font-size: var(--cz-text-sm);
 	}
 
 	:host([size='xl']) .button {
 		height: var(--cz-control-height-xl);
-		padding: 0 16px;
+		padding: 0 18px;
 		gap: 8px;
 		font-size: var(--cz-text-sm);
 	}
@@ -171,6 +173,8 @@ export const styles = css`
 
 	:host([variant='tertiary']:not([icon-only])) .button {
 		background: transparent;
+		border-color: transparent;
+		backdrop-filter: none;
 		color: var(--cz-color-text-secondary);
 		box-shadow: none;
 
@@ -206,6 +210,8 @@ export const styles = css`
 		height: auto;
 		padding: 0;
 		background: transparent;
+		border-color: transparent;
+		backdrop-filter: none;
 		color: var(--cz-color-text-link);
 		box-shadow: none;
 		border-radius: var(--cz-radius-xs);
@@ -266,7 +272,6 @@ export const styles = css`
 		pointer-events: none;
 		box-shadow: none;
 	}
-
 
 	@media (forced-colors: active) {
 		.button {
