@@ -84,6 +84,13 @@ export const styles = css`
 		}
 	}
 
+	::slotted(iron-icon) {
+		pointer-events: none;
+		width: 20px;
+		height: 20px;
+		flex: none;
+	}
+
 	::slotted(svg) {
 		width: 16px;
 		height: 16px;
@@ -271,7 +278,9 @@ export const styles = css`
 
 	/* Disabled keeps the variant's look, just quieter. */
 
-	:host([disabled]) .button {
+	:host([disabled]) .button,
+	:host(:disabled) .button,
+	.button:disabled {
 		opacity: var(--cz-opacity-disabled, 0.45);
 		cursor: not-allowed;
 		pointer-events: none;

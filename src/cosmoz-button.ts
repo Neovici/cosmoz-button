@@ -4,10 +4,15 @@ import { component, html, useEffect } from '@pionjs/pion';
 import { nothing } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { when } from 'lit-html/directives/when.js';
+import { FormButton } from './form-button';
 import { styles } from './styles';
 
 export type ButtonVariant =
-	'primary' | 'secondary' | 'tertiary' | 'destructive' | 'link';
+	| 'primary'
+	| 'secondary'
+	| 'tertiary'
+	| 'destructive'
+	| 'link';
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonType = 'button' | 'submit' | 'reset';
 
@@ -15,6 +20,13 @@ export interface CosmozButtonElement extends HTMLElement {
 	variant?: ButtonVariant;
 	size?: ButtonSize;
 	disabled?: boolean;
+	formDisabled?: boolean;
+	readonly form: HTMLFormElement | null;
+	name?: string;
+	controlRole?: string;
+	ariaControls?: string | null;
+	ariaHaspopup?: string | null;
+	tabindex?: string | number | null;
 	fullWidth?: boolean;
 	iconOnly?: boolean;
 	tooltip?: string | null;
@@ -43,7 +55,16 @@ const observedAttributes = [
 	'download',
 	'aria-expanded',
 	'aria-label',
+	'title',
 	'aria-pressed',
+	'aria-controls',
+	'aria-haspopup',
+	'aria-description',
+	'aria-busy',
+	'aria-current',
+	'control-role',
+	'tabindex',
+	'name',
 ] as const;
 
 /**
@@ -85,15 +106,18 @@ const CosmozButton = (host: CosmozButtonElement) => {
 		rel,
 		download,
 	} = host;
-	const isDisabled = Boolean(disabled);
+	const isDisabled = Boolean(disabled || host.formDisabled);
 
 	useEffect(() => {
 		const handler = (e: Event) => {
-			if (host.disabled) e.stopImmediatePropagation();
+			if (host.disabled || host.formDisabled) {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+			}
 		};
 		host.addEventListener('click', handler, { capture: true });
 		return () => host.removeEventListener('click', handler, { capture: true });
-	}, [host.disabled]);
+	}, [host.disabled, host.formDisabled]);
 
 	const content = html`
 		<slot name="prefix"></slot>
@@ -105,6 +129,21 @@ const CosmozButton = (host: CosmozButtonElement) => {
 		href != null,
 		() => html`
 			<a
+				role=${ifDefined(host.controlRole)}
+				tabindex=${ifDefined(host.getAttribute('tabindex') ?? undefined)}
+				aria-controls=${ifDefined(
+					host.getAttribute('aria-controls') ?? undefined,
+				)}
+				aria-haspopup=${ifDefined(
+					host.getAttribute('aria-haspopup') ?? undefined,
+				)}
+				aria-description=${ifDefined(
+					host.getAttribute('aria-description') ?? undefined,
+				)}
+				aria-busy=${ifDefined(host.getAttribute('aria-busy') ?? undefined)}
+				aria-current=${ifDefined(
+					host.getAttribute('aria-current') ?? undefined,
+				)}
 				href=${href}
 				class="button"
 				part="button"
@@ -112,7 +151,10 @@ const CosmozButton = (host: CosmozButtonElement) => {
 				aria-expanded=${ifDefined(
 					host.getAttribute('aria-expanded') ?? undefined,
 				)}
-				aria-label=${ifDefined(host.getAttribute('aria-label') ?? undefined)}
+				aria-label=${ifDefined(
+					host.getAttribute('aria-label') ??
+						(host.iconOnly && host.title ? host.title : undefined),
+				)}
 				target=${ifDefined(target)}
 				rel=${ifDefined(rel)}
 				download=${ifDefined(download)}
@@ -121,6 +163,21 @@ const CosmozButton = (host: CosmozButtonElement) => {
 		`,
 		() => html`
 			<button
+				role=${ifDefined(host.controlRole)}
+				tabindex=${ifDefined(host.getAttribute('tabindex') ?? undefined)}
+				aria-controls=${ifDefined(
+					host.getAttribute('aria-controls') ?? undefined,
+				)}
+				aria-haspopup=${ifDefined(
+					host.getAttribute('aria-haspopup') ?? undefined,
+				)}
+				aria-description=${ifDefined(
+					host.getAttribute('aria-description') ?? undefined,
+				)}
+				aria-busy=${ifDefined(host.getAttribute('aria-busy') ?? undefined)}
+				aria-current=${ifDefined(
+					host.getAttribute('aria-current') ?? undefined,
+				)}
 				type=${type}
 				class="button"
 				part="button"
@@ -128,7 +185,10 @@ const CosmozButton = (host: CosmozButtonElement) => {
 				aria-expanded=${ifDefined(
 					host.getAttribute('aria-expanded') ?? undefined,
 				)}
-				aria-label=${ifDefined(host.getAttribute('aria-label') ?? undefined)}
+				aria-label=${ifDefined(
+					host.getAttribute('aria-label') ??
+						(host.iconOnly && host.title ? host.title : undefined),
+				)}
 				aria-pressed=${ifDefined(
 					host.getAttribute('aria-pressed') ?? undefined,
 				)}
@@ -152,6 +212,7 @@ const CosmozButton = (host: CosmozButtonElement) => {
 customElements.define(
 	'cosmoz-button',
 	component<CosmozButtonElement>(CosmozButton, {
+		baseElement: FormButton,
 		observedAttributes,
 		styleSheets: [normalize, styles],
 		shadowRootInit: { mode: 'open', delegatesFocus: true },
@@ -159,3 +220,9 @@ customElements.define(
 );
 
 export { CosmozButton };
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'cosmoz-button': CosmozButtonElement;
+	}
+}

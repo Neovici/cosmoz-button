@@ -73,13 +73,13 @@ import '@neovici/cosmoz-button';
 
 ### Style Variants
 
-| Variant       | Description                                     |
-| ------------- | ----------------------------------------------- |
+| Variant       | Description                                         |
+| ------------- | --------------------------------------------------- |
 | `primary`     | Pale glass in light mode, smoked glass in dark mode |
-| `secondary`   | Translucent neutral fill with a hairline border           |
-| `tertiary`    | Transparent, translucent wash on hover          |
-| `destructive` | Error solid fill with the same sheen as primary |
-| `link`        | No padding, underline on hover                  |
+| `secondary`   | Translucent neutral fill with a hairline border     |
+| `tertiary`    | Transparent, translucent wash on hover              |
+| `destructive` | Error solid fill with the same sheen as primary     |
+| `link`        | No padding, underline on hover                      |
 
 All variants scale down slightly while pressed (not with reduced motion),
 show a 2px focus outline offset outside the button, and fade to 45% opacity
@@ -268,3 +268,9 @@ npm run build
 ## License
 
 Apache-2.0
+
+### Forms and accessibility
+
+The button defaults to `type="button"`. Use `type="submit"` or `type="reset"` inside a form, or associate it with an external form using `form="form-id"`. Submit buttons honor native validation, `name`, `value`, and the `formaction`, `formenctype`, `formmethod`, `formnovalidate`, and `formtarget` attributes. Disabled fieldsets disable their buttons. Cancel a click with `preventDefault()` to prevent its form action.
+
+Give icon-only buttons an `aria-label` or `title`. Disclosure attributes such as `aria-expanded`, `aria-controls`, and `aria-haspopup` are forwarded to the native control. Use `control-role="menuitem"` for menu actions, and `tabindex="-1"` when a parent manages keyboard focus.
