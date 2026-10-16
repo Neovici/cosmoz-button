@@ -133,8 +133,8 @@ Set the `icon-only` attribute to render a compact square utility button
 ```
 
 - Square sizing per `size`: sm 28px, md 32px, lg 36px, xl 40px, icon centered
-- Quiet variants (`secondary`, `tertiary`) get the muted utility look: icon
-  color `--cz-color-text-tertiary`, `--cz-color-text-primary` on hover
+- Secondary icons use the neutral glass fill. Tertiary icons stay transparent
+  at rest with flat hover and pressed fills. Both use primary icon text color.
 - Primary icons follow the glass action text color for each theme;
   destructive icons retain white on the error fill
 - Slotted SVG sizing follows the size table above
