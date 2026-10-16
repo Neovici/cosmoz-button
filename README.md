@@ -75,8 +75,8 @@ import '@neovici/cosmoz-button';
 
 | Variant       | Description                                     |
 | ------------- | ----------------------------------------------- |
-| `primary`     | Brand solid fill with a soft top sheen and lift |
-| `secondary`   | Raised surface with a hairline border           |
+| `primary`     | Pale glass in light mode, smoked glass in dark mode |
+| `secondary`   | Translucent neutral fill with a hairline border           |
 | `tertiary`    | Transparent, translucent wash on hover          |
 | `destructive` | Error solid fill with the same sheen as primary |
 | `link`        | No padding, underline on hover                  |
@@ -135,8 +135,8 @@ Set the `icon-only` attribute to render a compact square utility button
 - Square sizing per `size`: sm 28px, md 32px, lg 36px, xl 40px, icon centered
 - Quiet variants (`secondary`, `tertiary`) get the muted utility look: icon
   color `--cz-color-text-tertiary`, `--cz-color-text-primary` on hover
-- Solid variants (`primary`, `destructive`) keep their own on-brand /
-  on-error icon colors
+- Primary icons follow the glass action text color for each theme;
+  destructive icons retain white on the error fill
 - Slotted SVG sizing follows the size table above
 - All existing variants, focus rings, disabled and pressed-down `:active`
   states apply as usual
