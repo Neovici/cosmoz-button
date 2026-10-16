@@ -64,7 +64,7 @@ export const styles = css`
 			var(--cz-color-bg-glass-action, var(--cz-color-bg-action-solid));
 		border-color: var(--cz-color-border-glass-action, transparent);
 		backdrop-filter: var(--cz-backdrop-filter-glass, none);
-		color: var(--cz-color-text-on-action);
+		color: var(--cz-color-text-on-glass-action, var(--cz-color-text-on-action));
 		box-shadow: var(--cz-shadow-glass-action, var(--cz-shadow-action));
 
 		&:hover {
