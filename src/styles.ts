@@ -153,8 +153,7 @@ export const styles = css`
 
 	/* Variants */
 
-	:host([variant='secondary']) .button,
-	:host([variant='tertiary'][icon-only]) .button {
+	:host([variant='secondary']) .button {
 		background:
 			var(--cz-glass-sheen, none),
 			var(--cz-color-bg-glass, var(--cz-color-bg-tertiary));
@@ -171,7 +170,7 @@ export const styles = css`
 		}
 	}
 
-	:host([variant='tertiary']:not([icon-only])) .button {
+	:host([variant='tertiary']) .button {
 		background: transparent;
 		border-color: transparent;
 		backdrop-filter: none;
@@ -179,9 +178,15 @@ export const styles = css`
 		box-shadow: none;
 
 		&:hover {
-			background: var(--_wash);
+			background: var(--cz-color-bg-primary-hover);
 			color: var(--cz-color-text-primary);
 		}
+	}
+
+	:host([variant='tertiary']) .button:active {
+		background: var(--cz-color-bg-tertiary);
+		box-shadow: none;
+		transform: none;
 	}
 
 	:host([variant='destructive']) .button {
@@ -249,7 +254,7 @@ export const styles = css`
 	}
 
 	:host([variant='tertiary'][aria-pressed='true']) .button {
-		background: var(--_wash-strong);
+		background: var(--cz-color-bg-tertiary);
 		color: var(--cz-color-text-primary);
 	}
 

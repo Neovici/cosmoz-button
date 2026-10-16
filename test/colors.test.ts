@@ -42,4 +42,28 @@ describe('cosmoz-button colors', () => {
 			'rgb(7, 8, 9)',
 		);
 	});
+
+	it('keeps tertiary icons as quiet as tertiary text controls', async () => {
+		const el = await fixture(html`
+			<div
+				style="--cz-glass-sheen: linear-gradient(red, blue); --cz-shadow-glass: 0 1px 2px red; --cz-backdrop-filter-glass: blur(16px)"
+			>
+				<cosmoz-button variant="tertiary">Text</cosmoz-button>
+				<cosmoz-button variant="tertiary" icon-only aria-label="Zoom in"
+					>+</cosmoz-button
+				>
+			</div>
+		`);
+		const text = inner(el, 'cosmoz-button:not([icon-only])');
+		const icon = inner(el, 'cosmoz-button[icon-only]');
+		for (const property of [
+			'backgroundImage',
+			'backgroundColor',
+			'boxShadow',
+			'backdropFilter',
+			'borderColor',
+		] as const) {
+			expect(icon[property]).to.equal(text[property]);
+		}
+	});
 });
