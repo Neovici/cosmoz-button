@@ -4,11 +4,14 @@ export const styles = css`
 	:host {
 		display: inline-flex;
 
-		--_wash: light-dark(rgb(10 13 18 / 0.05), rgb(255 255 255 / 0.07));
-		--_wash-strong: light-dark(rgb(10 13 18 / 0.08), rgb(255 255 255 / 0.11));
-		--_hairline: light-dark(rgb(10 13 18 / 0.12), rgb(255 255 255 / 0.1));
-		--_sheen: linear-gradient(rgb(255 255 255 / 0.12), rgb(255 255 255 / 0));
-		--_lift: 0 1px 2px light-dark(rgb(10 13 18 / 0.08), rgb(0 0 0 / 0.4));
+		--_wash: var(--cz-color-bg-glass, var(--cz-color-bg-tertiary));
+		--_wash-strong: var(
+			--cz-color-bg-glass-hover,
+			var(--cz-color-bg-secondary-hover)
+		);
+		--_hairline: var(--cz-color-border-glass, var(--cz-color-border-primary));
+		--_sheen: var(--cz-glass-action-sheen, var(--cz-action-sheen, none));
+		--_lift: var(--cz-shadow-xs);
 	}
 
 	:host([full-width]) {
@@ -34,10 +37,10 @@ export const styles = css`
 		width: 100%;
 		height: var(--cz-control-height-md);
 		padding: 0 12px;
-		border: none;
-		border-radius: var(--cz-radius-md);
+		border: 1px solid transparent;
+		border-radius: var(--cz-radius-full);
 		font-family: var(--cz-font-body);
-		font-size: 0.8125rem;
+		font-size: var(--cz-text-sm);
 		font-weight: var(--cz-font-weight-medium);
 		line-height: 1;
 		letter-spacing: -0.006em;
@@ -56,16 +59,22 @@ export const styles = css`
 			outline-color 120ms ease-out,
 			transform 80ms ease-out;
 
-		background: var(--cz-action-sheen, none), var(--cz-color-bg-action-solid);
+		background:
+			var(--cz-glass-action-sheen, var(--cz-action-sheen, none)),
+			var(--cz-color-bg-glass-action, var(--cz-color-bg-action-solid));
 		color: var(--cz-color-text-on-action);
-		box-shadow: var(--cz-shadow-action);
+		box-shadow: var(--cz-shadow-glass-action, var(--cz-shadow-action));
 
 		&:hover {
-			background-color: var(--cz-color-bg-action-solid-hover);
+			background-color: var(
+				--cz-color-bg-glass-action-hover,
+				var(--cz-color-bg-action-solid-hover)
+			);
 		}
 
 		&:active {
-			transform: scale(0.97);
+			transform: scale(0.98);
+			box-shadow: var(--cz-shadow-pressed-3d);
 		}
 
 		&:focus-visible {
@@ -92,7 +101,7 @@ export const styles = css`
 	:host([size='sm']) .button {
 		height: var(--cz-control-height-sm);
 		padding: 0 10px;
-		border-radius: var(--cz-radius-sm);
+		border-radius: var(--cz-radius-full);
 		font-size: var(--cz-text-xs);
 	}
 
@@ -142,21 +151,25 @@ export const styles = css`
 
 	/* Variants */
 
-	:host([variant='secondary']) .button {
-		background: light-dark(var(--cz-color-white), var(--cz-color-gray-900));
+	:host([variant='secondary']) .button,
+	:host([variant='tertiary'][icon-only]) .button {
+		background:
+			var(--cz-glass-sheen, none),
+			var(--cz-color-bg-glass, var(--cz-color-bg-tertiary));
 		color: var(--cz-color-text-primary);
-		box-shadow:
-			inset 0 0 0 1px var(--_hairline),
-			inset 0 -1px 0 light-dark(rgb(10 13 18 / 0.04), transparent),
-			inset 0 1px 0 light-dark(transparent, rgb(255 255 255 / 0.04)),
-			var(--_lift);
+		border-color: var(--cz-color-border-glass, var(--cz-color-border-primary));
+		box-shadow: var(--cz-shadow-glass, var(--cz-shadow-xs));
+		backdrop-filter: var(--cz-backdrop-filter-glass, none);
 
 		&:hover {
-			background: light-dark(var(--cz-color-gray-50), var(--cz-color-gray-800));
+			background-color: var(
+				--cz-color-bg-glass-hover,
+				var(--cz-color-bg-secondary-hover)
+			);
 		}
 	}
 
-	:host([variant='tertiary']) .button {
+	:host([variant='tertiary']:not([icon-only])) .button {
 		background: transparent;
 		color: var(--cz-color-text-secondary);
 		box-shadow: none;
@@ -168,7 +181,9 @@ export const styles = css`
 	}
 
 	:host([variant='destructive']) .button {
-		background: var(--_sheen), var(--cz-color-error-600);
+		background:
+			var(--_sheen),
+			var(--cz-color-bg-glass-destructive, var(--cz-color-bg-error-solid));
 		color: var(--cz-color-white);
 		box-shadow:
 			inset 0 1px 0 rgb(255 255 255 / 0.16),
@@ -176,9 +191,9 @@ export const styles = css`
 			var(--_lift);
 
 		&:hover {
-			background-color: light-dark(
-				var(--cz-color-error-700),
-				var(--cz-color-error-500)
+			background-color: var(
+				--cz-color-bg-glass-destructive-hover,
+				var(--cz-color-bg-error-solid-hover)
 			);
 		}
 
@@ -212,7 +227,7 @@ export const styles = css`
 
 	:host([icon-only][variant='secondary']) .button,
 	:host([icon-only][variant='tertiary']) .button {
-		color: var(--cz-color-text-tertiary);
+		color: var(--cz-color-text-primary);
 
 		&:hover {
 			color: var(--cz-color-text-primary);
@@ -224,7 +239,7 @@ export const styles = css`
 	:host([variant='secondary'][aria-pressed='true']) .button {
 		background: var(--_wash-strong);
 		color: var(--cz-color-text-primary);
-		box-shadow: inset 0 0 0 1px var(--_hairline);
+		box-shadow: var(--cz-shadow-pressed-3d);
 	}
 
 	:host([variant='tertiary'][aria-pressed='true']) .button {
@@ -246,14 +261,25 @@ export const styles = css`
 	/* Disabled keeps the variant's look, just quieter. */
 
 	:host([disabled]) .button {
-		opacity: 0.45;
+		opacity: var(--cz-opacity-disabled, 0.45);
 		cursor: not-allowed;
 		pointer-events: none;
 		box-shadow: none;
 	}
 
 	:host([disabled][variant='secondary']) .button {
-		box-shadow: inset 0 0 0 1px var(--_hairline);
+		box-shadow: var(--cz-shadow-pressed-3d);
+	}
+
+	@media (forced-colors: active) {
+		.button {
+			border-color: ButtonText;
+			background: ButtonFace;
+			color: ButtonText;
+		}
+		:host([aria-pressed='true']) .button {
+			outline: 2px solid Highlight;
+		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {
