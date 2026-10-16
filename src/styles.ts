@@ -73,8 +73,8 @@ export const styles = css`
 		}
 
 		&:active {
-			transform: scale(0.98);
-			box-shadow: var(--cz-shadow-pressed-3d);
+			transform: scale(0.995);
+			box-shadow: var(--cz-shadow-glass-pressed, var(--cz-shadow-pressed-3d));
 		}
 
 		&:focus-visible {
@@ -186,7 +186,7 @@ export const styles = css`
 			var(--cz-color-bg-glass-destructive, var(--cz-color-bg-error-solid));
 		color: var(--cz-color-white);
 		box-shadow:
-			inset 0 1px 0 rgb(255 255 255 / 0.16),
+			inset 0 1px 0 rgb(255 255 255 / 0.06),
 			inset 0 0 0 1px light-dark(rgb(10 13 18 / 0.2), transparent),
 			var(--_lift);
 
@@ -239,7 +239,7 @@ export const styles = css`
 	:host([variant='secondary'][aria-pressed='true']) .button {
 		background: var(--_wash-strong);
 		color: var(--cz-color-text-primary);
-		box-shadow: var(--cz-shadow-pressed-3d);
+		box-shadow: var(--cz-shadow-glass-pressed, var(--cz-shadow-pressed-3d));
 	}
 
 	:host([variant='tertiary'][aria-pressed='true']) .button {
@@ -251,7 +251,7 @@ export const styles = css`
 	:host([variant='primary'][aria-pressed='true']) .button,
 	:host([variant='destructive'][aria-pressed='true']) .button {
 		background-image: none;
-		box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.35);
+		box-shadow: var(--cz-shadow-glass-pressed, var(--cz-shadow-pressed-3d));
 	}
 
 	:host([variant='link'][aria-pressed='true']) .button {
@@ -267,9 +267,6 @@ export const styles = css`
 		box-shadow: none;
 	}
 
-	:host([disabled][variant='secondary']) .button {
-		box-shadow: var(--cz-shadow-pressed-3d);
-	}
 
 	@media (forced-colors: active) {
 		.button {
