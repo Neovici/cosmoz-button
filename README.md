@@ -85,6 +85,9 @@ All variants scale down slightly while pressed (not with reduced motion),
 show a 2px focus outline offset outside the button, and fade to 45% opacity
 when disabled so they keep their look.
 
+Labelled buttons use `--cz-radius-md` (8px). Icon-only buttons stay circular;
+link buttons retain their smaller focus corner radius.
+
 ### Size Variants
 
 | Size | Height | Icon-only Size | Font Size | Icon Size |

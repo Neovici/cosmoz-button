@@ -38,7 +38,7 @@ export const styles = css`
 		height: var(--cz-control-height-md);
 		padding: 0 14px;
 		border: 1px solid transparent;
-		border-radius: var(--cz-radius-full);
+		border-radius: var(--cz-radius-md);
 		font-family: var(--cz-font-body);
 		font-size: calc((var(--cz-text-sm) + var(--cz-text-xs)) / 2);
 		font-weight: var(--cz-font-weight-regular);
@@ -110,7 +110,6 @@ export const styles = css`
 	:host([size='sm']) .button {
 		height: var(--cz-control-height-sm);
 		padding: 0 12px;
-		border-radius: var(--cz-radius-full);
 		font-size: var(--cz-text-xs);
 	}
 
@@ -138,6 +137,7 @@ export const styles = css`
 	}
 
 	:host([icon-only]) .button {
+		border-radius: var(--cz-radius-full);
 		width: var(--cz-control-height-md);
 		padding: 0;
 	}
