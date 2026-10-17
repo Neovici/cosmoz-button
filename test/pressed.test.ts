@@ -17,11 +17,11 @@ describe('pressed button feedback', () => {
 				--cz-color-bg-glass-action-hover: rgb(220, 220, 220);
 				--cz-color-bg-glass-hover: rgb(220, 220, 220);
 				--cz-color-bg-glass-destructive-hover: rgb(220, 220, 220);
-				--cz-color-bg-primary-hover: rgb(220, 220, 220);
+				--cz-color-bg-tertiary: rgb(220, 220, 220);
 				--cz-color-bg-glass-action-pressed: rgb(180, 180, 180);
 				--cz-color-bg-glass-pressed: rgb(180, 180, 180);
 				--cz-color-bg-glass-destructive-pressed: rgb(180, 180, 180);
-				--cz-color-bg-tertiary: rgb(180, 180, 180);
+				--cz-color-bg-quaternary: rgb(180, 180, 180);
 				--cz-shadow-glass-pressed: inset 0 1px 2px black;
 			`;
 			const bounds = control.getBoundingClientRect();

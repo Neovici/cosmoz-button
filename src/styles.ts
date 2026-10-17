@@ -196,13 +196,13 @@ export const styles = css`
 		box-shadow: none;
 
 		&:hover {
-			background: var(--cz-color-bg-primary-hover);
+			background: var(--cz-color-bg-tertiary);
 			color: var(--cz-color-text-primary);
 		}
 	}
 
 	:host([variant='tertiary']) .button:active {
-		background: var(--cz-color-bg-tertiary);
+		background: var(--cz-color-bg-quaternary);
 		box-shadow: none;
 	}
 
@@ -278,7 +278,7 @@ export const styles = css`
 	}
 
 	:host([variant='tertiary'][aria-pressed='true']) .button {
-		background: var(--cz-color-bg-tertiary);
+		background: var(--cz-color-bg-quaternary);
 		color: var(--cz-color-text-primary);
 	}
 
