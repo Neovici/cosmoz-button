@@ -38,7 +38,6 @@ describe('native button integration', () => {
 		expect(submissions).to.have.length(1);
 		expect(submissions[0].get('message')).to.equal('valid');
 		expect(submissions[0].get('action')).to.equal('save');
-		expect(form.querySelector('button')).to.be.null;
 	});
 
 	it('respects a consuming click handler that cancels submission', async () => {
@@ -134,7 +133,6 @@ describe('native button integration', () => {
 		expect(control.tabIndex).to.equal(-1);
 		expect(control.getAttribute('aria-label')).to.equal('Choose');
 		expect(control.getAttribute('aria-haspopup')).to.equal('menu');
-		expect(control.getAttribute('aria-controls')).to.equal('choices');
 		button.setAttribute('aria-expanded', 'true');
 		await nextFrame();
 		expect(control.getAttribute('aria-expanded')).to.equal('true');

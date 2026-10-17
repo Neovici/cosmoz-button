@@ -1,6 +1,6 @@
 import { normalize } from '@neovici/cosmoz-tokens/normalize';
 import '@neovici/cosmoz-tooltip';
-import { component, html, useEffect } from '@pionjs/pion';
+import { component, html, useEffect, useLayoutEffect } from '@pionjs/pion';
 import { nothing } from 'lit-html';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { when } from 'lit-html/directives/when.js';
@@ -8,21 +8,23 @@ import { FormButton } from './form-button';
 import { styles } from './styles';
 
 export type ButtonVariant =
-	| 'primary'
-	| 'secondary'
-	| 'tertiary'
-	| 'destructive'
-	| 'link';
+	'primary' | 'secondary' | 'tertiary' | 'destructive' | 'link';
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonType = 'button' | 'submit' | 'reset';
 
 export interface CosmozButtonElement extends HTMLElement {
+	syncFormButton(): void;
 	variant?: ButtonVariant;
 	size?: ButtonSize;
 	disabled?: boolean;
 	formDisabled?: boolean;
 	readonly form: HTMLFormElement | null;
 	name?: string;
+	formaction?: string;
+	formenctype?: string;
+	formmethod?: string;
+	formnovalidate?: boolean;
+	formtarget?: string;
 	controlRole?: string;
 	ariaControls?: string | null;
 	ariaHaspopup?: string | null;
@@ -65,6 +67,12 @@ const observedAttributes = [
 	'control-role',
 	'tabindex',
 	'name',
+	'form',
+	'formaction',
+	'formenctype',
+	'formmethod',
+	'formnovalidate',
+	'formtarget',
 ] as const;
 
 /**
@@ -107,6 +115,9 @@ const CosmozButton = (host: CosmozButtonElement) => {
 		download,
 	} = host;
 	const isDisabled = Boolean(disabled || host.formDisabled);
+	useEffect(() => {
+		host.syncFormButton();
+	});
 
 	useEffect(() => {
 		const handler = (e: Event) => {
@@ -118,6 +129,13 @@ const CosmozButton = (host: CosmozButtonElement) => {
 		host.addEventListener('click', handler, { capture: true });
 		return () => host.removeEventListener('click', handler, { capture: true });
 	}, [host.disabled, host.formDisabled]);
+
+	useLayoutEffect(() => {
+		const control = host.shadowRoot?.querySelector<HTMLElement>('.button');
+		if (control && 'ariaControlsElements' in control) {
+			control.ariaControlsElements = host.ariaControlsElements;
+		}
+	});
 
 	const content = html`
 		<slot name="prefix"></slot>
