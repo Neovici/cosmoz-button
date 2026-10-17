@@ -1,5 +1,15 @@
 ## [1.1.0](https://github.com/Neovici/cosmoz-button/compare/v1.0.2...v1.1.0) (2026-06-10)
 
+## 2.4.0
+
+### Minor Changes
+
+- 5540d62: Give primary and secondary buttons subtle neutral glass fills in light and dark themes, with fine borders and inset pressed feedback. Labelled buttons use `--cz-radius-md`; icon-only buttons remain circular and preserve explicit SVG icon dimensions. Pressing a button keeps its bounds and label stationary. Tertiary utility controls stay flat, with visible hover, focus and pressed states.
+
+  Add native form ownership, submit and reset actions, implicit Enter submission, disabled fieldset handling and cancellable form activation. Preserve disclosure relationships across shadow roots and forward accessible names, roles and tab order to the native control. Respect reduced motion, reduced transparency and forced colors. Keep button system colors independent of the reusable glass surface material.
+
+  Keep flat toolbar button hover visible on secondary surfaces and use a distinct pressed background.
+
 ## 2.3.0
 
 ### Minor Changes
