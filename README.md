@@ -88,6 +88,9 @@ when disabled so they keep their look.
 Labelled buttons use `--cz-radius-md` (8px). Icon-only buttons stay circular;
 link buttons retain their smaller focus corner radius.
 
+While held down, filled buttons use a distinct pressed fill, lose their sheen,
+and show an inset shadow. Tertiary controls use a flat pressed fill.
+
 ### Size Variants
 
 | Size | Height | Icon-only Size | Font Size | Icon Size |

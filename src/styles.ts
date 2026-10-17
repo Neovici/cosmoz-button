@@ -12,6 +12,10 @@ export const styles = css`
 		--_hairline: var(--cz-color-border-glass, var(--cz-color-border-primary));
 		--_sheen: var(--cz-glass-action-sheen, var(--cz-action-sheen, none));
 		--_lift: var(--cz-shadow-xs);
+		--_pressed-bg: var(
+			--cz-color-bg-glass-action-pressed,
+			var(--cz-color-bg-action-solid-hover)
+		);
 	}
 
 	:host([full-width]) {
@@ -76,7 +80,6 @@ export const styles = css`
 
 		&:active {
 			transform: scale(0.995);
-			box-shadow: var(--cz-shadow-glass-pressed, var(--cz-shadow-pressed-3d));
 		}
 
 		&:focus-visible {
@@ -161,6 +164,10 @@ export const styles = css`
 	/* Variants */
 
 	:host([variant='secondary']) .button {
+		--_pressed-bg: var(
+			--cz-color-bg-glass-pressed,
+			var(--cz-color-bg-secondary-hover)
+		);
 		background:
 			var(--cz-glass-sheen, none),
 			var(--cz-color-bg-glass, var(--cz-color-bg-tertiary));
@@ -197,6 +204,10 @@ export const styles = css`
 	}
 
 	:host([variant='destructive']) .button {
+		--_pressed-bg: var(
+			--cz-color-bg-glass-destructive-pressed,
+			var(--cz-color-bg-error-solid-hover)
+		);
 		background:
 			var(--_sheen),
 			var(--cz-color-bg-glass-destructive, var(--cz-color-bg-error-solid));
@@ -250,6 +261,13 @@ export const styles = css`
 		&:hover {
 			color: var(--cz-color-text-primary);
 		}
+	}
+
+	:host(:not([variant='tertiary']):not([variant='link']))
+		.button:active:not(:disabled) {
+		background-color: var(--_pressed-bg);
+		background-image: none;
+		box-shadow: var(--cz-shadow-glass-pressed, var(--cz-shadow-pressed-3d));
 	}
 
 	/* Toggled (aria-pressed) */
