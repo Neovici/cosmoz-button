@@ -4,11 +4,18 @@ export const styles = css`
 	:host {
 		display: inline-flex;
 
-		--_wash: light-dark(rgb(10 13 18 / 0.05), rgb(255 255 255 / 0.07));
-		--_wash-strong: light-dark(rgb(10 13 18 / 0.08), rgb(255 255 255 / 0.11));
-		--_hairline: light-dark(rgb(10 13 18 / 0.12), rgb(255 255 255 / 0.1));
-		--_sheen: linear-gradient(rgb(255 255 255 / 0.12), rgb(255 255 255 / 0));
-		--_lift: 0 1px 2px light-dark(rgb(10 13 18 / 0.08), rgb(0 0 0 / 0.4));
+		--_wash: var(--cz-color-bg-glass, var(--cz-color-bg-tertiary));
+		--_wash-strong: var(
+			--cz-color-bg-glass-hover,
+			var(--cz-color-bg-secondary-hover)
+		);
+		--_hairline: var(--cz-color-border-glass, var(--cz-color-border-primary));
+		--_sheen: var(--cz-glass-action-sheen, var(--cz-action-sheen, none));
+		--_lift: var(--cz-shadow-xs);
+		--_pressed-bg: var(
+			--cz-color-bg-glass-action-pressed,
+			var(--cz-color-bg-action-solid-hover)
+		);
 	}
 
 	:host([full-width]) {
@@ -33,14 +40,14 @@ export const styles = css`
 		gap: 6px;
 		width: 100%;
 		height: var(--cz-control-height-md);
-		padding: 0 12px;
-		border: none;
+		padding: 0 14px;
+		border: 1px solid transparent;
 		border-radius: var(--cz-radius-md);
 		font-family: var(--cz-font-body);
-		font-size: 0.8125rem;
-		font-weight: var(--cz-font-weight-medium);
-		line-height: 1;
-		letter-spacing: -0.006em;
+		font-size: calc((var(--cz-text-sm) + var(--cz-text-xs)) / 2);
+		font-weight: var(--cz-font-weight-regular);
+		line-height: 1.25;
+		letter-spacing: normal;
 		text-align: center;
 		text-decoration: none;
 		white-space: nowrap;
@@ -53,24 +60,33 @@ export const styles = css`
 			background-color 120ms ease-out,
 			color 120ms ease-out,
 			box-shadow 120ms ease-out,
-			outline-color 120ms ease-out,
-			transform 80ms ease-out;
+			outline-color 120ms ease-out;
 
-		background: var(--cz-action-sheen, none), var(--cz-color-bg-action-solid);
-		color: var(--cz-color-text-on-action);
-		box-shadow: var(--cz-shadow-action);
+		background:
+			var(--cz-glass-action-sheen, var(--cz-action-sheen, none)),
+			var(--cz-color-bg-glass-action, var(--cz-color-bg-action-solid));
+		border-color: var(--cz-color-border-glass-action, transparent);
+		backdrop-filter: var(--cz-backdrop-filter-glass, none);
+		color: var(--cz-color-text-on-glass-action, var(--cz-color-text-on-action));
+		box-shadow: var(--cz-shadow-glass-action, var(--cz-shadow-action));
 
 		&:hover {
-			background-color: var(--cz-color-bg-action-solid-hover);
-		}
-
-		&:active {
-			transform: scale(0.97);
+			background-color: var(
+				--cz-color-bg-glass-action-hover,
+				var(--cz-color-bg-action-solid-hover)
+			);
 		}
 
 		&:focus-visible {
 			outline-color: var(--cz-color-focus-ring);
 		}
+	}
+
+	::slotted(iron-icon) {
+		pointer-events: none;
+		width: 20px;
+		height: 20px;
+		flex: none;
 	}
 
 	::slotted(svg) {
@@ -91,8 +107,7 @@ export const styles = css`
 
 	:host([size='sm']) .button {
 		height: var(--cz-control-height-sm);
-		padding: 0 10px;
-		border-radius: var(--cz-radius-sm);
+		padding: 0 12px;
 		font-size: var(--cz-text-xs);
 	}
 
@@ -103,13 +118,13 @@ export const styles = css`
 
 	:host([size='lg']) .button {
 		height: var(--cz-control-height-lg);
-		padding: 0 14px;
+		padding: 0 16px;
 		font-size: var(--cz-text-sm);
 	}
 
 	:host([size='xl']) .button {
 		height: var(--cz-control-height-xl);
-		padding: 0 16px;
+		padding: 0 18px;
 		gap: 8px;
 		font-size: var(--cz-text-sm);
 	}
@@ -120,6 +135,7 @@ export const styles = css`
 	}
 
 	:host([icon-only]) .button {
+		border-radius: var(--cz-radius-full);
 		width: var(--cz-control-height-md);
 		padding: 0;
 	}
@@ -140,45 +156,74 @@ export const styles = css`
 		margin: 0;
 	}
 
+	/* Preserve the supplied geometry of standalone icons. */
+	:host([icon-only]) ::slotted(svg[width]) {
+		width: auto;
+	}
+
+	:host([icon-only]) ::slotted(svg[height]) {
+		height: auto;
+	}
+
 	/* Variants */
 
 	:host([variant='secondary']) .button {
-		background: light-dark(var(--cz-color-white), var(--cz-color-gray-900));
+		--_pressed-bg: var(
+			--cz-color-bg-glass-pressed,
+			var(--cz-color-bg-secondary-hover)
+		);
+		background:
+			var(--cz-glass-sheen, none),
+			var(--cz-color-bg-glass, var(--cz-color-bg-tertiary));
 		color: var(--cz-color-text-primary);
-		box-shadow:
-			inset 0 0 0 1px var(--_hairline),
-			inset 0 -1px 0 light-dark(rgb(10 13 18 / 0.04), transparent),
-			inset 0 1px 0 light-dark(transparent, rgb(255 255 255 / 0.04)),
-			var(--_lift);
+		border-color: var(--cz-color-border-glass, var(--cz-color-border-primary));
+		box-shadow: var(--cz-shadow-glass, var(--cz-shadow-xs));
+		backdrop-filter: var(--cz-backdrop-filter-glass, none);
 
 		&:hover {
-			background: light-dark(var(--cz-color-gray-50), var(--cz-color-gray-800));
+			background-color: var(
+				--cz-color-bg-glass-hover,
+				var(--cz-color-bg-secondary-hover)
+			);
 		}
 	}
 
 	:host([variant='tertiary']) .button {
 		background: transparent;
+		border-color: transparent;
+		backdrop-filter: none;
 		color: var(--cz-color-text-secondary);
 		box-shadow: none;
 
 		&:hover {
-			background: var(--_wash);
+			background: var(--cz-color-bg-tertiary);
 			color: var(--cz-color-text-primary);
 		}
 	}
 
+	:host([variant='tertiary']) .button:active {
+		background: var(--cz-color-bg-quaternary);
+		box-shadow: none;
+	}
+
 	:host([variant='destructive']) .button {
-		background: var(--_sheen), var(--cz-color-error-600);
+		--_pressed-bg: var(
+			--cz-color-bg-glass-destructive-pressed,
+			var(--cz-color-bg-error-solid-hover)
+		);
+		background:
+			var(--_sheen),
+			var(--cz-color-bg-glass-destructive, var(--cz-color-bg-error-solid));
 		color: var(--cz-color-white);
 		box-shadow:
-			inset 0 1px 0 rgb(255 255 255 / 0.16),
+			inset 0 1px 0 rgb(255 255 255 / 0.06),
 			inset 0 0 0 1px light-dark(rgb(10 13 18 / 0.2), transparent),
 			var(--_lift);
 
 		&:hover {
-			background-color: light-dark(
-				var(--cz-color-error-700),
-				var(--cz-color-error-500)
+			background-color: var(
+				--cz-color-bg-glass-destructive-hover,
+				var(--cz-color-bg-error-solid-hover)
 			);
 		}
 
@@ -191,6 +236,8 @@ export const styles = css`
 		height: auto;
 		padding: 0;
 		background: transparent;
+		border-color: transparent;
+		backdrop-filter: none;
 		color: var(--cz-color-text-link);
 		box-shadow: none;
 		border-radius: var(--cz-radius-xs);
@@ -204,19 +251,22 @@ export const styles = css`
 			color: var(--cz-color-text-link-hover);
 			text-decoration-color: currentColor;
 		}
-
-		&:active {
-			transform: none;
-		}
 	}
 
 	:host([icon-only][variant='secondary']) .button,
 	:host([icon-only][variant='tertiary']) .button {
-		color: var(--cz-color-text-tertiary);
+		color: var(--cz-color-text-primary);
 
 		&:hover {
 			color: var(--cz-color-text-primary);
 		}
+	}
+
+	:host(:not([variant='tertiary']):not([variant='link']))
+		.button:active:not(:disabled) {
+		background-color: var(--_pressed-bg);
+		background-image: none;
+		box-shadow: var(--cz-shadow-glass-pressed, var(--cz-shadow-pressed-3d));
 	}
 
 	/* Toggled (aria-pressed) */
@@ -224,11 +274,11 @@ export const styles = css`
 	:host([variant='secondary'][aria-pressed='true']) .button {
 		background: var(--_wash-strong);
 		color: var(--cz-color-text-primary);
-		box-shadow: inset 0 0 0 1px var(--_hairline);
+		box-shadow: var(--cz-shadow-glass-pressed, var(--cz-shadow-pressed-3d));
 	}
 
 	:host([variant='tertiary'][aria-pressed='true']) .button {
-		background: var(--_wash-strong);
+		background: var(--cz-color-bg-quaternary);
 		color: var(--cz-color-text-primary);
 	}
 
@@ -236,7 +286,7 @@ export const styles = css`
 	:host([variant='primary'][aria-pressed='true']) .button,
 	:host([variant='destructive'][aria-pressed='true']) .button {
 		background-image: none;
-		box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.35);
+		box-shadow: var(--cz-shadow-glass-pressed, var(--cz-shadow-pressed-3d));
 	}
 
 	:host([variant='link'][aria-pressed='true']) .button {
@@ -245,24 +295,30 @@ export const styles = css`
 
 	/* Disabled keeps the variant's look, just quieter. */
 
-	:host([disabled]) .button {
-		opacity: 0.45;
+	:host([disabled]) .button,
+	:host(:disabled) .button,
+	.button:disabled {
+		opacity: var(--cz-opacity-disabled, 0.45);
 		cursor: not-allowed;
 		pointer-events: none;
 		box-shadow: none;
 	}
 
-	:host([disabled][variant='secondary']) .button {
-		box-shadow: inset 0 0 0 1px var(--_hairline);
+	@media (forced-colors: active) {
+		:host .button,
+		:host([variant]) .button {
+			border-color: ButtonText;
+			background: ButtonFace;
+			color: ButtonText;
+		}
+		:host([aria-pressed='true']) .button {
+			outline: 2px solid Highlight;
+		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {
 		.button {
 			transition: none;
-		}
-
-		.button:active {
-			transform: none;
 		}
 	}
 `;

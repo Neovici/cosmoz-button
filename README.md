@@ -73,17 +73,23 @@ import '@neovici/cosmoz-button';
 
 ### Style Variants
 
-| Variant       | Description                                     |
-| ------------- | ----------------------------------------------- |
-| `primary`     | Brand solid fill with a soft top sheen and lift |
-| `secondary`   | Raised surface with a hairline border           |
-| `tertiary`    | Transparent, translucent wash on hover          |
-| `destructive` | Error solid fill with the same sheen as primary |
-| `link`        | No padding, underline on hover                  |
+| Variant       | Description                                         |
+| ------------- | --------------------------------------------------- |
+| `primary`     | Pale glass in light mode, smoked glass in dark mode |
+| `secondary`   | Translucent neutral fill with a hairline border     |
+| `tertiary`    | Transparent, translucent wash on hover              |
+| `destructive` | Error solid fill with the same sheen as primary     |
+| `link`        | No padding, underline on hover                      |
 
-All variants scale down slightly while pressed (not with reduced motion),
-show a 2px focus outline offset outside the button, and fade to 45% opacity
+All variants show a 2px focus outline offset outside the button and fade to 45% opacity
 when disabled so they keep their look.
+
+Labelled buttons use `--cz-radius-md` (8px). Icon-only buttons stay circular;
+link buttons retain their smaller focus corner radius.
+
+While held down, filled buttons use a distinct pressed fill, lose their sheen,
+and show an inset shadow. Tertiary controls use a flat pressed fill. Button
+geometry and labels stay stationary throughout the interaction.
 
 ### Size Variants
 
@@ -123,6 +129,8 @@ The button supports prefix and suffix icon slots:
 
 ## Icon-Only Buttons
 
+Icon-only buttons preserve SVG `width` and `height` attributes. Icons without explicit dimensions use the defaults in the size table above. Labelled buttons keep their size-based icon dimensions.
+
 Set the `icon-only` attribute to render a compact square utility button
 ([Untitled UI utility button](https://www.untitledui.com/react/components/utility-buttons)):
 
@@ -133,10 +141,10 @@ Set the `icon-only` attribute to render a compact square utility button
 ```
 
 - Square sizing per `size`: sm 28px, md 32px, lg 36px, xl 40px, icon centered
-- Quiet variants (`secondary`, `tertiary`) get the muted utility look: icon
-  color `--cz-color-text-tertiary`, `--cz-color-text-primary` on hover
-- Solid variants (`primary`, `destructive`) keep their own on-brand /
-  on-error icon colors
+- Secondary icons use the neutral glass fill. Tertiary icons stay transparent
+  at rest with flat hover and pressed fills. Both use primary icon text color.
+- Primary icons follow the glass action text color for each theme;
+  destructive icons retain white on the error fill
 - Slotted SVG sizing follows the size table above
 - All existing variants, focus rings, disabled and pressed-down `:active`
   states apply as usual
@@ -268,3 +276,9 @@ npm run build
 ## License
 
 Apache-2.0
+
+### Forms and accessibility
+
+The button defaults to `type="button"`. Use `type="submit"` or `type="reset"` inside a form, or associate it with an external form using `form="form-id"`. Submit buttons honor native validation, `name`, `value`, and the `formaction`, `formenctype`, `formmethod`, `formnovalidate`, and `formtarget` attributes. Disabled fieldsets disable their buttons. Cancel a click with `preventDefault()` to prevent its form action.
+
+Give icon-only buttons an `aria-label` or `title`. Disclosure attributes such as `aria-expanded`, `aria-controls`, and `aria-haspopup` are forwarded to the native control. Use `control-role="menuitem"` for menu actions, and `tabindex="-1"` when a parent manages keyboard focus.
