@@ -296,7 +296,8 @@ export const styles = css`
 	}
 
 	@media (forced-colors: active) {
-		.button {
+		:host .button,
+		:host([variant]) .button {
 			border-color: ButtonText;
 			background: ButtonFace;
 			color: ButtonText;
