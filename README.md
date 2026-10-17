@@ -129,6 +129,8 @@ The button supports prefix and suffix icon slots:
 
 ## Icon-Only Buttons
 
+Icon-only buttons preserve SVG `width` and `height` attributes. Icons without explicit dimensions use the defaults in the size table above. Labelled buttons keep their size-based icon dimensions.
+
 Set the `icon-only` attribute to render a compact square utility button
 ([Untitled UI utility button](https://www.untitledui.com/react/components/utility-buttons)):
 
