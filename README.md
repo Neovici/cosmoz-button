@@ -81,15 +81,15 @@ import '@neovici/cosmoz-button';
 | `destructive` | Error solid fill with the same sheen as primary     |
 | `link`        | No padding, underline on hover                      |
 
-All variants scale down slightly while pressed (not with reduced motion),
-show a 2px focus outline offset outside the button, and fade to 45% opacity
+All variants show a 2px focus outline offset outside the button and fade to 45% opacity
 when disabled so they keep their look.
 
 Labelled buttons use `--cz-radius-md` (8px). Icon-only buttons stay circular;
 link buttons retain their smaller focus corner radius.
 
 While held down, filled buttons use a distinct pressed fill, lose their sheen,
-and show an inset shadow. Tertiary controls use a flat pressed fill.
+and show an inset shadow. Tertiary controls use a flat pressed fill. Button
+geometry and labels stay stationary throughout the interaction.
 
 ### Size Variants
 

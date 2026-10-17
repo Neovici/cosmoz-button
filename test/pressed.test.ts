@@ -38,11 +38,14 @@ describe('pressed button feedback', () => {
 			await sendMouse({ type: 'down' });
 			expect(control.matches(':active')).to.be.true;
 			const pressed = getComputedStyle(control);
+			expect(pressed.transform).to.equal('none');
+			expect(control.getBoundingClientRect().toJSON()).to.deep.equal(
+				bounds.toJSON(),
+			);
 			expect(pressed.backgroundColor).to.equal('rgb(180, 180, 180)');
 			expect(pressed.backgroundImage).to.equal('none');
 			if (variant === 'tertiary') {
 				expect(pressed.boxShadow).to.equal('none');
-				expect(pressed.transform).to.equal('none');
 			} else {
 				expect(pressed.boxShadow).to.contain('inset');
 			}

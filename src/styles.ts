@@ -60,8 +60,7 @@ export const styles = css`
 			background-color 120ms ease-out,
 			color 120ms ease-out,
 			box-shadow 120ms ease-out,
-			outline-color 120ms ease-out,
-			transform 80ms ease-out;
+			outline-color 120ms ease-out;
 
 		background:
 			var(--cz-glass-action-sheen, var(--cz-action-sheen, none)),
@@ -76,10 +75,6 @@ export const styles = css`
 				--cz-color-bg-glass-action-hover,
 				var(--cz-color-bg-action-solid-hover)
 			);
-		}
-
-		&:active {
-			transform: scale(0.995);
 		}
 
 		&:focus-visible {
@@ -200,7 +195,6 @@ export const styles = css`
 	:host([variant='tertiary']) .button:active {
 		background: var(--cz-color-bg-tertiary);
 		box-shadow: none;
-		transform: none;
 	}
 
 	:host([variant='destructive']) .button {
@@ -247,10 +241,6 @@ export const styles = css`
 		&:hover {
 			color: var(--cz-color-text-link-hover);
 			text-decoration-color: currentColor;
-		}
-
-		&:active {
-			transform: none;
 		}
 	}
 
@@ -319,10 +309,6 @@ export const styles = css`
 	@media (prefers-reduced-motion: reduce) {
 		.button {
 			transition: none;
-		}
-
-		.button:active {
-			transform: none;
 		}
 	}
 `;
