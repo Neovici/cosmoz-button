@@ -1,4 +1,4 @@
-import { expect, fixture, html, nextFrame } from '@open-wc/testing';
+import { expect, fixture, html, nextFrame, oneEvent } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import type { CosmozButtonElement } from '../src/cosmoz-button';
 import '../src/index';
@@ -29,15 +29,19 @@ describe('native button integration', () => {
 		const { form, input, submit, submissions } = await formFixture();
 		expect(submit.form).to.equal(form);
 		input.value = '';
+		// A frame can arrive before deferred validation; wait before editing.
+		const invalid = oneEvent(input, 'invalid');
 		submit.click();
-		await nextFrame();
+		await invalid;
 		expect(submissions).to.have.length(0);
 		input.value = 'valid';
+		const submitted = oneEvent(form, 'submit');
 		submit.click();
+		await submitted;
 		await nextFrame();
 		expect(submissions).to.have.length(1);
 		expect(submissions[0].get('message')).to.equal('valid');
-		expect(submissions[0].get('action')).to.equal('save');
+		expect(submissions[0].getAll('action')).to.deep.equal(['save']);
 	});
 
 	it('respects a consuming click handler that cancels submission', async () => {
