@@ -1,5 +1,11 @@
 ## [1.1.0](https://github.com/Neovici/cosmoz-button/compare/v1.0.2...v1.1.0) (2026-06-10)
 
+## 2.4.1
+
+### Patch Changes
+
+- f7ea4c8: Use button-specific secondary glass recipes when available and neutral action sheen and shadow recipes. Destructive buttons retain their existing sheen. Older token versions retain their existing appearance through fallbacks.
+
 ## 2.4.0
 
 ### Minor Changes
