@@ -63,12 +63,18 @@ export const styles = css`
 			outline-color 120ms ease-out;
 
 		background:
-			var(--cz-glass-action-sheen, var(--cz-action-sheen, none)),
+			var(
+				--cz-glass-button-action-sheen,
+				var(--cz-glass-action-sheen, var(--cz-action-sheen, none))
+			),
 			var(--cz-color-bg-glass-action, var(--cz-color-bg-action-solid));
 		border-color: var(--cz-color-border-glass-action, transparent);
 		backdrop-filter: var(--cz-backdrop-filter-glass, none);
 		color: var(--cz-color-text-on-glass-action, var(--cz-color-text-on-action));
-		box-shadow: var(--cz-shadow-glass-action, var(--cz-shadow-action));
+		box-shadow: var(
+			--cz-shadow-glass-button-action,
+			var(--cz-shadow-glass-action, var(--cz-shadow-action))
+		);
 
 		&:hover {
 			background-color: var(
@@ -173,11 +179,20 @@ export const styles = css`
 			var(--cz-color-bg-secondary-hover)
 		);
 		background:
-			var(--cz-glass-sheen, none),
-			var(--cz-color-bg-glass, var(--cz-color-bg-tertiary));
+			var(--cz-glass-button-sheen, var(--cz-glass-sheen, none)),
+			var(
+				--cz-color-bg-glass-button,
+				var(--cz-color-bg-glass, var(--cz-color-bg-tertiary))
+			);
 		color: var(--cz-color-text-primary);
-		border-color: var(--cz-color-border-glass, var(--cz-color-border-primary));
-		box-shadow: var(--cz-shadow-glass, var(--cz-shadow-xs));
+		border-color: var(
+			--cz-color-border-glass-button,
+			var(--cz-color-border-glass, var(--cz-color-border-primary))
+		);
+		box-shadow: var(
+			--cz-shadow-glass-button,
+			var(--cz-shadow-glass, var(--cz-shadow-xs))
+		);
 		backdrop-filter: var(--cz-backdrop-filter-glass, none);
 
 		&:hover {
