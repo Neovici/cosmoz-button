@@ -8,7 +8,13 @@ import { FormButton } from './form-button';
 import { styles } from './styles';
 
 export type ButtonVariant =
-	'primary' | 'secondary' | 'tertiary' | 'destructive' | 'link';
+	| 'primary'
+	| 'secondary'
+	| 'tertiary'
+	| 'destructive'
+	| 'success'
+	| 'warning'
+	| 'link';
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonType = 'button' | 'submit' | 'reset';
 
@@ -80,7 +86,7 @@ const observedAttributes = [
  *
  * @element cosmoz-button
  *
- * @attr {string} variant - Button style variant: primary (default), secondary, tertiary, destructive, link
+ * @attr {string} variant - Button style variant: primary (default), secondary, tertiary, destructive, success, warning, link
  * @attr {string} size - Button size: sm, md (default), lg, xl
  * @attr {boolean} disabled - Disables the button
  * @attr {boolean} full-width - Makes the button 100% width
