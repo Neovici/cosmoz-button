@@ -50,24 +50,24 @@ import '@neovici/cosmoz-button';
 
 ## Attributes
 
-| Attribute           | Type    | Default   | Description                                                 |
-| ------------------- | ------- | --------- | ----------------------------------------------------------- |
-| `variant`           | string  | `primary` | primary, secondary, tertiary, destructive, link             |
-| `size`              | string  | `md`      | sm, md, lg, xl                                              |
-| `disabled`          | boolean | `false`   | Disables the button                                         |
-| `full-width`        | boolean | `false`   | Makes the button take 100% width                            |
-| `icon-only`         | boolean | `false`   | Renders a compact square icon-only button (utility button)  |
-| `tooltip`           | string  | -         | Wraps the button in a `cosmoz-tooltip` with this heading    |
-| `tooltip-placement` | string  | `top`     | Tooltip placement: top, bottom, left, right                 |
-| `aria-pressed`      | string  | -         | Set to `true` to show the selected/toggled state            |
-| `type`              | string  | `button`  | Button type: button, submit, reset                          |
-| `value`             | string  | -         | Value associated with the button                            |
-| `href`              | string  | -         | When present, renders as an anchor link instead of a button |
-| `target`            | string  | -         | Target attribute for the anchor (only with href)            |
-| `rel`               | string  | -         | Rel attribute for the anchor (only with href)               |
-| `download`          | string  | -         | Download attribute for the anchor (only with href)          |
-| `aria-label`        | string  | -         | Accessible label for icon-only buttons                      |
-| `aria-describedby`  | string  | -         | ID of element that describes the button                     |
+| Attribute           | Type    | Default   | Description                                                       |
+| ------------------- | ------- | --------- | ----------------------------------------------------------------- |
+| `variant`           | string  | `primary` | primary, secondary, tertiary, destructive, success, warning, link |
+| `size`              | string  | `md`      | sm, md, lg, xl                                                    |
+| `disabled`          | boolean | `false`   | Disables the button                                               |
+| `full-width`        | boolean | `false`   | Makes the button take 100% width                                  |
+| `icon-only`         | boolean | `false`   | Renders a compact square icon-only button (utility button)        |
+| `tooltip`           | string  | -         | Wraps the button in a `cosmoz-tooltip` with this heading          |
+| `tooltip-placement` | string  | `top`     | Tooltip placement: top, bottom, left, right                       |
+| `aria-pressed`      | string  | -         | Set to `true` to show the selected/toggled state                  |
+| `type`              | string  | `button`  | Button type: button, submit, reset                                |
+| `value`             | string  | -         | Value associated with the button                                  |
+| `href`              | string  | -         | When present, renders as an anchor link instead of a button       |
+| `target`            | string  | -         | Target attribute for the anchor (only with href)                  |
+| `rel`               | string  | -         | Rel attribute for the anchor (only with href)                     |
+| `download`          | string  | -         | Download attribute for the anchor (only with href)                |
+| `aria-label`        | string  | -         | Accessible label for icon-only buttons                            |
+| `aria-describedby`  | string  | -         | ID of element that describes the button                           |
 
 ## Variants
 
@@ -79,6 +79,8 @@ import '@neovici/cosmoz-button';
 | `secondary`   | Translucent neutral fill with a hairline border     |
 | `tertiary`    | Transparent, translucent wash on hover              |
 | `destructive` | Error solid fill with the same sheen as primary     |
+| `success`     | Success solid fill, e.g. a confirmed check          |
+| `warning`     | Warning solid fill, e.g. a flagged deviation        |
 | `link`        | No padding, underline on hover                      |
 
 All variants show a 2px focus outline offset outside the button and fade to 45% opacity

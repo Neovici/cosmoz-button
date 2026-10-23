@@ -66,4 +66,22 @@ describe('cosmoz-button colors', () => {
 			expect(icon[property]).to.equal(text[property]);
 		}
 	});
+
+	for (const [variant, token] of [
+		['success', '--cz-color-bg-success-solid'],
+		['warning', '--cz-color-bg-warning-solid'],
+	] as const) {
+		it(`fills the ${variant} variant with its solid token`, async () => {
+			const el = await fixture(html`
+				<div
+					style="${token}: rgb(1, 2, 3); --cz-color-white: rgb(255, 255, 255)"
+				>
+					<cosmoz-button variant=${variant}>Done</cosmoz-button>
+				</div>
+			`);
+			const style = inner(el, 'cosmoz-button');
+			expect(style.backgroundColor).to.equal('rgb(1, 2, 3)');
+			expect(style.color).to.equal('rgb(255, 255, 255)');
+		});
+	}
 });
