@@ -238,6 +238,48 @@ export const styles = css`
 		}
 	}
 
+	:host([variant='success']) .button {
+		--_pressed-bg: var(
+			--cz-color-bg-success-solid-hover,
+			color-mix(in oklab, var(--cz-color-bg-success-solid), black 12%)
+		);
+		background: var(--_sheen), var(--cz-color-bg-success-solid);
+		color: var(--cz-color-white);
+		box-shadow:
+			inset 0 1px 0 rgb(255 255 255 / 0.06),
+			inset 0 0 0 1px light-dark(rgb(10 13 18 / 0.2), transparent),
+			var(--_lift);
+
+		&:hover {
+			background-color: var(--_pressed-bg);
+		}
+
+		&:focus-visible {
+			outline-color: var(--cz-color-success-500);
+		}
+	}
+
+	:host([variant='warning']) .button {
+		--_pressed-bg: var(
+			--cz-color-bg-warning-solid-hover,
+			color-mix(in oklab, var(--cz-color-bg-warning-solid), black 12%)
+		);
+		background: var(--_sheen), var(--cz-color-bg-warning-solid);
+		color: var(--cz-color-white);
+		box-shadow:
+			inset 0 1px 0 rgb(255 255 255 / 0.06),
+			inset 0 0 0 1px light-dark(rgb(10 13 18 / 0.2), transparent),
+			var(--_lift);
+
+		&:hover {
+			background-color: var(--_pressed-bg);
+		}
+
+		&:focus-visible {
+			outline-color: var(--cz-color-warning-500);
+		}
+	}
+
 	:host([variant='link']) .button {
 		height: auto;
 		padding: 0;
@@ -290,7 +332,9 @@ export const styles = css`
 
 	:host(:not([variant])[aria-pressed='true']) .button,
 	:host([variant='primary'][aria-pressed='true']) .button,
-	:host([variant='destructive'][aria-pressed='true']) .button {
+	:host([variant='destructive'][aria-pressed='true']) .button,
+	:host([variant='success'][aria-pressed='true']) .button,
+	:host([variant='warning'][aria-pressed='true']) .button {
 		background-image: none;
 		box-shadow: var(--cz-shadow-glass-pressed, var(--cz-shadow-pressed-3d));
 	}
