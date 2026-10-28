@@ -162,15 +162,6 @@ export const styles = css`
 		margin: 0;
 	}
 
-	/* Preserve the supplied geometry of standalone icons. */
-	:host([icon-only]) ::slotted(svg[width]) {
-		width: auto;
-	}
-
-	:host([icon-only]) ::slotted(svg[height]) {
-		height: auto;
-	}
-
 	/* Variants */
 
 	:host([variant='secondary']) .button {
