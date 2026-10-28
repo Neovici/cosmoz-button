@@ -9,7 +9,15 @@ export default {
 	argTypes: {
 		variant: {
 			control: 'select',
-			options: ['primary', 'secondary', 'tertiary', 'destructive', 'link'],
+			options: [
+				'primary',
+				'secondary',
+				'tertiary',
+				'destructive',
+				'success',
+				'warning',
+				'link',
+			],
 			description: 'The visual style variant of the button',
 			table: {
 				defaultValue: { summary: 'primary' },
@@ -141,6 +149,9 @@ const icons = {
 	trash:
 		'<path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />',
 	close: '<path d="M6 6l12 12M18 6L6 18" />',
+	check: '<path d="M20 6L9 17l-5-5" />',
+	warning:
+		'<path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />',
 	image:
 		'<rect x="3" y="4" width="18" height="16" rx="2" /><circle cx="9" cy="10" r="1.6" /><path d="M4 18l5-5 4 4 3-3 4 4" />',
 	edit: '<path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />',
@@ -183,6 +194,8 @@ export const Variants = {
 			<cosmoz-button variant="secondary">Secondary</cosmoz-button>
 			<cosmoz-button variant="tertiary">Tertiary</cosmoz-button>
 			<cosmoz-button variant="destructive">Destructive</cosmoz-button>
+			<cosmoz-button variant="success">Success</cosmoz-button>
+			<cosmoz-button variant="warning">Warning</cosmoz-button>
 			<cosmoz-button variant="link">Link</cosmoz-button>
 		</div>
 	`,
@@ -190,7 +203,7 @@ export const Variants = {
 		docs: {
 			description: {
 				story:
-					'The five visual style variants. Hover to see state changes, Tab to see focus rings.',
+					'The seven visual style variants. Hover to see state changes, Tab to see focus rings.',
 			},
 		},
 	},
@@ -250,6 +263,12 @@ export const WithIcons = {
 			</cosmoz-button>
 			<cosmoz-button variant="destructive">
 				${iconSvg(icons.trash, { slot: 'prefix' })} Delete
+			</cosmoz-button>
+			<cosmoz-button variant="success">
+				${iconSvg(icons.check, { slot: 'prefix' })} Mark Received
+			</cosmoz-button>
+			<cosmoz-button variant="warning">
+				${iconSvg(icons.warning, { slot: 'prefix' })} Flag Deviation
 			</cosmoz-button>
 		</div>
 	`,
