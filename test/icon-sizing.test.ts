@@ -67,7 +67,7 @@ describe('button icon sizing', () => {
 		expect(button.getBoundingClientRect().height).to.equal(before);
 	});
 
-	it('overrides icon-only artwork independently of button size and SVG attributes', async () => {
+	it('overrides icon-only icons independently of button size and SVG attributes', async () => {
 		const el = await fixture(html`
 			<cosmoz-button
 				icon-only
