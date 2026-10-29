@@ -284,3 +284,9 @@ Apache-2.0
 The button defaults to `type="button"`. Use `type="submit"` or `type="reset"` inside a form, or associate it with an external form using `form="form-id"`. Submit buttons honor native validation, `name`, `value`, and the `formaction`, `formenctype`, `formmethod`, `formnovalidate`, and `formtarget` attributes. Disabled fieldsets disable their buttons. Cancel a click with `preventDefault()` to prevent its form action.
 
 Give icon-only buttons an `aria-label` or `title`. Disclosure attributes such as `aria-expanded`, `aria-controls`, and `aria-haspopup` are forwarded to the native control. Use `control-role="menuitem"` for menu actions, and `tabindex="-1"` when a parent manages keyboard focus.
+
+### Icon sizes
+
+SVG icons in labelled buttons use `--cz-icon-size-xs` for small buttons, `--cz-icon-size-sm` for medium/large buttons and `--cz-icon-size-md` for extra-large buttons. Legacy iron icons retain the `--cz-icon-size-lg` default. Rem fallbacks support older Tokens releases.
+
+Set `--cosmoz-button-icon-size: var(--cz-icon-size-lg)` to choose an icon size independently of the button's size. This also applies to icon-only SVGs with explicit width/height attributes. Without the override, those explicit dimensions remain respected. Inline SVG styles remain the caller's final override. The icon property never changes the control's hit area.

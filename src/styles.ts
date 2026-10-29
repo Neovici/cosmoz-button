@@ -90,14 +90,14 @@ export const styles = css`
 
 	::slotted(iron-icon) {
 		pointer-events: none;
-		width: 20px;
-		height: 20px;
+		width: var(--cosmoz-button-icon-size, var(--cz-icon-size-lg, 1.25rem));
+		height: var(--cosmoz-button-icon-size, var(--cz-icon-size-lg, 1.25rem));
 		flex: none;
 	}
 
 	::slotted(svg) {
-		width: 16px;
-		height: 16px;
+		width: var(--cosmoz-button-icon-size, var(--cz-icon-size-sm, 1rem));
+		height: var(--cosmoz-button-icon-size, var(--cz-icon-size-sm, 1rem));
 		flex-shrink: 0;
 	}
 
@@ -118,8 +118,8 @@ export const styles = css`
 	}
 
 	:host([size='sm']) ::slotted(svg) {
-		width: 14px;
-		height: 14px;
+		width: var(--cosmoz-button-icon-size, var(--cz-icon-size-xs, 0.875rem));
+		height: var(--cosmoz-button-icon-size, var(--cz-icon-size-xs, 0.875rem));
 	}
 
 	:host([size='lg']) .button {
@@ -136,8 +136,8 @@ export const styles = css`
 	}
 
 	:host([size='xl']) ::slotted(svg) {
-		width: 18px;
-		height: 18px;
+		width: var(--cosmoz-button-icon-size, var(--cz-icon-size-md, 1.125rem));
+		height: var(--cosmoz-button-icon-size, var(--cz-icon-size-md, 1.125rem));
 	}
 
 	:host([icon-only]) .button {
