@@ -1,5 +1,16 @@
 ## [1.1.0](https://github.com/Neovici/cosmoz-button/compare/v1.0.2...v1.1.0) (2026-06-10)
 
+## 2.5.0
+
+### Minor Changes
+
+- 3ff20b8: Add `success` and `warning` variants: solid fills from the success and warning tokens, for confirmed and flagged states such as a checklist tick.
+- 57e038b: Use shared icon size tokens and expose --cosmoz-button-icon-size independently of button geometry.
+
+### Patch Changes
+
+- 29e208c: Icon-only buttons now size every slotted icon with the button's own icon size rules (sm 14px, md 16px, lg 16px, xl 18px). Until now a slotted SVG carrying width/height attributes overrode the sizing in icon-only buttons only, rendering bigger than the button intends — a 24px trash icon inside a sm icon-only control. Labelled buttons already ignore supplied dimensions; icon-only buttons now do the same.
+
 ## 2.4.1
 
 ### Patch Changes
