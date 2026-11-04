@@ -111,12 +111,20 @@ export const styles = css`
 
 	/* Sizes */
 
+	:host([size='xs']) .button {
+		height: var(--cz-control-height-xs, 1.25rem);
+		padding: 0 8px;
+		gap: 4px;
+		font-size: var(--cz-text-xs);
+	}
+
 	:host([size='sm']) .button {
 		height: var(--cz-control-height-sm);
 		padding: 0 12px;
 		font-size: var(--cz-text-xs);
 	}
 
+	:host([size='xs']) ::slotted(svg),
 	:host([size='sm']) ::slotted(svg) {
 		width: var(--cosmoz-button-icon-size, var(--cz-icon-size-xs, 0.875rem));
 		height: var(--cosmoz-button-icon-size, var(--cz-icon-size-xs, 0.875rem));
@@ -144,6 +152,10 @@ export const styles = css`
 		border-radius: var(--cz-radius-full);
 		width: var(--cz-control-height-md);
 		padding: 0;
+	}
+
+	:host([icon-only][size='xs']) .button {
+		width: var(--cz-control-height-xs, 1.25rem);
 	}
 
 	:host([icon-only][size='sm']) .button {

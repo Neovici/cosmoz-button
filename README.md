@@ -53,7 +53,7 @@ import '@neovici/cosmoz-button';
 | Attribute           | Type    | Default   | Description                                                       |
 | ------------------- | ------- | --------- | ----------------------------------------------------------------- |
 | `variant`           | string  | `primary` | primary, secondary, tertiary, destructive, success, warning, link |
-| `size`              | string  | `md`      | sm, md, lg, xl                                                    |
+| `size`              | string  | `md`      | xs, sm, md, lg, xl                                                |
 | `disabled`          | boolean | `false`   | Disables the button                                               |
 | `full-width`        | boolean | `false`   | Makes the button take 100% width                                  |
 | `icon-only`         | boolean | `false`   | Renders a compact square icon-only button (utility button)        |
@@ -97,12 +97,13 @@ geometry and labels stay stationary throughout the interaction.
 
 | Size | Height | Icon-only Size | Font Size | Icon Size |
 | ---- | ------ | -------------- | --------- | --------- |
+| `xs` | 20px   | 20px           | 12px      | 14px      |
 | `sm` | 28px   | 28px           | 12px      | 14px      |
 | `md` | 32px   | 32px           | 13px      | 16px      |
 | `lg` | 36px   | 36px           | 14px      | 16px      |
 | `xl` | 40px   | 40px           | 14px      | 18px      |
 
-Heights come from the `--cz-control-height-{sm,md,lg,xl}` tokens in `@neovici/cosmoz-tokens`, which inputs use too.
+Heights come from the `--cz-control-height-{sm,md,lg,xl}` tokens in `@neovici/cosmoz-tokens`, which inputs use too. `xs` is for compact inline actions, such as a copy button beside text; it reads `--cz-control-height-xs` and falls back to 20px.
 
 ## Icons
 
@@ -142,7 +143,7 @@ Set the `icon-only` attribute to render a compact square utility button
 </cosmoz-button>
 ```
 
-- Square sizing per `size`: sm 28px, md 32px, lg 36px, xl 40px, icon centered
+- Square sizing per `size`: xs 20px, sm 28px, md 32px, lg 36px, xl 40px, icon centered
 - Secondary icons use the neutral glass fill. Tertiary icons stay transparent
   at rest with flat hover and pressed fills. Both use primary icon text color.
 - Primary icons follow the glass action text color for each theme;

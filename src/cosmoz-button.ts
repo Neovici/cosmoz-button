@@ -15,7 +15,7 @@ export type ButtonVariant =
 	| 'success'
 	| 'warning'
 	| 'link';
-export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonType = 'button' | 'submit' | 'reset';
 
 export interface CosmozButtonElement extends HTMLElement {
@@ -87,7 +87,7 @@ const observedAttributes = [
  * @element cosmoz-button
  *
  * @attr {string} variant - Button style variant: primary (default), secondary, tertiary, destructive, success, warning, link
- * @attr {string} size - Button size: sm, md (default), lg, xl
+ * @attr {string} size - Button size: xs, sm, md (default), lg, xl
  * @attr {boolean} disabled - Disables the button
  * @attr {boolean} full-width - Makes the button 100% width
  * @attr {boolean} icon-only - Renders a compact square icon-only button (Untitled UI utility button)

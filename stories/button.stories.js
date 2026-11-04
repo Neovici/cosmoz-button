@@ -25,7 +25,7 @@ export default {
 		},
 		size: {
 			control: 'select',
-			options: ['sm', 'md', 'lg', 'xl'],
+			options: ['xs', 'sm', 'md', 'lg', 'xl'],
 			description: 'The size of the button',
 			table: {
 				defaultValue: { summary: 'md' },
