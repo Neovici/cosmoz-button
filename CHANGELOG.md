@@ -1,5 +1,12 @@
 ## [1.1.0](https://github.com/Neovici/cosmoz-button/compare/v1.0.2...v1.1.0) (2026-06-10)
 
+## 2.6.0
+
+### Minor Changes
+
+- 20a86f8: Add an `icon-square` attribute that keeps icon-only buttons at the labelled `--cz-radius-md` corner radius instead of a circle.
+- 20a86f8: Add an `xs` size (24px) for compact inline actions, such as a copy button beside text.
+
 ## 2.5.0
 
 ### Minor Changes
