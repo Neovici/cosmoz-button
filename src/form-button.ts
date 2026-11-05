@@ -12,9 +12,9 @@ const syncSubmitter = (submitter: HTMLButtonElement, host: FormButton) => {
 		'formnovalidate',
 		'formtarget',
 	]) {
-		if (host.hasAttribute(name))
-			{submitter.setAttribute(name, host.getAttribute(name)!);}
-		else submitter.removeAttribute(name);
+		if (host.hasAttribute(name)) {
+			submitter.setAttribute(name, host.getAttribute(name)!);
+		} else submitter.removeAttribute(name);
 	}
 };
 /** Native form ownership for a button whose control lives in shadow DOM. */
@@ -61,8 +61,9 @@ export class FormButton extends HTMLElement {
 		this.#submitter = undefined;
 	}
 	#onClick = (event: Event) => {
-		if (this.#submitter && event.composedPath().includes(this.#submitter))
-			{return;}
+		if (this.#submitter && event.composedPath().includes(this.#submitter)) {
+			return;
+		}
 		// A task runs after all listeners in a trusted click dispatch have finished.
 		setTimeout(() => {
 			if (
@@ -71,8 +72,9 @@ export class FormButton extends HTMLElement {
 				this.disabled ||
 				this.formDisabled ||
 				this.href != null
-			)
-				{return;}
+			) {
+				return;
+			}
 			const form = this.form;
 			if (!form) return;
 			if (this.type === 'reset') form.reset();

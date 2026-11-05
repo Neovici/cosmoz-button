@@ -25,7 +25,7 @@ export default {
 		},
 		size: {
 			control: 'select',
-			options: ['sm', 'md', 'lg', 'xl'],
+			options: ['xs', 'sm', 'md', 'lg', 'xl'],
 			description: 'The size of the button',
 			table: {
 				defaultValue: { summary: 'md' },
@@ -80,6 +80,14 @@ export default {
 				defaultValue: { summary: 'false' },
 			},
 		},
+		iconSquare: {
+			control: 'boolean',
+			description:
+				'With icon-only, keeps the labelled corner radius instead of a circle',
+			table: {
+				defaultValue: { summary: 'false' },
+			},
+		},
 		tooltip: {
 			control: 'text',
 			description: 'Wraps the button in a tooltip with this heading',
@@ -111,6 +119,7 @@ const renderButton = (args) => html`
 		?disabled=${args.disabled}
 		?full-width=${args.fullWidth}
 		?icon-only=${args.iconOnly}
+		?icon-square=${args.iconSquare}
 		tooltip=${args.tooltip || nothing}
 		tooltip-placement=${args.tooltipPlacement || nothing}
 		aria-pressed=${args.ariaPressed ? 'true' : nothing}
@@ -214,15 +223,19 @@ export const Sizes = {
 	render: () => html`
 		<div class="story-stack">
 			<div class="story-row">
+				<cosmoz-button size="xs">Extra Small</cosmoz-button>
 				<cosmoz-button size="sm">Small</cosmoz-button>
 				<cosmoz-button size="md">Medium</cosmoz-button>
 				<cosmoz-button size="lg">Large</cosmoz-button>
 				<cosmoz-button size="xl">Extra Large</cosmoz-button>
 			</div>
 			<div>
-				<p class="story-label">Icon-only ladder (28 / 32 / 36 / 40 px)</p>
+				<p class="story-label">Icon-only ladder (24 / 28 / 32 / 36 / 40 px)</p>
 			</div>
 			<div class="story-row">
+				<cosmoz-button icon-only variant="tertiary" size="xs" aria-label="Xs">
+					${iconSvg(icons.plus)}
+				</cosmoz-button>
 				<cosmoz-button icon-only variant="tertiary" size="sm" aria-label="Sm">
 					${iconSvg(icons.plus)}
 				</cosmoz-button>
@@ -242,7 +255,7 @@ export const Sizes = {
 		docs: {
 			description: {
 				story:
-					'The four size variants, plus the icon-only size ladder (sm 28px, md 32px, lg 36px, xl 40px).',
+					'The five size variants, plus the icon-only size ladder (xs 24px, sm 28px, md 32px, lg 36px, xl 40px).',
 			},
 		},
 	},
@@ -325,13 +338,58 @@ export const IconOnly = {
 					${iconSvg(icons.trash)}
 				</cosmoz-button>
 			</div>
+			<div>
+				<p class="story-label">
+					Add <code>icon-square</code> to keep the labelled button's corner
+					radius instead of the circle.
+				</p>
+			</div>
+			<div class="story-row">
+				<cosmoz-button
+					icon-only
+					icon-square
+					variant="secondary"
+					tooltip="Add item"
+					aria-label="Add item"
+				>
+					${iconSvg(icons.plus)}
+				</cosmoz-button>
+				<cosmoz-button
+					icon-only
+					icon-square
+					variant="tertiary"
+					tooltip="Search"
+					aria-label="Search"
+				>
+					${iconSvg(icons.search)}
+				</cosmoz-button>
+				<cosmoz-button
+					icon-only
+					icon-square
+					variant="tertiary"
+					tooltip="Close panel"
+					aria-label="Close panel"
+				>
+					${iconSvg(icons.close)}
+				</cosmoz-button>
+				<cosmoz-button
+					icon-only
+					icon-square
+					variant="destructive"
+					tooltip="Delete"
+					aria-label="Delete"
+				>
+					${iconSvg(icons.trash)}
+				</cosmoz-button>
+			</div>
 		</div>
 	`,
 	parameters: {
 		docs: {
 			description: {
 				story:
-					'Icon-only utility buttons in secondary, tertiary, and destructive variants. ' +
+					'Icon-only utility buttons in secondary, tertiary, and destructive variants, ' +
+					'circular by default or with the labelled corner radius via icon-square. ' +
 					'Sizes are shown in Sizes; toggled and disabled states in Pressed State and Disabled States.',
 			},
 		},
@@ -536,6 +594,13 @@ export const SizeVariantMatrix = {
 			<div class="header">Tertiary</div>
 			<div class="header">Destructive</div>
 			<div class="header">Link</div>
+
+			<div class="row-label">XS</div>
+			<cosmoz-button variant="primary" size="xs">Button</cosmoz-button>
+			<cosmoz-button variant="secondary" size="xs">Button</cosmoz-button>
+			<cosmoz-button variant="tertiary" size="xs">Button</cosmoz-button>
+			<cosmoz-button variant="destructive" size="xs">Button</cosmoz-button>
+			<cosmoz-button variant="link" size="xs">Button</cosmoz-button>
 
 			<div class="row-label">SM</div>
 			<cosmoz-button variant="primary" size="sm">Button</cosmoz-button>
