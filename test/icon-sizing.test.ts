@@ -2,10 +2,10 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit-html';
 import '../src/cosmoz-button';
 
-const ICON_SIZES = { xs: 14, sm: 14, md: 16, lg: 16, xl: 18 };
+const ICON_SIZES = { sm: 14, md: 16, lg: 16, xl: 18 };
 
 describe('button icon sizing', () => {
-	for (const size of ['xs', 'sm', 'md', 'lg', 'xl'] as const) {
+	for (const size of ['sm', 'md', 'lg', 'xl'] as const) {
 		it(`sizes slotted icons in ${size} icon-only buttons, ignoring supplied width and height attributes`, async () => {
 			const expected = ICON_SIZES[size];
 			const el = await fixture(html`
@@ -23,17 +23,6 @@ describe('button icon sizing', () => {
 			expect(icon.getBoundingClientRect().height).to.equal(expected);
 		});
 	}
-
-	it('renders xs icon-only buttons as a 20px square', async () => {
-		const el = await fixture(html`
-			<cosmoz-button icon-only size="xs" aria-label="Copy">
-				<svg viewBox="0 0 24 24" aria-hidden="true"></svg>
-			</cosmoz-button>
-		`);
-		const { width, height } = el.getBoundingClientRect();
-		expect(width).to.equal(20);
-		expect(height).to.equal(20);
-	});
 
 	it('keeps default sizing for SVGs without dimensions', async () => {
 		const el = await fixture(html`

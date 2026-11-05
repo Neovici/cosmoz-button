@@ -2,4 +2,4 @@
 '@neovici/cosmoz-button': minor
 ---
 
-Add an `xs` size (20px) for compact inline actions, such as a copy button beside text.
+Add an `xs` size (24px) for compact inline actions, such as a copy button beside text.

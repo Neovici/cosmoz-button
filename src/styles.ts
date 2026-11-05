@@ -112,8 +112,8 @@ export const styles = css`
 	/* Sizes */
 
 	:host([size='xs']) .button {
-		height: var(--cz-control-height-xs, 1.25rem);
-		padding: 0 8px;
+		height: var(--cz-control-height-xs, 1.5rem);
+		padding: 0 10px;
 		gap: 4px;
 		font-size: var(--cz-text-xs);
 	}
@@ -149,13 +149,17 @@ export const styles = css`
 	}
 
 	:host([icon-only]) .button {
-		border-radius: var(--cz-radius-full);
 		width: var(--cz-control-height-md);
 		padding: 0;
 	}
 
+	/* icon-square keeps the labelled button's corners instead of the circle. */
+	:host([icon-only]:not([icon-square])) .button {
+		border-radius: var(--cz-radius-full);
+	}
+
 	:host([icon-only][size='xs']) .button {
-		width: var(--cz-control-height-xs, 1.25rem);
+		width: var(--cz-control-height-xs, 1.5rem);
 	}
 
 	:host([icon-only][size='sm']) .button {

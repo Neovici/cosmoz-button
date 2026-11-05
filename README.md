@@ -57,6 +57,7 @@ import '@neovici/cosmoz-button';
 | `disabled`          | boolean | `false`   | Disables the button                                               |
 | `full-width`        | boolean | `false`   | Makes the button take 100% width                                  |
 | `icon-only`         | boolean | `false`   | Renders a compact square icon-only button (utility button)        |
+| `icon-square`       | boolean | `false`   | With `icon-only`, keeps the labelled corners, not a circle        |
 | `tooltip`           | string  | -         | Wraps the button in a `cosmoz-tooltip` with this heading          |
 | `tooltip-placement` | string  | `top`     | Tooltip placement: top, bottom, left, right                       |
 | `aria-pressed`      | string  | -         | Set to `true` to show the selected/toggled state                  |
@@ -86,8 +87,9 @@ import '@neovici/cosmoz-button';
 All variants show a 2px focus outline offset outside the button and fade to 45% opacity
 when disabled so they keep their look.
 
-Labelled buttons use `--cz-radius-md` (8px). Icon-only buttons stay circular;
-link buttons retain their smaller focus corner radius.
+Labelled buttons use `--cz-radius-md` (8px). Icon-only buttons stay circular
+unless `icon-square` is set, which gives them the labelled radius; link buttons
+retain their smaller focus corner radius.
 
 While held down, filled buttons use a distinct pressed fill, lose their sheen,
 and show an inset shadow. Tertiary controls use a flat pressed fill. Button
@@ -97,13 +99,13 @@ geometry and labels stay stationary throughout the interaction.
 
 | Size | Height | Icon-only Size | Font Size | Icon Size |
 | ---- | ------ | -------------- | --------- | --------- |
-| `xs` | 20px   | 20px           | 12px      | 14px      |
+| `xs` | 24px   | 24px           | 12px      | 14px      |
 | `sm` | 28px   | 28px           | 12px      | 14px      |
 | `md` | 32px   | 32px           | 13px      | 16px      |
 | `lg` | 36px   | 36px           | 14px      | 16px      |
 | `xl` | 40px   | 40px           | 14px      | 18px      |
 
-Heights come from the `--cz-control-height-{sm,md,lg,xl}` tokens in `@neovici/cosmoz-tokens`, which inputs use too. `xs` is for compact inline actions, such as a copy button beside text; it reads `--cz-control-height-xs` and falls back to 20px.
+Heights come from the `--cz-control-height-{xs,sm,md,lg,xl}` tokens in `@neovici/cosmoz-tokens`, which inputs use too.
 
 ## Icons
 
@@ -143,7 +145,7 @@ Set the `icon-only` attribute to render a compact square utility button
 </cosmoz-button>
 ```
 
-- Square sizing per `size`: xs 20px, sm 28px, md 32px, lg 36px, xl 40px, icon centered
+- Square sizing per `size`: xs 24px, sm 28px, md 32px, lg 36px, xl 40px, icon centered
 - Secondary icons use the neutral glass fill. Tertiary icons stay transparent
   at rest with flat hover and pressed fills. Both use primary icon text color.
 - Primary icons follow the glass action text color for each theme;
