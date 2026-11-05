@@ -112,7 +112,7 @@ export const styles = css`
 	/* Sizes */
 
 	:host([size='xs']) .button {
-		height: var(--cz-control-height-xs, 1.5rem);
+		height: var(--cz-control-height-xs);
 		padding: 0 10px;
 		gap: 4px;
 		font-size: var(--cz-text-xs);
@@ -159,7 +159,7 @@ export const styles = css`
 	}
 
 	:host([icon-only][size='xs']) .button {
-		width: var(--cz-control-height-xs, 1.5rem);
+		width: var(--cz-control-height-xs);
 	}
 
 	:host([icon-only][size='sm']) .button {
