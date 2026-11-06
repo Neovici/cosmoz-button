@@ -34,6 +34,7 @@ export interface CosmozButtonElement extends HTMLElement {
 	controlRole?: string;
 	ariaControls?: string | null;
 	ariaHaspopup?: string | null;
+	ariaKeyshortcuts?: string | null;
 	tabindex?: string | number | null;
 	fullWidth?: boolean;
 	iconOnly?: boolean;
@@ -68,6 +69,7 @@ const observedAttributes = [
 	'aria-controls',
 	'aria-haspopup',
 	'aria-description',
+	'aria-keyshortcuts',
 	'aria-busy',
 	'aria-current',
 	'control-role',
@@ -102,6 +104,7 @@ const observedAttributes = [
  * @attr {string} download - Download attribute for the anchor (only with href)
  * @attr {string} aria-expanded - Toggled/expanded state, forwarded to the native control
  * @attr {string} aria-label - Accessible name forwarded to the native control (icon-only buttons)
+ * @attr {string} aria-keyshortcuts - Key combos that activate the button, forwarded to the native control
  * @attr {string} aria-pressed - Reflects a toggled/selected state (styled for icon-only buttons)
  *
  * @slot - Default slot for button text content
@@ -165,6 +168,9 @@ const CosmozButton = (host: CosmozButtonElement) => {
 				aria-description=${ifDefined(
 					host.getAttribute('aria-description') ?? undefined,
 				)}
+				aria-keyshortcuts=${ifDefined(
+					host.getAttribute('aria-keyshortcuts') ?? undefined,
+				)}
 				aria-busy=${ifDefined(host.getAttribute('aria-busy') ?? undefined)}
 				aria-current=${ifDefined(
 					host.getAttribute('aria-current') ?? undefined,
@@ -198,6 +204,9 @@ const CosmozButton = (host: CosmozButtonElement) => {
 				)}
 				aria-description=${ifDefined(
 					host.getAttribute('aria-description') ?? undefined,
+				)}
+				aria-keyshortcuts=${ifDefined(
+					host.getAttribute('aria-keyshortcuts') ?? undefined,
 				)}
 				aria-busy=${ifDefined(host.getAttribute('aria-busy') ?? undefined)}
 				aria-current=${ifDefined(
