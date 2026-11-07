@@ -1,5 +1,11 @@
 ## [1.1.0](https://github.com/Neovici/cosmoz-button/compare/v1.0.2...v1.1.0) (2026-06-10)
 
+## 2.7.0
+
+### Minor Changes
+
+- 01af156: `aria-keyshortcuts` is forwarded to the native button or link, so screen readers announce the key combo that triggers it.
+
 ## 2.6.0
 
 ### Minor Changes
