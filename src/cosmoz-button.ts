@@ -86,6 +86,7 @@ const observedAttributes = [
 /**
  * A customizable button component using Untitled UI design tokens.
  *
+ * @cssprop --cosmoz-button-border-radius - Corner radius, default shared control role
  * @element cosmoz-button
  *
  * @attr {string} variant - Button style variant: primary (default), secondary, tertiary, destructive, success, warning, link

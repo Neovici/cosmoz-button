@@ -42,7 +42,10 @@ export const styles = css`
 		height: var(--cz-control-height-md);
 		padding: 0 14px;
 		border: 1px solid transparent;
-		border-radius: var(--cz-radius-md);
+		border-radius: var(
+			--cosmoz-button-border-radius,
+			var(--cz-radius-control, var(--cz-radius-md))
+		);
 		font-family: var(--cz-font-body);
 		font-size: calc((var(--cz-text-sm) + var(--cz-text-xs)) / 2);
 		font-weight: var(--cz-font-weight-regular);
@@ -304,7 +307,7 @@ export const styles = css`
 		backdrop-filter: none;
 		color: var(--cz-color-text-link);
 		box-shadow: none;
-		border-radius: var(--cz-radius-xs);
+		border-radius: var(--cz-radius-compact, var(--cz-radius-xs));
 		outline-offset: 3px;
 		text-decoration: underline;
 		text-decoration-color: transparent;
