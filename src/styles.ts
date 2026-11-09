@@ -307,7 +307,7 @@ export const styles = css`
 		backdrop-filter: none;
 		color: var(--cz-color-text-link);
 		box-shadow: none;
-		border-radius: var(--cz-radius-item, var(--cz-radius-xs));
+		border-radius: var(--cz-radius-compact, var(--cz-radius-xs));
 		outline-offset: 3px;
 		text-decoration: underline;
 		text-decoration-color: transparent;
